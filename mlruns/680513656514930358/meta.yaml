@@ -1,0 +1,8 @@
+artifact_location: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358
+creation_time: 1778396799839
+experiment_id: '680513656514930358'
+last_update_time: 1778396799839
+lifecycle_stage: active
+name: hospitalisation_prediction
+trace_location: null
+workspace: default

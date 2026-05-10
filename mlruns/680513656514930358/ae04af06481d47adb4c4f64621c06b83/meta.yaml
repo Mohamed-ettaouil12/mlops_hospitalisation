@@ -1,0 +1,14 @@
+artifact_uri: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/ae04af06481d47adb4c4f64621c06b83/artifacts
+end_time: 1778397144122
+entry_point_name: ''
+experiment_id: '680513656514930358'
+lifecycle_stage: active
+run_id: ae04af06481d47adb4c4f64621c06b83
+run_name: XGBoost_Optuna
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1778397134542
+status: 3
+tags: []
+user_id: tawil
