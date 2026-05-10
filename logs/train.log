@@ -64,3 +64,113 @@
 2026-05-10 07:12:46,270 | INFO | 🏆 Meilleur modèle : XGBoost | AUC : 0.7827
 2026-05-10 07:12:46,270 | INFO | Prochaine étape → mlflow ui
 2026-05-10 07:12:46,270 | INFO | ============================================================
+2026-05-10 08:05:56,741 | INFO | ============================================================
+2026-05-10 08:05:56,742 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:05:56,742 | INFO | ============================================================
+2026-05-10 08:05:56,749 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:05:56,749 | INFO | Chargement des données...
+2026-05-10 08:05:56,765 | INFO |   Train : (30000, 28) | Test : (0, 28)
+2026-05-10 08:05:56,766 | INFO |   Taux hosp. Train : 7.54% | Test : nan%
+2026-05-10 08:05:56,766 | INFO |   Features : ['SP_STATE_CODE', 'SP_ALZHDMTA', 'SP_CHF', 'SP_CHRNKIDN', 'SP_CNCR', 'SP_COPD', 'SP_DEPRESSN', 'SP_DIABETES', 'SP_ISCHMCHT', 'SP_OSTEOPRS', 'SP_RA_OA', 'SP_STRKETIA', 'AGE', 'SEXE_ENC', 'RACE_ENC', 'BENE_ESRD_IND', 'GROUPE_AGE_ENC', 'NB_COMORBIDITES', 'CHARLSON_INDEX', 'IS_NEW_PATIENT', 'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M', 'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES', 'POLYPHARMACIE']
+2026-05-10 08:07:08,974 | INFO | ============================================================
+2026-05-10 08:07:08,974 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:07:08,974 | INFO | ============================================================
+2026-05-10 08:07:08,980 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:07:08,980 | INFO | Chargement des données...
+2026-05-10 08:07:08,996 | INFO |   Train : (30000, 28) | Test : (0, 28)
+2026-05-10 08:07:08,996 | INFO |   Taux hosp. Train : 7.54% | Test : nan%
+2026-05-10 08:07:08,996 | INFO |   Features : ['SP_STATE_CODE', 'SP_ALZHDMTA', 'SP_CHF', 'SP_CHRNKIDN', 'SP_CNCR', 'SP_COPD', 'SP_DEPRESSN', 'SP_DIABETES', 'SP_ISCHMCHT', 'SP_OSTEOPRS', 'SP_RA_OA', 'SP_STRKETIA', 'AGE', 'SEXE_ENC', 'RACE_ENC', 'BENE_ESRD_IND', 'GROUPE_AGE_ENC', 'NB_COMORBIDITES', 'CHARLSON_INDEX', 'IS_NEW_PATIENT', 'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M', 'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES', 'POLYPHARMACIE']
+2026-05-10 08:07:08,999 | INFO | 
+============================================================
+2026-05-10 08:07:08,999 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:07:08,999 | INFO | ============================================================
+2026-05-10 08:07:08,999 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:08:17,231 | INFO | ============================================================
+2026-05-10 08:08:17,231 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:08:17,231 | INFO | ============================================================
+2026-05-10 08:08:17,237 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:08:17,237 | INFO | Chargement des données...
+2026-05-10 08:08:17,253 | INFO |   Train : (30000, 28) | Test : (0, 28)
+2026-05-10 08:08:17,253 | INFO |   Taux hosp. Train : 7.54% | Test : nan%
+2026-05-10 08:08:17,253 | INFO |   Features : ['SP_STATE_CODE', 'SP_ALZHDMTA', 'SP_CHF', 'SP_CHRNKIDN', 'SP_CNCR', 'SP_COPD', 'SP_DEPRESSN', 'SP_DIABETES', 'SP_ISCHMCHT', 'SP_OSTEOPRS', 'SP_RA_OA', 'SP_STRKETIA', 'AGE', 'SEXE_ENC', 'RACE_ENC', 'BENE_ESRD_IND', 'GROUPE_AGE_ENC', 'NB_COMORBIDITES', 'CHARLSON_INDEX', 'IS_NEW_PATIENT', 'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M', 'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES', 'POLYPHARMACIE']
+2026-05-10 08:12:08,375 | INFO | ============================================================
+2026-05-10 08:12:08,375 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:12:08,375 | INFO | ============================================================
+2026-05-10 08:12:08,381 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:12:08,381 | INFO | Chargement des données...
+2026-05-10 08:12:08,400 | INFO |   Train (2008) : (30000, 28) | Taux : 7.54%
+2026-05-10 08:12:08,400 | INFO |   Val   (2009) : (0, 28)   | Taux : nan%
+2026-05-10 08:12:08,400 | INFO |   Test  (2010) : (0, 28)  | Taux : nan%
+2026-05-10 08:12:08,400 | INFO | 
+============================================================
+2026-05-10 08:12:08,400 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:12:08,400 | INFO | ============================================================
+2026-05-10 08:12:08,400 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:22:27,523 | INFO | ============================================================
+2026-05-10 08:22:27,524 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:22:27,524 | INFO | ============================================================
+2026-05-10 08:22:27,531 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:22:27,531 | INFO | Chargement des données...
+2026-05-10 08:22:27,549 | INFO |   Train (2008) : (30000, 28) | Taux : 7.54%
+2026-05-10 08:22:27,549 | INFO |   Val   (2009) : (0, 28)   | Taux : nan%
+2026-05-10 08:22:27,550 | INFO |   Test  (2010) : (0, 28)  | Taux : nan%
+2026-05-10 08:22:27,550 | INFO | 
+============================================================
+2026-05-10 08:22:27,550 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:22:27,550 | INFO | ============================================================
+2026-05-10 08:22:27,550 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:28:24,456 | INFO | ============================================================
+2026-05-10 08:28:24,456 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:28:24,456 | INFO | ============================================================
+2026-05-10 08:28:24,462 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:28:24,463 | INFO | Chargement des données...
+2026-05-10 08:28:24,486 | INFO |   Train (2008) : (30000, 28) | Taux : 7.54%
+2026-05-10 08:28:24,486 | INFO |   Val   (2009) : (29510, 28)   | Taux : 9.18%
+2026-05-10 08:28:24,486 | INFO |   Test  (2010) : (29075, 28)  | Taux : 7.58%
+2026-05-10 08:28:24,486 | INFO | 
+============================================================
+2026-05-10 08:28:24,486 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:28:24,486 | INFO | ============================================================
+2026-05-10 08:28:24,486 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:28:27,232 | INFO |   AUC-ROC   : 0.7769
+2026-05-10 08:28:27,232 | INFO |   F1-Score  : 0.2366
+2026-05-10 08:28:27,232 | INFO |   Recall    : 0.8597
+2026-05-10 08:28:27,232 | INFO |   Precision : 0.1372
+2026-05-10 08:28:27,234 | INFO | 
+── XGBoost + Optuna ──
+2026-05-10 08:28:27,234 | INFO |   scale_pos_weight : 12.27
+2026-05-10 08:28:27,234 | INFO |   Optimisation Optuna (50 essais)...
+2026-05-10 08:29:01,942 | INFO |   Meilleurs paramètres : {'n_estimators': 292, 'max_depth': 3, 'learning_rate': 0.012224005860899695, 'subsample': 0.6478759574646373, 'colsample_bytree': 0.9824847977916243, 'reg_alpha': 2.1500309413182954, 'reg_lambda': 5.2509233284669214, 'scale_pos_weight': np.float64(12.268465280849181), 'random_state': 42, 'eval_metric': 'auc', 'use_label_encoder': False}
+2026-05-10 08:29:04,306 | INFO |   Calcul SHAP pour XGBoost...
+2026-05-10 08:29:04,845 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-05-10 08:29:04,847 | INFO |   AUC-ROC   : 0.8199
+2026-05-10 08:29:04,847 | INFO |   F1-Score  : 0.3330
+2026-05-10 08:29:04,847 | INFO |   Recall    : 0.5928
+2026-05-10 08:29:04,847 | INFO |   Precision : 0.2315
+2026-05-10 08:29:04,850 | INFO | 
+── LightGBM + Optuna ──
+2026-05-10 08:29:04,851 | INFO |   Optimisation Optuna (50 essais)...
+2026-05-10 08:29:11,284 | INFO |   Calcul SHAP pour LightGBM...
+2026-05-10 08:29:11,668 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-05-10 08:29:11,671 | INFO |   AUC-ROC   : 0.7753
+2026-05-10 08:29:11,671 | INFO |   F1-Score  : 0.2733
+2026-05-10 08:29:11,671 | INFO |   Recall    : 0.6241
+2026-05-10 08:29:11,671 | INFO |   Precision : 0.1750
+2026-05-10 08:29:11,675 | INFO | 
+── Comparaison des modèles ──
+2026-05-10 08:29:11,675 | INFO |   LogisticRegression        | AUC : 0.7769 | F1 : 0.2366 | Recall : 0.8597
+2026-05-10 08:29:11,675 | INFO |   XGBoost                   | AUC : 0.8199 | F1 : 0.3330 | Recall : 0.5928
+2026-05-10 08:29:11,675 | INFO |   LightGBM                  | AUC : 0.7753 | F1 : 0.2733 | Recall : 0.6241
+2026-05-10 08:29:11,675 | INFO | 
+🏆 Meilleur modèle : XGBoost (AUC = 0.8199)
+2026-05-10 08:29:11,682 | INFO |   → Meilleur modèle sauvegardé : models/best_model.pkl
+2026-05-10 08:29:11,682 | INFO | 
+============================================================
+2026-05-10 08:29:11,682 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-05-10 08:29:11,682 | INFO | 🏆 Meilleur modèle : XGBoost | AUC : 0.8199
+2026-05-10 08:29:11,682 | INFO | Prochaine étape → mlflow ui
+2026-05-10 08:29:11,682 | INFO | ============================================================

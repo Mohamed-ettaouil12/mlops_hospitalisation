@@ -1,0 +1,280 @@
+2026-05-10 07:45:44,117 | INFO | ============================================================
+2026-05-10 07:45:44,117 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 07:45:44,117 | INFO | ============================================================
+2026-05-10 07:45:44,117 | INFO | Chargement Beneficiary 2008...
+2026-05-10 07:45:44,388 | INFO |   → 30,000 patients chargés
+2026-05-10 07:45:44,923 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 07:46:55,515 | INFO | ============================================================
+2026-05-10 07:46:55,516 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 07:46:55,516 | INFO | ============================================================
+2026-05-10 07:46:55,516 | INFO | Chargement Beneficiary 2008...
+2026-05-10 07:46:55,785 | INFO |   → 30,000 patients chargés
+2026-05-10 07:46:56,305 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 07:51:18,220 | INFO | ============================================================
+2026-05-10 07:51:18,220 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 07:51:18,220 | INFO | ============================================================
+2026-05-10 07:51:18,220 | INFO | Chargement Beneficiary 2008...
+2026-05-10 07:51:18,483 | INFO |   → 30,000 patients chargés
+2026-05-10 07:51:18,996 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 07:51:18,997 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 07:51:19,362 | INFO |   inpatient: 17,325 lignes
+2026-05-10 07:51:23,586 | INFO |   outpatient: 205,642 lignes
+2026-05-10 07:51:59,941 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 07:52:34,882 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 07:52:39,901 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 07:52:40,338 | INFO | Conversion des dates...
+2026-05-10 07:52:44,142 | INFO |   → Dates converties avec succès
+2026-05-10 07:52:44,143 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 07:52:44,200 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 07:52:44,202 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 07:52:44,213 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 07:52:44,215 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 07:52:44,226 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 07:52:44,298 | INFO | Nettoyage des données patients...
+2026-05-10 07:52:44,351 | INFO |   Doublons supprimés : 58585
+2026-05-10 07:52:44,539 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 07:52:44,544 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 07:52:44,548 | INFO |   Winsorisation MEDREIMB_IP : 300 valeurs plafonnées à 45080
+2026-05-10 07:52:44,550 | INFO |   Winsorisation BENRES_IP : 299 valeurs plafonnées à 3572
+2026-05-10 07:52:44,552 | INFO |   Winsorisation PPPYMT_IP : 163 valeurs plafonnées à 0
+2026-05-10 07:52:44,553 | INFO |   Winsorisation MEDREIMB_OP : 298 valeurs plafonnées à 6790
+2026-05-10 07:52:44,554 | INFO |   Winsorisation BENRES_OP : 298 valeurs plafonnées à 2170
+2026-05-10 07:52:44,555 | INFO |   Winsorisation PPPYMT_OP : 293 valeurs plafonnées à 400
+2026-05-10 07:52:44,557 | INFO |   Winsorisation MEDREIMB_CAR : 300 valeurs plafonnées à 6950
+2026-05-10 07:52:44,559 | INFO |   Winsorisation BENRES_CAR : 297 valeurs plafonnées à 1900
+2026-05-10 07:52:44,560 | INFO |   Winsorisation PPPYMT_CAR : 252 valeurs plafonnées à 400
+2026-05-10 07:52:44,562 | INFO |   → Table finale : 30,000 lignes, 32 colonnes
+2026-05-10 07:52:44,642 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 07:52:44,723 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 07:52:45,723 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 07:52:46,417 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 07:52:50,072 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 07:52:50,072 | INFO | ============================================================
+2026-05-10 07:52:50,072 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 07:52:50,072 | INFO | ============================================================
+2026-05-10 07:56:14,782 | INFO | ============================================================
+2026-05-10 07:56:14,782 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 07:56:14,782 | INFO | ============================================================
+2026-05-10 07:56:14,782 | INFO | Chargement Beneficiary 2008...
+2026-05-10 07:56:15,128 | INFO |   → 30,000 patients chargés
+2026-05-10 07:56:15,687 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 07:56:15,688 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 07:56:16,071 | INFO |   inpatient: 17,325 lignes
+2026-05-10 07:56:20,487 | INFO |   outpatient: 205,642 lignes
+2026-05-10 07:56:55,415 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 07:57:28,977 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 07:57:34,210 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 07:57:34,594 | INFO | Conversion des dates...
+2026-05-10 07:57:38,034 | INFO |   → Dates converties avec succès
+2026-05-10 07:57:38,036 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 07:57:38,048 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 07:57:38,050 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 07:57:38,060 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 07:57:38,062 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 07:57:38,070 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 07:57:38,077 | INFO | Nettoyage des données patients...
+2026-05-10 07:57:38,120 | INFO |   Doublons supprimés : 58585
+2026-05-10 07:57:38,274 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 07:57:38,278 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 07:57:38,280 | INFO |   Winsorisation MEDREIMB_IP : 300 valeurs plafonnées à 45080
+2026-05-10 07:57:38,282 | INFO |   Winsorisation BENRES_IP : 299 valeurs plafonnées à 3572
+2026-05-10 07:57:38,283 | INFO |   Winsorisation PPPYMT_IP : 163 valeurs plafonnées à 0
+2026-05-10 07:57:38,285 | INFO |   Winsorisation MEDREIMB_OP : 298 valeurs plafonnées à 6790
+2026-05-10 07:57:38,286 | INFO |   Winsorisation BENRES_OP : 298 valeurs plafonnées à 2170
+2026-05-10 07:57:38,288 | INFO |   Winsorisation PPPYMT_OP : 293 valeurs plafonnées à 400
+2026-05-10 07:57:38,289 | INFO |   Winsorisation MEDREIMB_CAR : 300 valeurs plafonnées à 6950
+2026-05-10 07:57:38,290 | INFO |   Winsorisation BENRES_CAR : 297 valeurs plafonnées à 1900
+2026-05-10 07:57:38,291 | INFO |   Winsorisation PPPYMT_CAR : 252 valeurs plafonnées à 400
+2026-05-10 07:57:38,295 | INFO |   → Table finale : 30,000 lignes, 32 colonnes
+2026-05-10 07:57:38,358 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 07:57:38,419 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 07:57:38,976 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 07:57:39,434 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 07:57:42,743 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 07:57:42,743 | INFO | ============================================================
+2026-05-10 07:57:42,743 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 07:57:42,743 | INFO | ============================================================
+2026-05-10 08:02:02,330 | INFO | ============================================================
+2026-05-10 08:02:02,330 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:02:02,330 | INFO | ============================================================
+2026-05-10 08:02:02,330 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:02:02,657 | INFO |   → 30,000 patients chargés
+2026-05-10 08:02:03,210 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:02:03,211 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:02:03,587 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:02:07,924 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:02:39,411 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:02:58,458 | INFO | ============================================================
+2026-05-10 08:02:58,458 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:02:58,458 | INFO | ============================================================
+2026-05-10 08:02:58,458 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:02:58,743 | INFO |   → 30,000 patients chargés
+2026-05-10 08:02:59,269 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:02:59,271 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:02:59,646 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:03:03,968 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:03:34,984 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:04:28,057 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 08:04:32,907 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 08:04:33,269 | INFO | Conversion des dates...
+2026-05-10 08:04:36,360 | INFO |   → Dates converties avec succès
+2026-05-10 08:04:36,360 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 08:04:36,369 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 08:04:36,370 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 08:04:36,378 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 08:04:36,379 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 08:04:36,385 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 08:04:36,390 | INFO | Nettoyage des données patients...
+2026-05-10 08:04:36,425 | INFO |   Doublons supprimés : 58585
+2026-05-10 08:04:36,543 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 08:04:36,547 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 08:04:36,548 | INFO |   Winsorisation MEDREIMB_IP : 300 valeurs plafonnées à 45080
+2026-05-10 08:04:36,549 | INFO |   Winsorisation BENRES_IP : 299 valeurs plafonnées à 3572
+2026-05-10 08:04:36,550 | INFO |   Winsorisation PPPYMT_IP : 163 valeurs plafonnées à 0
+2026-05-10 08:04:36,551 | INFO |   Winsorisation MEDREIMB_OP : 298 valeurs plafonnées à 6790
+2026-05-10 08:04:36,552 | INFO |   Winsorisation BENRES_OP : 298 valeurs plafonnées à 2170
+2026-05-10 08:04:36,553 | INFO |   Winsorisation PPPYMT_OP : 293 valeurs plafonnées à 400
+2026-05-10 08:04:36,554 | INFO |   Winsorisation MEDREIMB_CAR : 300 valeurs plafonnées à 6950
+2026-05-10 08:04:36,555 | INFO |   Winsorisation BENRES_CAR : 297 valeurs plafonnées à 1900
+2026-05-10 08:04:36,556 | INFO |   Winsorisation PPPYMT_CAR : 252 valeurs plafonnées à 400
+2026-05-10 08:04:36,557 | INFO |   → Table finale : 30,000 lignes, 33 colonnes
+2026-05-10 08:04:36,605 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 08:04:36,645 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 08:04:37,082 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 08:04:37,526 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 08:04:40,439 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 08:04:40,439 | INFO | ============================================================
+2026-05-10 08:04:40,439 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 08:04:40,439 | INFO | ============================================================
+2026-05-10 08:16:33,475 | INFO | ============================================================
+2026-05-10 08:16:33,475 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:16:33,475 | INFO | ============================================================
+2026-05-10 08:16:33,475 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:16:33,732 | INFO |   → 30,000 patients chargés
+2026-05-10 08:16:34,225 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:16:34,226 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:16:34,571 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:16:38,444 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:17:06,943 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:17:35,712 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 08:17:39,900 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 08:17:40,251 | INFO | Conversion des dates...
+2026-05-10 08:17:43,285 | INFO |   → Dates converties avec succès
+2026-05-10 08:17:43,285 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 08:17:43,294 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 08:17:43,295 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 08:17:43,302 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 08:17:43,303 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 08:17:43,310 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 08:17:43,315 | INFO | Nettoyage des données patients...
+2026-05-10 08:17:43,347 | INFO |   Doublons supprimés : 58585
+2026-05-10 08:17:43,462 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 08:17:43,465 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 08:17:43,467 | INFO |   Winsorisation MEDREIMB_IP : 300 valeurs plafonnées à 45080
+2026-05-10 08:17:43,468 | INFO |   Winsorisation BENRES_IP : 299 valeurs plafonnées à 3572
+2026-05-10 08:17:43,469 | INFO |   Winsorisation PPPYMT_IP : 163 valeurs plafonnées à 0
+2026-05-10 08:17:43,470 | INFO |   Winsorisation MEDREIMB_OP : 298 valeurs plafonnées à 6790
+2026-05-10 08:17:43,471 | INFO |   Winsorisation BENRES_OP : 298 valeurs plafonnées à 2170
+2026-05-10 08:17:43,471 | INFO |   Winsorisation PPPYMT_OP : 293 valeurs plafonnées à 400
+2026-05-10 08:17:43,472 | INFO |   Winsorisation MEDREIMB_CAR : 300 valeurs plafonnées à 6950
+2026-05-10 08:17:43,473 | INFO |   Winsorisation BENRES_CAR : 297 valeurs plafonnées à 1900
+2026-05-10 08:17:43,474 | INFO |   Winsorisation PPPYMT_CAR : 252 valeurs plafonnées à 400
+2026-05-10 08:17:43,476 | INFO |   → Table finale : 30,000 lignes, 33 colonnes
+2026-05-10 08:17:43,522 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 08:17:43,561 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 08:17:44,069 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 08:17:44,488 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 08:17:47,350 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 08:17:47,350 | INFO | ============================================================
+2026-05-10 08:17:47,350 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 08:17:47,350 | INFO | ============================================================
+2026-05-10 08:19:57,001 | INFO | ============================================================
+2026-05-10 08:19:57,001 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:19:57,001 | INFO | ============================================================
+2026-05-10 08:19:57,001 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:19:57,257 | INFO |   → 30,000 patients chargés
+2026-05-10 08:19:57,766 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:19:57,767 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:19:58,121 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:20:02,093 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:20:32,080 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:21:02,196 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 08:21:06,525 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 08:21:06,895 | INFO | Conversion des dates...
+2026-05-10 08:21:10,067 | INFO |   → Dates converties avec succès
+2026-05-10 08:21:10,067 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 08:21:10,115 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 08:21:10,116 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 08:21:10,126 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 08:21:10,127 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 08:21:10,135 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 08:21:10,210 | INFO | Nettoyage des données patients...
+2026-05-10 08:21:10,247 | INFO |   Doublons supprimés : 58585
+2026-05-10 08:21:10,375 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 08:21:10,379 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 08:21:10,383 | INFO |   Winsorisation MEDREIMB_IP : 300 valeurs plafonnées à 45080
+2026-05-10 08:21:10,384 | INFO |   Winsorisation BENRES_IP : 299 valeurs plafonnées à 3572
+2026-05-10 08:21:10,385 | INFO |   Winsorisation PPPYMT_IP : 163 valeurs plafonnées à 0
+2026-05-10 08:21:10,386 | INFO |   Winsorisation MEDREIMB_OP : 298 valeurs plafonnées à 6790
+2026-05-10 08:21:10,387 | INFO |   Winsorisation BENRES_OP : 298 valeurs plafonnées à 2170
+2026-05-10 08:21:10,388 | INFO |   Winsorisation PPPYMT_OP : 293 valeurs plafonnées à 400
+2026-05-10 08:21:10,389 | INFO |   Winsorisation MEDREIMB_CAR : 300 valeurs plafonnées à 6950
+2026-05-10 08:21:10,390 | INFO |   Winsorisation BENRES_CAR : 297 valeurs plafonnées à 1900
+2026-05-10 08:21:10,391 | INFO |   Winsorisation PPPYMT_CAR : 252 valeurs plafonnées à 400
+2026-05-10 08:21:10,393 | INFO |   → Table finale : 30,000 lignes, 33 colonnes
+2026-05-10 08:21:10,454 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 08:21:10,493 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 08:21:11,272 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 08:21:11,697 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 08:21:14,620 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 08:21:14,620 | INFO | ============================================================
+2026-05-10 08:21:14,620 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 08:21:14,620 | INFO | ============================================================
+2026-05-10 08:27:02,054 | INFO | ============================================================
+2026-05-10 08:27:02,054 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:27:02,054 | INFO | ============================================================
+2026-05-10 08:27:02,054 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:27:02,300 | INFO |   → 30,000 patients chargés
+2026-05-10 08:27:02,802 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:27:02,803 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:27:03,153 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:27:07,124 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:27:36,814 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:28:05,581 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 08:28:09,867 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 08:28:10,230 | INFO | Conversion des dates...
+2026-05-10 08:28:13,333 | INFO |   → Dates converties avec succès
+2026-05-10 08:28:13,333 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 08:28:13,341 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 08:28:13,342 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 08:28:13,349 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 08:28:13,350 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 08:28:13,356 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 08:28:13,362 | INFO | Nettoyage des données patients...
+2026-05-10 08:28:13,406 | INFO |   Doublons supprimés : 0
+2026-05-10 08:28:13,748 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 08:28:13,759 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 08:28:13,762 | INFO |   Winsorisation MEDREIMB_IP : 882 valeurs plafonnées à 36400
+2026-05-10 08:28:13,764 | INFO |   Winsorisation BENRES_IP : 746 valeurs plafonnées à 3072
+2026-05-10 08:28:13,765 | INFO |   Winsorisation PPPYMT_IP : 410 valeurs plafonnées à 0
+2026-05-10 08:28:13,767 | INFO |   Winsorisation MEDREIMB_OP : 885 valeurs plafonnées à 6210
+2026-05-10 08:28:13,769 | INFO |   Winsorisation BENRES_OP : 880 valeurs plafonnées à 2030
+2026-05-10 08:28:13,770 | INFO |   Winsorisation PPPYMT_OP : 867 valeurs plafonnées à 300
+2026-05-10 08:28:13,772 | INFO |   Winsorisation MEDREIMB_CAR : 883 valeurs plafonnées à 6230
+2026-05-10 08:28:13,774 | INFO |   Winsorisation BENRES_CAR : 876 valeurs plafonnées à 1700
+2026-05-10 08:28:13,776 | INFO |   Winsorisation PPPYMT_CAR : 725 valeurs plafonnées à 400
+2026-05-10 08:28:13,779 | INFO |   → Table finale : 88,585 lignes, 33 colonnes
+2026-05-10 08:28:13,855 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 08:28:13,894 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 08:28:14,354 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 08:28:14,765 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 08:28:17,655 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 08:28:17,655 | INFO | ============================================================
+2026-05-10 08:28:17,655 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 08:28:17,655 | INFO | ============================================================

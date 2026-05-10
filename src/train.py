@@ -58,20 +58,21 @@ def load_data():
     log.info("Chargement des données...")
 
     X_train = pd.read_parquet(os.path.join(FEATURES_DIR, 'X_train.parquet'))
+    X_val   = pd.read_parquet(os.path.join(FEATURES_DIR, 'X_val.parquet'))
     X_test  = pd.read_parquet(os.path.join(FEATURES_DIR, 'X_test.parquet'))
     y_train = pd.read_parquet(os.path.join(FEATURES_DIR, 'y_train.parquet')).squeeze()
+    y_val   = pd.read_parquet(os.path.join(FEATURES_DIR, 'y_val.parquet')).squeeze()
     y_test  = pd.read_parquet(os.path.join(FEATURES_DIR, 'y_test.parquet')).squeeze()
 
-    log.info(f"  Train : {X_train.shape} | Test : {X_test.shape}")
-    log.info(f"  Taux hosp. Train : {y_train.mean()*100:.2f}% | Test : {y_test.mean()*100:.2f}%")
-    log.info(f"  Features : {list(X_train.columns)}")
+    log.info(f"  Train (2008) : {X_train.shape} | Taux : {y_train.mean()*100:.2f}%")
+    log.info(f"  Val   (2009) : {X_val.shape}   | Taux : {y_val.mean()*100:.2f}%")
+    log.info(f"  Test  (2010) : {X_test.shape}  | Taux : {y_test.mean()*100:.2f}%")
 
-    return X_train, X_test, y_train, y_test
+    return X_train, X_val, X_test, y_train, y_val, y_test
 
 
 # ═══════════════════════════════════════════════════════════
 # FONCTION 2 : Métriques complètes
-# ═══════════════════════════════════════════════════════════
 def compute_metrics(y_true, y_pred_proba, threshold=0.5):
     y_pred = (y_pred_proba >= threshold).astype(int)
     return {
@@ -316,7 +317,8 @@ def main():
     log.info(f"MLflow experiment : {EXPERIMENT}")
 
     # Charger les données
-    X_train, X_test, y_train, y_test = load_data()
+    X_train, X_val, X_test, y_train, y_val, y_test = load_data()
+
 
     # Entraîner les modèles
     results = {}

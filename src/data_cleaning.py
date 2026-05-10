@@ -138,38 +138,34 @@ def convert_all_dates(ben08, ben09, ben10, claims):
 #              ⚠️ Anti-leakage strict : uniquement admissions
 #              urgentes (code 1 ou 2) APRÈS OBS_DATE
 # ═══════════════════════════════════════════════════════════
-def build_target(ben08, claims):
-    log.info(f"Construction de la cible (OBS_DATE={OBS_DATE.date()}, horizon={HORIZON_MOIS}M)...")
+def build_target(ben, claims, obs_date):
+    log.info(f"Construction de la cible (OBS_DATE={obs_date.date()}, horizon={HORIZON_MOIS}M)...")
 
     ip = claims['inpatient'].copy()
-    future_date = OBS_DATE + pd.DateOffset(months=HORIZON_MOIS)
+    future_date = obs_date + pd.DateOffset(months=HORIZON_MOIS)
 
-    # Filtrer : admissions dans la fenêtre future
-    mask_window = (ip['admission'] >= OBS_DATE) & (ip['admission'] <= future_date)
+    mask_window = (ip['admission'] >= obs_date) & (ip['admission'] <= future_date)
 
-    # Exclure les hospitalisations programmées (garder urgence=1, urgente=2)
     if 'CLM_IP_ADMSN_TYPE_CD' in ip.columns:
         mask_urgence = ip['CLM_IP_ADMSN_TYPE_CD'].isin([1, 2])
         future_ip = ip[mask_window & mask_urgence]
-        log.info("  → Hospitalisations programmées exclues")
     else:
         future_ip = ip[mask_window]
-        log.info("  → Colonne admission type absente, toutes admissions conservées")
 
     hosp_ids = set(future_ip['DESYNPUF_ID'])
-    ben08['HOSPITALIZED_IN_6M'] = ben08['DESYNPUF_ID'].isin(hosp_ids).astype(int)
+    ben['HOSPITALIZED_IN_6M'] = ben['DESYNPUF_ID'].isin(hosp_ids).astype(int)
 
-    taux = ben08['HOSPITALIZED_IN_6M'].mean() * 100
+    taux = ben['HOSPITALIZED_IN_6M'].mean() * 100
     log.info(f"  → {len(hosp_ids):,} patients hospitalisés | Taux : {taux:.2f}%")
-    return ben08
+    return ben
 
 
 # ═══════════════════════════════════════════════════════════
 # FONCTION 6 : Nettoyage principal
 # ═══════════════════════════════════════════════════════════
-def clean_patients(ben08):
+def clean_patients(df_all):
     log.info("Nettoyage des données patients...")
-    df = ben08.copy()
+    df = df_all.copy()
 
     # ── Colonnes utiles ────────────────────────────────────
     demo_cols    = ['DESYNPUF_ID', 'BENE_BIRTH_DT', 'BENE_DEATH_DT',
@@ -178,11 +174,10 @@ def clean_patients(ben08):
     cost_cols    = [c for c in df.columns if any(k in c for k in ['MEDREIMB', 'BENRES', 'PPPYMT'])]
     target_col   = ['HOSPITALIZED_IN_6M']
 
-    df = df[demo_cols + chronic_cols + cost_cols + target_col].copy()
-
+    df = df[demo_cols + chronic_cols + cost_cols + target_col + ['ANNEE']].copy()
     # ── 1. Suppression des doublons ────────────────────────
     n_before = len(df)
-    df = df.drop_duplicates(subset='DESYNPUF_ID', keep='first')
+    df = df.drop_duplicates(subset=['DESYNPUF_ID', 'ANNEE'], keep='first')
     log.info(f"  Doublons supprimés : {n_before - len(df)}")
 
     # ── 2. Calcul de l'âge ────────────────────────────────
@@ -253,24 +248,33 @@ def main():
     ben10 = ben10[ben10['DESYNPUF_ID'].isin(patient_ids)]
     log.info(f"Ben09 : {len(ben09):,} | Ben10 : {len(ben10):,}")
 
-    # 3. Charger les claims
+    # 3. Ajouter colonne ANNEE
+    ben08['ANNEE'] = 2008
+    ben09['ANNEE'] = 2009
+    ben10['ANNEE'] = 2010
+
+    # 4. Charger les claims ← AVANT build_target
     claims = load_claims(patient_ids)
 
-    # 4. Convertir les dates
+    # 5. Convertir les dates
     ben08, ben09, ben10, claims = convert_all_dates(ben08, ben09, ben10, claims)
 
-    # 5. Construire la cible (anti-leakage)
-    ben08 = build_target(ben08, claims)
+    # 6. Construire la cible pour chaque année (anti-leakage)
+    ben08 = build_target(ben08, claims, pd.Timestamp('2008-01-01'))
+    ben09 = build_target(ben09, claims, pd.Timestamp('2009-01-01'))
+    ben10 = build_target(ben10, claims, pd.Timestamp('2010-01-01'))
 
-    # 6. Nettoyer
-    df_clean = clean_patients(ben08)
+    # 7. Fusionner les 3 années
+    df_all = pd.concat([ben08, ben09, ben10], ignore_index=True)
+    # 8. Nettoyer
+    df_clean = clean_patients(df_all)
 
-    # 7. Sauvegarder
+    # 9. Sauvegarder les patients
     output_path = os.path.join(OUTPUT_DIR, 'patients_cleaned.parquet')
     df_clean.to_parquet(output_path, index=False)
     log.info(f"\n✅ Données sauvegardées → {output_path}")
 
-    # Sauvegarder aussi les claims nettoyés
+    # 10. Sauvegarder les claims nettoyés
     for key, df in claims.items():
         path = os.path.join(OUTPUT_DIR, f'claims_{key}_cleaned.parquet')
         df.to_parquet(path, index=False)

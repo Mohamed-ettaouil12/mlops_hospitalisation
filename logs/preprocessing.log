@@ -1,0 +1,127 @@
+2026-05-10 07:52:59,897 | INFO | ============================================================
+2026-05-10 07:52:59,897 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 07:52:59,897 | INFO | ============================================================
+2026-05-10 07:52:59,897 | INFO | Chargement des données nettoyées...
+2026-05-10 07:52:59,931 | INFO |   → 30,000 patients
+2026-05-10 07:53:00,979 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 07:53:01,936 | INFO |   Fusion des features dynamiques...
+2026-05-10 07:53:01,988 | INFO |   → Nouveaux patients sans historique : 6,216
+2026-05-10 07:53:02,143 | INFO | Construction des features composites...
+2026-05-10 07:53:02,150 | INFO |   NB_COMORBIDITES moyen : 2.26
+2026-05-10 07:53:02,151 | INFO |   CHARLSON_INDEX moyen  : 2.34
+2026-05-10 07:53:02,151 | INFO | Encodage et normalisation...
+2026-05-10 07:53:02,172 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 07:53:02,172 | INFO | Découpage Train / Validation / Test (temporel)...
+2026-05-10 07:55:42,312 | INFO | ============================================================
+2026-05-10 07:55:42,312 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 07:55:42,312 | INFO | ============================================================
+2026-05-10 07:55:42,312 | INFO | Chargement des données nettoyées...
+2026-05-10 07:57:47,025 | INFO | ============================================================
+2026-05-10 07:57:47,025 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 07:57:47,025 | INFO | ============================================================
+2026-05-10 07:57:47,025 | INFO | Chargement des données nettoyées...
+2026-05-10 08:04:41,672 | INFO | ============================================================
+2026-05-10 08:04:41,672 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 08:04:41,672 | INFO | ============================================================
+2026-05-10 08:04:41,672 | INFO | Chargement des données nettoyées...
+2026-05-10 08:04:41,695 | INFO |   → 30,000 patients | Années : [np.int64(2008)]
+2026-05-10 08:04:42,529 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 08:04:44,748 | INFO |   → Nouveaux patients sans historique : 29,864
+2026-05-10 08:04:44,864 | INFO | Construction des features composites...
+2026-05-10 08:04:44,871 | INFO |   NB_COMORBIDITES moyen : 2.26
+2026-05-10 08:04:44,871 | INFO |   CHARLSON_INDEX moyen  : 2.34
+2026-05-10 08:04:44,871 | INFO | Encodage et normalisation...
+2026-05-10 08:04:44,888 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 08:04:44,888 | INFO | Découpage temporel strict (2008/2009/2010)...
+2026-05-10 08:04:44,893 | INFO |   Train (2008) : 30,000 | Taux : 7.54%
+2026-05-10 08:04:44,893 | INFO |   Val   (2009) : 0   | Taux : nan%
+2026-05-10 08:04:44,893 | INFO |   Test  (2010) : 0  | Taux : nan%
+2026-05-10 08:04:44,894 | INFO |   Nombre de features : 28
+2026-05-10 08:04:44,972 | INFO |   → Données sauvegardées dans data/features/
+2026-05-10 08:04:44,972 | INFO | ============================================================
+2026-05-10 08:04:44,972 | INFO | PIPELINE DATA PREPROCESSING — TERMINÉ ✅
+2026-05-10 08:04:44,972 | INFO | ============================================================
+2026-05-10 08:17:48,535 | INFO | ============================================================
+2026-05-10 08:17:48,535 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 08:17:48,535 | INFO | ============================================================
+2026-05-10 08:17:48,535 | INFO | Chargement des données nettoyées...
+2026-05-10 08:17:48,562 | INFO |   → 30,000 patients | Années : [np.int64(2008)]
+2026-05-10 08:17:49,408 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 08:17:51,636 | INFO |   → Nouveaux patients sans historique : 29,864
+2026-05-10 08:17:51,751 | INFO | Construction des features composites...
+2026-05-10 08:17:51,757 | INFO |   NB_COMORBIDITES moyen : 2.26
+2026-05-10 08:17:51,757 | INFO |   CHARLSON_INDEX moyen  : 2.34
+2026-05-10 08:17:51,757 | INFO | Encodage et normalisation...
+2026-05-10 08:17:51,774 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 08:17:51,775 | INFO | Découpage temporel strict (2008/2009/2010)...
+2026-05-10 08:17:51,779 | INFO |   Train (2008) : 30,000 | Taux : 7.54%
+2026-05-10 08:17:51,779 | INFO |   Val   (2009) : 0   | Taux : nan%
+2026-05-10 08:17:51,780 | INFO |   Test  (2010) : 0  | Taux : nan%
+2026-05-10 08:17:51,780 | INFO |   Nombre de features : 28
+2026-05-10 08:17:51,850 | INFO |   → Données sauvegardées dans data/features/
+2026-05-10 08:17:51,850 | INFO | ============================================================
+2026-05-10 08:17:51,850 | INFO | PIPELINE DATA PREPROCESSING — TERMINÉ ✅
+2026-05-10 08:17:51,850 | INFO | ============================================================
+2026-05-10 08:21:53,018 | INFO | ============================================================
+2026-05-10 08:21:53,018 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 08:21:53,018 | INFO | ============================================================
+2026-05-10 08:21:53,018 | INFO | Chargement des données nettoyées...
+2026-05-10 08:21:53,042 | INFO |   → 30,000 patients | Années : [np.int64(2008)]
+2026-05-10 08:21:53,876 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 08:21:56,127 | INFO |   → Nouveaux patients sans historique : 29,864
+2026-05-10 08:21:56,247 | INFO | Construction des features composites...
+2026-05-10 08:21:56,253 | INFO |   NB_COMORBIDITES moyen : 2.26
+2026-05-10 08:21:56,254 | INFO |   CHARLSON_INDEX moyen  : 2.34
+2026-05-10 08:21:56,254 | INFO | Encodage et normalisation...
+2026-05-10 08:21:56,271 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 08:21:56,271 | INFO | Découpage temporel strict (2008/2009/2010)...
+2026-05-10 08:21:56,276 | INFO |   Train (2008) : 30,000 | Taux : 7.54%
+2026-05-10 08:21:56,276 | INFO |   Val   (2009) : 0   | Taux : nan%
+2026-05-10 08:21:56,276 | INFO |   Test  (2010) : 0  | Taux : nan%
+2026-05-10 08:21:56,276 | INFO |   Nombre de features : 28
+2026-05-10 08:21:56,363 | INFO |   → Données sauvegardées dans data/features/
+2026-05-10 08:21:56,363 | INFO | ============================================================
+2026-05-10 08:21:56,363 | INFO | PIPELINE DATA PREPROCESSING — TERMINÉ ✅
+2026-05-10 08:21:56,363 | INFO | ============================================================
+2026-05-10 08:22:49,843 | INFO | ============================================================
+2026-05-10 08:22:49,843 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 08:22:49,850 | INFO | ============================================================
+2026-05-10 08:22:49,851 | INFO | Chargement des données nettoyées...
+2026-05-10 08:22:49,872 | INFO |   → 30,000 patients | Années : [np.int64(2008)]
+2026-05-10 08:22:50,680 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 08:22:53,015 | INFO |   → Nouveaux patients sans historique : 29,864
+2026-05-10 08:22:53,133 | INFO | Construction des features composites...
+2026-05-10 08:22:53,139 | INFO |   NB_COMORBIDITES moyen : 2.26
+2026-05-10 08:22:53,140 | INFO |   CHARLSON_INDEX moyen  : 2.34
+2026-05-10 08:22:53,140 | INFO | Encodage et normalisation...
+2026-05-10 08:22:53,156 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 08:22:53,156 | INFO | Découpage temporel strict (2008/2009/2010)...
+2026-05-10 08:22:53,161 | INFO |   Train (2008) : 30,000 | Taux : 7.54%
+2026-05-10 08:22:53,161 | INFO |   Val   (2009) : 0   | Taux : nan%
+2026-05-10 08:22:53,161 | INFO |   Test  (2010) : 0  | Taux : nan%
+2026-05-10 08:22:53,161 | INFO |   Nombre de features : 28
+2026-05-10 08:22:53,238 | INFO |   → Données sauvegardées dans data/features/
+2026-05-10 08:22:53,238 | INFO | ============================================================
+2026-05-10 08:22:53,238 | INFO | PIPELINE DATA PREPROCESSING — TERMINÉ ✅
+2026-05-10 08:22:53,238 | INFO | ============================================================
+2026-05-10 08:28:18,687 | INFO | ============================================================
+2026-05-10 08:28:18,695 | INFO | PIPELINE DATA PREPROCESSING — DÉBUT
+2026-05-10 08:28:18,695 | INFO | ============================================================
+2026-05-10 08:28:18,695 | INFO | Chargement des données nettoyées...
+2026-05-10 08:28:18,725 | INFO |   → 88,585 patients | Années : [np.int64(2008), np.int64(2009), np.int64(2010)]
+2026-05-10 08:28:19,533 | INFO | Construction des features dynamiques (anti-leakage)...
+2026-05-10 08:28:21,871 | INFO |   → Nouveaux patients sans historique : 39,441
+2026-05-10 08:28:21,988 | INFO | Construction des features composites...
+2026-05-10 08:28:22,000 | INFO |   NB_COMORBIDITES moyen : 2.24
+2026-05-10 08:28:22,000 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-05-10 08:28:22,000 | INFO | Encodage et normalisation...
+2026-05-10 08:28:22,042 | INFO |   → Scaler sauvegardé dans models/scaler.pkl
+2026-05-10 08:28:22,042 | INFO | Découpage temporel strict (2008/2009/2010)...
+2026-05-10 08:28:22,052 | INFO |   Train (2008) : 30,000 | Taux : 7.54%
+2026-05-10 08:28:22,052 | INFO |   Val   (2009) : 29,510   | Taux : 9.18%
+2026-05-10 08:28:22,052 | INFO |   Test  (2010) : 29,075  | Taux : 7.58%
+2026-05-10 08:28:22,052 | INFO |   Nombre de features : 28
+2026-05-10 08:28:22,153 | INFO |   → Données sauvegardées dans data/features/
+2026-05-10 08:28:22,153 | INFO | ============================================================
+2026-05-10 08:28:22,153 | INFO | PIPELINE DATA PREPROCESSING — TERMINÉ ✅
+2026-05-10 08:28:22,153 | INFO | ============================================================

@@ -20,3 +20,47 @@
 2026-05-10 07:06:27,692 | INFO | ============================================================
 2026-05-10 07:06:27,692 | INFO | FEATURE ENGINEERING — TERMINÉ ✅
 2026-05-10 07:06:27,692 | INFO | ============================================================
+2026-05-10 08:05:40,215 | INFO | ============================================================
+2026-05-10 08:05:40,215 | INFO | FEATURE ENGINEERING — DÉBUT
+2026-05-10 08:05:40,215 | INFO | ============================================================
+2026-05-10 08:05:40,246 | INFO | Patients chargés : 30,000
+2026-05-10 08:05:40,261 | INFO |   inpatient : 17,325 lignes
+2026-05-10 08:05:40,349 | INFO |   outpatient : 205,642 lignes
+2026-05-10 08:05:40,882 | INFO |   carrier : 1,233,861 lignes
+2026-05-10 08:05:41,098 | INFO |   prescription : 1,436,994 lignes
+2026-05-10 08:05:41,098 | INFO | Construction des features temporelles...
+2026-05-10 08:05:42,172 | INFO |   → 12 features temporelles construites
+2026-05-10 08:05:42,278 | INFO | Construction des features de coûts...
+2026-05-10 08:05:42,826 | INFO |   → 2 features de coûts construites
+2026-05-10 08:05:42,958 | INFO | Construction des features de prescriptions...
+2026-05-10 08:05:43,117 | INFO |   → 2 features prescriptions construites
+2026-05-10 08:05:43,131 | INFO | Fusion de toutes les features...
+2026-05-10 08:05:43,257 | INFO |   → DataFrame final : 30,000 lignes, 50 colonnes
+2026-05-10 08:05:43,345 | INFO | 
+✅ Features sauvegardées → data/features/features_engineered.parquet
+2026-05-10 08:05:43,345 | INFO |    Nombre de features : 50
+2026-05-10 08:05:43,345 | INFO | ============================================================
+2026-05-10 08:05:43,345 | INFO | FEATURE ENGINEERING — TERMINÉ ✅
+2026-05-10 08:05:43,345 | INFO | ============================================================
+2026-05-10 08:22:14,030 | INFO | ============================================================
+2026-05-10 08:22:14,038 | INFO | FEATURE ENGINEERING — DÉBUT
+2026-05-10 08:22:14,038 | INFO | ============================================================
+2026-05-10 08:22:14,070 | INFO | Patients chargés : 30,000
+2026-05-10 08:22:14,083 | INFO |   inpatient : 17,325 lignes
+2026-05-10 08:22:14,172 | INFO |   outpatient : 205,642 lignes
+2026-05-10 08:22:14,708 | INFO |   carrier : 1,233,861 lignes
+2026-05-10 08:22:14,913 | INFO |   prescription : 1,436,994 lignes
+2026-05-10 08:22:14,913 | INFO | Construction des features temporelles...
+2026-05-10 08:22:15,972 | INFO |   → 12 features temporelles construites
+2026-05-10 08:22:16,078 | INFO | Construction des features de coûts...
+2026-05-10 08:22:16,617 | INFO |   → 2 features de coûts construites
+2026-05-10 08:22:16,749 | INFO | Construction des features de prescriptions...
+2026-05-10 08:22:16,906 | INFO |   → 2 features prescriptions construites
+2026-05-10 08:22:16,921 | INFO | Fusion de toutes les features...
+2026-05-10 08:22:17,046 | INFO |   → DataFrame final : 30,000 lignes, 50 colonnes
+2026-05-10 08:22:17,145 | INFO | 
+✅ Features sauvegardées → data/features/features_engineered.parquet
+2026-05-10 08:22:17,145 | INFO |    Nombre de features : 50
+2026-05-10 08:22:17,145 | INFO | ============================================================
+2026-05-10 08:22:17,145 | INFO | FEATURE ENGINEERING — TERMINÉ ✅
+2026-05-10 08:22:17,145 | INFO | ============================================================

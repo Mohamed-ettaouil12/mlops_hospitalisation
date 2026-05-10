@@ -1,6 +1,6 @@
 # ═══════════════════════════════════════════════════════════
-# ÉTAPE 5 — Data Preprocessing + Feature Engineering
-# Pipeline MLOps — Risque d'Hospitalisation Medicare
+# src/data_preprocessing.py
+# Pipeline MLOps — Data Preprocessing + Split Temporel
 # ═══════════════════════════════════════════════════════════
 
 import pandas as pd
@@ -9,9 +9,7 @@ import os
 import logging
 import joblib
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.model_selection import train_test_split
 
-# ── Logging ────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s | %(levelname)s | %(message)s',
@@ -33,91 +31,99 @@ os.makedirs(MODELS_DIR, exist_ok=True)
 
 
 # ═══════════════════════════════════════════════════════════
-# FONCTION 1 : Features dynamiques à partir des claims
-#              ⚠️ Anti-leakage : uniquement données AVANT OBS_DATE
+# FONCTION 1 : Features dynamiques (anti-leakage)
 # ═══════════════════════════════════════════════════════════
 def build_dynamic_features(df_patients, claims):
     log.info("Construction des features dynamiques (anti-leakage)...")
 
     pid = 'DESYNPUF_ID'
+    results = []
 
-    # ── Inpatient : hospitalisations passées ───────────────
-    ip = claims['inpatient'].copy()
-    ip_past = ip[ip['admission'] < OBS_DATE]
+    for annee in [2008, 2009, 2010]:
+        obs_date = pd.Timestamp(f'{annee}-01-01')
+        df_annee = df_patients[df_patients['ANNEE'] == annee].copy()
 
-    hosp_past = (
-        ip_past.groupby(pid)
-        .agg(
-            NB_HOSP_PASSEES=('admission', 'count'),
-            COUT_HOSP_TOTAL=('CLM_PMT_AMT', 'sum') if 'CLM_PMT_AMT' in ip.columns else ('CLM_FROM_DT', 'count')
+        # ── Inpatient : hospitalisations passées ───────────
+        ip = claims['inpatient'].copy()
+        ip_past = ip[ip['admission'] < obs_date]
+
+        hosp_past = (
+            ip_past.groupby(pid)
+            .agg(NB_HOSP_PASSEES=('admission', 'count'))
+            .reset_index()
         )
-        .reset_index()
-    )
 
-    # ── Outpatient : consultations externes ────────────────
-    op = claims['outpatient'].copy()
-    op_past = op[op['CLM_FROM_DT'] < OBS_DATE]
+        # ── Outpatient : consultations externes ────────────
+        op = claims['outpatient'].copy()
 
-    # Fenêtres temporelles : 3M, 6M, 12M avant OBS_DATE
-    def count_in_window(df, date_col, months):
-        start = OBS_DATE - pd.DateOffset(months=months)
-        mask = (df[date_col] >= start) & (df[date_col] < OBS_DATE)
-        return df[mask].groupby(pid).size().reset_index(name=f'NB_OP_{months}M')
+        def count_window(df, col, months):
+            start = obs_date - pd.DateOffset(months=months)
+            mask  = (df[col] >= start) & (df[col] < obs_date)
+            return df[mask].groupby(pid).size().reset_index(
+                name=f'NB_OP_{months}M'
+            )
 
-    op_3m  = count_in_window(op, 'CLM_FROM_DT', 3)
-    op_6m  = count_in_window(op, 'CLM_FROM_DT', 6)
-    op_12m = count_in_window(op, 'CLM_FROM_DT', 12)
+        op_3m  = count_window(op, 'CLM_FROM_DT', 3)
+        op_6m  = count_window(op, 'CLM_FROM_DT', 6)
+        op_12m = count_window(op, 'CLM_FROM_DT', 12)
 
-    # ── Carrier : consultations médecins ───────────────────
-    car = claims['carrier'].copy()
-    car_past = car[car['CLM_FROM_DT'] < OBS_DATE]
-
-    car_6m = (
-        car_past[car_past['CLM_FROM_DT'] >= OBS_DATE - pd.DateOffset(months=6)]
-        .groupby(pid).size().reset_index(name='NB_CAR_6M')
-    )
-
-    # ── Prescriptions ──────────────────────────────────────
-    rx = claims['prescription'].copy()
-    rx_past = rx[rx['SRVC_DT'] < OBS_DATE]
-
-    rx_features = (
-        rx_past.groupby(pid)
-        .agg(
-            NB_PRESCRIPTIONS=('SRVC_DT', 'count'),
-            NB_MOLECULES_UNIQUES=('PROD_SRVC_ID', 'nunique') if 'PROD_SRVC_ID' in rx.columns else ('SRVC_DT', 'count')
+        # ── Carrier : consultations médecins ───────────────
+        car = claims['carrier'].copy()
+        car_6m = (
+            car[
+                (car['CLM_FROM_DT'] >= obs_date - pd.DateOffset(months=6)) &
+                (car['CLM_FROM_DT'] < obs_date)
+            ]
+            .groupby(pid).size().reset_index(name='NB_CAR_6M')
         )
-        .reset_index()
-    )
 
-    # ── Coût total 6 derniers mois ─────────────────────────
-    cost_cols = [c for c in df_patients.columns if 'MEDREIMB' in c]
-    df_patients['COUT_TOTAL'] = df_patients[cost_cols].sum(axis=1)
+        # ── Prescriptions ──────────────────────────────────
+        rx = claims['prescription'].copy()
+        rx_past = rx[rx['SRVC_DT'] < obs_date]
 
-    # ── Fusion de toutes les features dynamiques ───────────
-    log.info("  Fusion des features dynamiques...")
-    df = df_patients.copy()
-    for feat_df in [hosp_past, op_3m, op_6m, op_12m, car_6m, rx_features]:
-        df = df.merge(feat_df, on=pid, how='left')
+        rx_features = (
+            rx_past.groupby(pid)
+            .agg(NB_PRESCRIPTIONS=('SRVC_DT', 'count'))
+            .reset_index()
+        )
 
-    # Remplir les patients sans historique par 0
-    dynamic_cols = ['NB_HOSP_PASSEES', 'COUT_HOSP_TOTAL',
-                    'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M',
-                    'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES']
+        if 'PROD_SRVC_ID' in rx_past.columns:
+            mol = (
+                rx_past.groupby(pid)['PROD_SRVC_ID']
+                .nunique().reset_index(name='NB_MOLECULES_UNIQUES')
+            )
+        else:
+            mol = rx_features[['DESYNPUF_ID']].copy()
+            mol['NB_MOLECULES_UNIQUES'] = 0
+
+        # ── Fusion pour cette année ────────────────────────
+        df_a = df_annee.copy()
+        for feat_df in [hosp_past, op_3m, op_6m, op_12m, car_6m, rx_features, mol]:
+            df_a = df_a.merge(feat_df, on=pid, how='left')
+
+        results.append(df_a)
+
+    # Concaténer les 3 années
+    df = pd.concat(results, ignore_index=True)
+
+    # Remplir NaN par 0
+    dynamic_cols = [
+        'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M',
+        'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES'
+    ]
     for col in dynamic_cols:
         if col in df.columns:
             df[col] = df[col].fillna(0)
 
-    # ── Cold start : patients sans aucun historique ────────
+    # Cold start
     df['IS_NEW_PATIENT'] = (
-        (df.get('NB_HOSP_PASSEES', 0) == 0) &
-        (df.get('NB_OP_12M', 0) == 0) &
-        (df.get('NB_PRESCRIPTIONS', 0) == 0)
+        (df.get('NB_HOSP_PASSEES', pd.Series([0]*len(df))) == 0) &
+        (df.get('NB_OP_12M',       pd.Series([0]*len(df))) == 0) &
+        (df.get('NB_PRESCRIPTIONS',pd.Series([0]*len(df))) == 0)
     ).astype(int)
 
     n_new = df['IS_NEW_PATIENT'].sum()
     log.info(f"  → Nouveaux patients sans historique : {n_new:,}")
-
     return df
 
 
@@ -128,11 +134,8 @@ def build_composite_features(df):
     log.info("Construction des features composites...")
 
     chronic_cols = [c for c in df.columns if c.startswith('SP_')]
-
-    # Nombre total de comorbidités
     df['NB_COMORBIDITES'] = df[chronic_cols].sum(axis=1)
 
-    # Index de Charlson simplifié (pondération des comorbidités)
     charlson_weights = {
         'SP_CHF': 1, 'SP_DIABETES': 1, 'SP_CHRNKIDN': 2,
         'SP_CNCR': 2, 'SP_COPD': 1, 'SP_STRKETIA': 2,
@@ -145,11 +148,9 @@ def build_composite_features(df):
         if col in df.columns
     )
 
-    # Polypharmacie : > 5 molécules uniques
     if 'NB_MOLECULES_UNIQUES' in df.columns:
         df['POLYPHARMACIE'] = (df['NB_MOLECULES_UNIQUES'] > 5).astype(int)
 
-    # Groupe d'âge
     df['GROUPE_AGE'] = pd.cut(
         df['AGE'],
         bins=[0, 65, 75, 85, 120],
@@ -158,7 +159,6 @@ def build_composite_features(df):
 
     log.info(f"  NB_COMORBIDITES moyen : {df['NB_COMORBIDITES'].mean():.2f}")
     log.info(f"  CHARLSON_INDEX moyen  : {df['CHARLSON_INDEX'].mean():.2f}")
-
     return df
 
 
@@ -168,30 +168,33 @@ def build_composite_features(df):
 def encode_and_scale(df):
     log.info("Encodage et normalisation...")
 
-    # ── Encodage des variables catégorielles ───────────────
+    # Correction BENE_ESRD_IND
+    df['BENE_ESRD_IND'] = df['BENE_ESRD_IND'].map(
+        {'Y': 1, '0': 0, 0: 0, 1: 1}
+    ).fillna(0)
+
+    # Encodage
     le_sexe = LabelEncoder()
     df['SEXE_ENC'] = le_sexe.fit_transform(df['SEXE'].fillna('Inconnu'))
 
     le_race = LabelEncoder()
     df['RACE_ENC'] = le_race.fit_transform(df['RACE'].fillna('Autre'))
 
-    # Encodage GROUPE_AGE
     age_map = {'<65': 0, '65-74': 1, '75-84': 2, '85+': 3}
     df['GROUPE_AGE_ENC'] = df['GROUPE_AGE'].map(age_map).fillna(1)
 
-    # ── Colonnes à normaliser ─────────────────────────────
-    cols_to_scale = ['AGE', 'COUT_TOTAL', 'CHARLSON_INDEX',
-                     'NB_COMORBIDITES', 'NB_HOSP_PASSEES',
-                     'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M',
-                     'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES']
-
+    # Normalisation
+    cols_to_scale = [
+        'AGE', 'COUT_TOTAL', 'CHARLSON_INDEX', 'NB_COMORBIDITES',
+        'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M',
+        'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES'
+    ]
     cols_to_scale = [c for c in cols_to_scale if c in df.columns]
 
     scaler = StandardScaler()
     df_scaled = df.copy()
     df_scaled[cols_to_scale] = scaler.fit_transform(df[cols_to_scale])
 
-    # Sauvegarder le scaler pour l'inférence en production
     joblib.dump(scaler, os.path.join(MODELS_DIR, 'scaler.pkl'))
     log.info(f"  → Scaler sauvegardé dans {MODELS_DIR}scaler.pkl")
 
@@ -199,56 +202,59 @@ def encode_and_scale(df):
 
 
 # ═══════════════════════════════════════════════════════════
-# FONCTION 4 : Sélection des features finales + Train/Test split
-#              ⚠️ Validation temporelle stricte (pas de K-Fold)
+# FONCTION 4 : Split Temporel Strict
 # ═══════════════════════════════════════════════════════════
 def split_and_save(df_scaled):
-    log.info("Découpage Train / Validation / Test (temporel)...")
+    log.info("Découpage temporel strict (2008/2009/2010)...")
 
-    # Features finales
     chronic_cols = [c for c in df_scaled.columns if c.startswith('SP_')]
     feature_cols = (
         chronic_cols +
         ['AGE', 'SEXE_ENC', 'RACE_ENC', 'BENE_ESRD_IND',
          'GROUPE_AGE_ENC', 'NB_COMORBIDITES', 'CHARLSON_INDEX',
          'COUT_TOTAL', 'IS_NEW_PATIENT'] +
-        [c for c in ['NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M',
-                     'NB_OP_12M', 'NB_CAR_6M', 'NB_PRESCRIPTIONS',
-                     'NB_MOLECULES_UNIQUES', 'POLYPHARMACIE']
-         if c in df_scaled.columns]
+        [c for c in [
+            'NB_HOSP_PASSEES', 'NB_OP_3M', 'NB_OP_6M', 'NB_OP_12M',
+            'NB_CAR_6M', 'NB_PRESCRIPTIONS', 'NB_MOLECULES_UNIQUES',
+            'POLYPHARMACIE'
+         ] if c in df_scaled.columns]
     )
-
     feature_cols = [c for c in feature_cols if c in df_scaled.columns]
     target_col   = 'HOSPITALIZED_IN_6M'
 
     X = df_scaled[feature_cols]
     y = df_scaled[target_col]
 
-    # ── Découpage 80% Train / 20% Test (stratifié sur cible) ──
-    # Note : en production réelle, le split sera temporel (2008/2009/2010)
-    # Ici sur 30K patients d'une même année → split stratifié
-    X_train, X_test, y_train, y_test = train_test_split(
-        X, y,
-        test_size=0.20,
-        random_state=42,
-        stratify=y
-    )
+    # ── Split temporel strict ─────────────────────────────
+    X_train = X[df_scaled['ANNEE'] == 2008]
+    y_train = y[df_scaled['ANNEE'] == 2008]
 
-    log.info(f"  Train : {len(X_train):,} | Test : {len(X_test):,}")
-    log.info(f"  Taux hosp. Train : {y_train.mean()*100:.2f}% | Test : {y_test.mean()*100:.2f}%")
+    X_val   = X[df_scaled['ANNEE'] == 2009]
+    y_val   = y[df_scaled['ANNEE'] == 2009]
+
+    X_test  = X[df_scaled['ANNEE'] == 2010]
+    y_test  = y[df_scaled['ANNEE'] == 2010]
+
+    log.info(f"  Train (2008) : {len(X_train):,} | Taux : {y_train.mean()*100:.2f}%")
+    log.info(f"  Val   (2009) : {len(X_val):,}   | Taux : {y_val.mean()*100:.2f}%")
+    log.info(f"  Test  (2010) : {len(X_test):,}  | Taux : {y_test.mean()*100:.2f}%")
     log.info(f"  Nombre de features : {len(feature_cols)}")
 
     # ── Sauvegarde ─────────────────────────────────────────
     X_train.to_parquet(os.path.join(FEATURES_DIR, 'X_train.parquet'), index=False)
-    X_test.to_parquet(os.path.join(FEATURES_DIR, 'X_test.parquet'), index=False)
-    y_train.to_frame().to_parquet(os.path.join(FEATURES_DIR, 'y_train.parquet'), index=False)
-    y_test.to_frame().to_parquet(os.path.join(FEATURES_DIR, 'y_test.parquet'), index=False)
+    X_val.to_parquet(os.path.join(FEATURES_DIR, 'X_val.parquet'),     index=False)
+    X_test.to_parquet(os.path.join(FEATURES_DIR, 'X_test.parquet'),   index=False)
 
-    # Sauvegarder la liste des features
-    pd.Series(feature_cols).to_csv(os.path.join(FEATURES_DIR, 'feature_names.csv'), index=False)
+    y_train.to_frame().to_parquet(os.path.join(FEATURES_DIR, 'y_train.parquet'), index=False)
+    y_val.to_frame().to_parquet(os.path.join(FEATURES_DIR, 'y_val.parquet'),     index=False)
+    y_test.to_frame().to_parquet(os.path.join(FEATURES_DIR, 'y_test.parquet'),   index=False)
+
+    pd.Series(feature_cols).to_csv(
+        os.path.join(FEATURES_DIR, 'feature_names.csv'), index=False
+    )
 
     log.info(f"  → Données sauvegardées dans {FEATURES_DIR}")
-    return X_train, X_test, y_train, y_test, feature_cols
+    return X_train, X_val, X_test, y_train, y_val, y_test, feature_cols
 
 
 # ═══════════════════════════════════════════════════════════
@@ -261,32 +267,35 @@ def main():
 
     # 1. Charger les données nettoyées
     log.info("Chargement des données nettoyées...")
-    df_patients = pd.read_parquet(os.path.join(CLEANED_DIR, 'patients_cleaned.parquet'))
-    log.info(f"  → {len(df_patients):,} patients")
+    df_patients = pd.read_parquet(
+        os.path.join(CLEANED_DIR, 'patients_cleaned.parquet')
+    )
+    log.info(f"  → {len(df_patients):,} patients | Années : {sorted(df_patients['ANNEE'].unique())}")
 
+    # 2. Charger les claims
     claims = {}
     for key in ['inpatient', 'outpatient', 'carrier', 'prescription']:
         path = os.path.join(CLEANED_DIR, f'claims_{key}_cleaned.parquet')
         if os.path.exists(path):
             claims[key] = pd.read_parquet(path)
 
-    # 2. Features dynamiques
+    # 3. Features dynamiques (par année, anti-leakage)
     df = build_dynamic_features(df_patients, claims)
 
-    # 3. Features composites
+    # 4. Features composites
     df = build_composite_features(df)
 
-    # 4. Encodage + Normalisation
+    # 5. Encodage + Normalisation
     df_scaled, scaler = encode_and_scale(df)
 
-    # 5. Split et sauvegarde
-    X_train, X_test, y_train, y_test, features = split_and_save(df_scaled)
+    # 6. Split temporel + sauvegarde
+    X_train, X_val, X_test, y_train, y_val, y_test, features = split_and_save(df_scaled)
 
     log.info("="*60)
     log.info("PIPELINE DATA PREPROCESSING — TERMINÉ ✅")
     log.info("="*60)
 
-    return X_train, X_test, y_train, y_test, features
+    return X_train, X_val, X_test, y_train, y_val, y_test, features
 
 
 if __name__ == '__main__':
