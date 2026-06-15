@@ -174,3 +174,393 @@
 2026-05-10 08:29:11,682 | INFO | 🏆 Meilleur modèle : XGBoost | AUC : 0.8199
 2026-05-10 08:29:11,682 | INFO | Prochaine étape → mlflow ui
 2026-05-10 08:29:11,682 | INFO | ============================================================
+2026-05-10 08:45:33,785 | INFO | ============================================================
+2026-05-10 08:45:33,785 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:45:33,785 | INFO | ============================================================
+2026-05-10 08:45:33,792 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:45:33,792 | INFO | Chargement des données...
+2026-05-10 08:45:33,815 | INFO |   Train (2008) : (30000, 29) | Taux : 7.54%
+2026-05-10 08:45:33,815 | INFO |   Val   (2009) : (29510, 29)   | Taux : 9.18%
+2026-05-10 08:45:33,815 | INFO |   Test  (2010) : (29075, 29)  | Taux : 7.58%
+2026-05-10 08:45:33,815 | INFO | 
+============================================================
+2026-05-10 08:45:33,815 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:45:33,815 | INFO | ============================================================
+2026-05-10 08:47:41,623 | INFO | ============================================================
+2026-05-10 08:47:41,624 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:47:41,624 | INFO | ============================================================
+2026-05-10 08:47:41,630 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:47:41,630 | INFO | Chargement des données...
+2026-05-10 08:47:41,653 | INFO |   Train (2008) : (30000, 29) | Taux : 7.54%
+2026-05-10 08:47:41,653 | INFO |   Val   (2009) : (29510, 29)   | Taux : 9.18%
+2026-05-10 08:47:41,661 | INFO |   Test  (2010) : (29075, 29)  | Taux : 7.58%
+2026-05-10 08:47:41,661 | INFO | 
+============================================================
+2026-05-10 08:47:41,661 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:47:41,661 | INFO | ============================================================
+2026-05-10 08:49:00,001 | INFO | ============================================================
+2026-05-10 08:49:00,002 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:49:00,002 | INFO | ============================================================
+2026-05-10 08:49:00,008 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:49:00,008 | INFO | Chargement des données...
+2026-05-10 08:49:00,031 | INFO |   Train (2008) : (30000, 29) | Taux : 7.54%
+2026-05-10 08:49:00,031 | INFO |   Val   (2009) : (29510, 29)   | Taux : 9.18%
+2026-05-10 08:49:00,031 | INFO |   Test  (2010) : (29075, 29)  | Taux : 7.58%
+2026-05-10 08:49:00,031 | INFO | 
+============================================================
+2026-05-10 08:49:00,031 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:49:00,031 | INFO | ============================================================
+2026-05-10 08:49:00,031 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:49:00,666 | INFO |   Optimisation du seuil de décision...
+2026-05-10 08:49:00,674 | INFO |   Seuil optimal : 0.961
+2026-05-10 08:49:00,674 | INFO |   F1 optimal    : 0.5144
+2026-05-10 08:49:02,602 | INFO |   AUC-ROC   : 0.9082
+2026-05-10 08:49:02,602 | INFO |   F1-Score  : 0.3825
+2026-05-10 08:49:02,602 | INFO |   Recall    : 0.9339
+2026-05-10 08:49:02,603 | INFO |   Precision : 0.2405
+2026-05-10 08:50:35,265 | INFO | ============================================================
+2026-05-10 08:50:35,265 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-05-10 08:50:35,265 | INFO | ============================================================
+2026-05-10 08:50:35,271 | INFO | MLflow experiment : hospitalisation_prediction
+2026-05-10 08:50:35,271 | INFO | Chargement des données...
+2026-05-10 08:50:35,294 | INFO |   Train (2008) : (30000, 29) | Taux : 7.54%
+2026-05-10 08:50:35,294 | INFO |   Val   (2009) : (29510, 29)   | Taux : 9.18%
+2026-05-10 08:50:35,294 | INFO |   Test  (2010) : (29075, 29)  | Taux : 7.58%
+2026-05-10 08:50:35,294 | INFO | 
+============================================================
+2026-05-10 08:50:35,295 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-05-10 08:50:35,295 | INFO | ============================================================
+2026-05-10 08:50:35,295 | INFO | 
+── Régression Logistique (Baseline) ──
+2026-05-10 08:50:36,055 | INFO |   Optimisation du seuil de décision...
+2026-05-10 08:50:36,063 | INFO |   Seuil optimal : 0.961
+2026-05-10 08:50:36,063 | INFO |   F1 optimal    : 0.5144
+2026-05-10 08:50:37,937 | INFO |   AUC-ROC   : 0.9082
+2026-05-10 08:50:37,938 | INFO |   F1-Score  : 0.3825
+2026-05-10 08:50:37,938 | INFO |   Recall    : 0.9339
+2026-05-10 08:50:37,938 | INFO |   Precision : 0.2405
+2026-05-10 08:50:37,939 | INFO | 
+── XGBoost + Optuna ──
+2026-05-10 08:50:37,939 | INFO |   scale_pos_weight : 12.27
+2026-05-10 08:50:37,939 | INFO |   Optimisation Optuna (50 essais)...
+2026-05-10 08:51:13,553 | INFO |   Meilleurs paramètres : {'n_estimators': 396, 'max_depth': 4, 'learning_rate': 0.017162536324569867, 'subsample': 0.6613878947274406, 'colsample_bytree': 0.7786510325248696, 'reg_alpha': 3.8644060724502016, 'reg_lambda': 0.827151233681402, 'scale_pos_weight': np.float64(12.268465280849181), 'random_state': 42, 'eval_metric': 'auc', 'use_label_encoder': False}
+2026-05-10 08:51:13,910 | INFO |   Optimisation du seuil de décision...
+2026-05-10 08:51:13,930 | INFO |   Seuil optimal : 0.778
+2026-05-10 08:51:13,930 | INFO |   F1 optimal    : 0.6354
+2026-05-10 08:51:16,058 | INFO |   Calcul SHAP pour XGBoost...
+2026-05-10 08:51:16,572 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-05-10 08:51:16,574 | INFO |   AUC-ROC   : 0.9535
+2026-05-10 08:51:16,574 | INFO |   F1-Score  : 0.5876
+2026-05-10 08:51:16,574 | INFO |   Recall    : 0.9280
+2026-05-10 08:51:16,574 | INFO |   Precision : 0.4299
+2026-05-10 08:51:16,579 | INFO | 
+── LightGBM + Optuna ──
+2026-05-10 08:51:16,579 | INFO |   Optimisation Optuna (50 essais)...
+2026-05-10 08:51:27,139 | INFO |   Optimisation du seuil de décision...
+2026-05-10 08:51:27,194 | INFO |   Seuil optimal : 0.489
+2026-05-10 08:51:27,194 | INFO |   F1 optimal    : 0.6257
+2026-05-10 08:51:29,254 | INFO |   Calcul SHAP pour LightGBM...
+2026-05-10 08:51:29,688 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-05-10 08:51:29,690 | INFO |   AUC-ROC   : 0.9500
+2026-05-10 08:51:29,690 | INFO |   F1-Score  : 0.6245
+2026-05-10 08:51:29,690 | INFO |   Recall    : 0.7948
+2026-05-10 08:51:29,690 | INFO |   Precision : 0.5143
+2026-05-10 08:51:29,695 | INFO | 
+── Comparaison des modèles ──
+2026-05-10 08:51:29,695 | INFO |   LogisticRegression        | AUC : 0.9082 | F1 : 0.3825 | Recall : 0.9339
+2026-05-10 08:51:29,695 | INFO |   XGBoost                   | AUC : 0.9535 | F1 : 0.5876 | Recall : 0.9280
+2026-05-10 08:51:29,695 | INFO |   LightGBM                  | AUC : 0.9500 | F1 : 0.6245 | Recall : 0.7948
+2026-05-10 08:51:29,695 | INFO | 
+🏆 Meilleur modèle : XGBoost (AUC = 0.9535)
+2026-05-10 08:51:29,704 | INFO |   → Meilleur modèle sauvegardé : models/best_model.pkl
+2026-05-10 08:51:29,704 | INFO | 
+============================================================
+2026-05-10 08:51:29,704 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-05-10 08:51:29,704 | INFO | 🏆 Meilleur modèle : XGBoost | AUC : 0.9535
+2026-05-10 08:51:29,704 | INFO | Prochaine étape → mlflow ui
+2026-05-10 08:51:29,704 | INFO | ============================================================
+2026-06-14 21:30:42,576 | INFO | ======================================================================
+2026-06-14 21:30:42,576 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-14 21:30:42,576 | INFO | ======================================================================
+2026-06-14 21:30:42,583 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-14 21:30:42,583 | INFO | Chargement des données features...
+2026-06-14 21:30:42,644 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-14 21:30:42,644 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-14 21:30:42,644 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-14 21:30:42,644 | INFO |   Features : 28
+2026-06-14 21:30:42,644 | INFO | 
+======================================================================
+2026-06-14 21:30:42,644 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-14 21:30:42,644 | INFO | ======================================================================
+2026-06-14 21:30:42,644 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-14 21:30:44,911 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.4917 | Recall=0.8007 | Precision=0.3548 | Threshold=0.694
+2026-06-14 21:30:44,911 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-14 21:30:44,912 | INFO | 
+── XGBoost + Optuna ──
+2026-06-14 21:30:44,913 | INFO |   scale_pos_weight : 12.27
+2026-06-14 21:30:44,913 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 21:31:04,164 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 193, 'max_depth': 3, 'learning_rate': 0.010906560192547628, 'subsample': 0.9071065564807185, 'colsample_bytree': 0.9680902331810342, 'reg_alpha': 4.218541898450649, 'reg_lambda': 2.7265029693234384, 'scale_pos_weight': 12.268465280849181, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-14 21:31:06,422 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-14 21:31:06,878 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-14 21:31:06,882 | INFO |   XGBoost                | AUC=0.9518 | F1=0.6080 | Recall=0.9070 | Precision=0.4573 | Threshold=0.646
+2026-06-14 21:31:06,883 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-14 21:31:06,884 | INFO | 
+── LightGBM + Optuna ──
+2026-06-14 21:31:06,884 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 21:31:34,717 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-14 21:31:35,204 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-14 21:31:35,210 | INFO |   LightGBM               | AUC=0.9515 | F1=0.5986 | Recall=0.9210 | Precision=0.4433 | Threshold=0.592
+2026-06-14 21:31:35,210 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-14 21:31:35,212 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-14 21:31:35,212 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.4917 | Recall=0.8007 | Precision=0.3548 | Threshold=0.694
+2026-06-14 21:31:35,212 | INFO |   XGBoost                | AUC=0.9518 | F1=0.6080 | Recall=0.9070 | Precision=0.4573 | Threshold=0.646
+2026-06-14 21:31:35,212 | INFO |   LightGBM               | AUC=0.9515 | F1=0.5986 | Recall=0.9210 | Precision=0.4433 | Threshold=0.592
+2026-06-14 21:31:35,212 | INFO | 
+🏆 Meilleur modèle : XGBoost | AUC validation = 0.9518
+2026-06-14 21:31:35,212 | INFO | 
+── Évaluation finale TEST : XGBoost ──
+2026-06-14 21:31:35,272 | INFO |   XGBoost TEST           | AUC=0.9683 | F1=0.6916 | Recall=0.8053 | Precision=0.6061 | Threshold=0.646
+2026-06-14 21:31:35,273 | INFO |   Confusion Matrix : {'tn': 25719, 'fp': 1153, 'fn': 429, 'tp': 1774}
+2026-06-14 21:31:35,275 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-14 21:31:35,275 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-14 21:31:35,275 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-14 21:31:35,275 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-14 21:31:35,275 | INFO | ======================================================================
+2026-06-14 21:31:35,275 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-14 21:31:35,276 | INFO | 🏆 Meilleur modèle : XGBoost | AUC validation : 0.9518
+2026-06-14 21:31:35,276 | INFO | Prochaine étape : mlflow ui
+2026-06-14 21:31:35,276 | INFO | ======================================================================
+2026-06-14 22:08:10,505 | INFO | ======================================================================
+2026-06-14 22:08:10,505 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-14 22:08:10,505 | INFO | ======================================================================
+2026-06-14 22:08:10,512 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-14 22:08:10,512 | INFO | Chargement des données features...
+2026-06-14 22:08:10,575 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-14 22:08:10,575 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-14 22:08:10,575 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-14 22:08:10,575 | INFO |   Features : 28
+2026-06-14 22:08:10,575 | INFO | 
+======================================================================
+2026-06-14 22:08:10,575 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-14 22:08:10,575 | INFO | ======================================================================
+2026-06-14 22:08:10,575 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-14 22:08:12,894 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-14 22:08:12,895 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-14 22:08:12,895 | INFO | 
+── XGBoost + Optuna ──
+2026-06-14 22:08:12,896 | INFO |   scale_pos_weight : 12.27
+2026-06-14 22:08:12,896 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 22:08:34,222 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 194, 'max_depth': 3, 'learning_rate': 0.01485477936486521, 'subsample': 0.8684540239278721, 'colsample_bytree': 0.9653522696691973, 'reg_alpha': 4.785188841732534, 'reg_lambda': 1.5602055154312278, 'scale_pos_weight': 12.268465280849181, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-14 22:08:36,725 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-14 22:08:37,211 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-14 22:08:37,218 | INFO |   XGBoost                | AUC=0.9520 | F1=0.6299 | Recall=0.7535 | Precision=0.5411 | Threshold=0.832
+2026-06-14 22:08:37,218 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-14 22:08:37,220 | INFO | 
+── LightGBM + Optuna ──
+2026-06-14 22:08:37,220 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 22:08:59,995 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-14 22:09:00,511 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-14 22:09:00,517 | INFO |   LightGBM               | AUC=0.9519 | F1=0.6294 | Recall=0.7889 | Precision=0.5235 | Threshold=0.699
+2026-06-14 22:09:00,517 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-14 22:09:00,518 | INFO | 
+── Random Forest Bagging ──
+2026-06-14 22:09:04,254 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-14 22:09:04,254 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-14 22:09:04,255 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-14 22:09:04,523 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.90, LightGBM=0.10
+2026-06-14 22:09:06,700 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6298 | Recall=0.7646 | Precision=0.5354 | Threshold=0.817
+2026-06-14 22:09:06,700 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-14 22:09:06,701 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-14 22:09:06,710 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-14 22:09:06,710 | INFO |   XGBoost                | AUC=0.9520 | F1=0.6299 | Recall=0.7535 | Precision=0.5411 | Threshold=0.832
+2026-06-14 22:09:06,710 | INFO |   LightGBM               | AUC=0.9519 | F1=0.6294 | Recall=0.7889 | Precision=0.5235 | Threshold=0.699
+2026-06-14 22:09:06,710 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-14 22:09:06,710 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6298 | Recall=0.7646 | Precision=0.5354 | Threshold=0.817
+2026-06-14 22:09:06,711 | INFO | 
+🏆 Meilleur modèle : XGBoost | precision validation = 0.5411 | AUC validation = 0.9520
+2026-06-14 22:09:06,711 | INFO | 
+── Évaluation finale TEST : XGBoost ──
+2026-06-14 22:09:06,799 | INFO |   XGBoost TEST           | AUC=0.9685 | F1=0.6001 | Recall=0.5538 | Precision=0.6549 | Threshold=0.832
+2026-06-14 22:09:06,799 | INFO |   Confusion Matrix : {'tn': 26229, 'fp': 643, 'fn': 983, 'tp': 1220}
+2026-06-14 22:09:06,805 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-14 22:09:06,805 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-14 22:09:06,805 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-14 22:09:06,805 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-14 22:09:06,805 | INFO | ======================================================================
+2026-06-14 22:09:06,805 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-14 22:09:06,806 | INFO | 🏆 Meilleur modèle : XGBoost | AUC validation : 0.9520
+2026-06-14 22:09:06,806 | INFO | Prochaine étape : mlflow ui
+2026-06-14 22:09:06,806 | INFO | ======================================================================
+2026-06-14 22:13:24,895 | INFO | ======================================================================
+2026-06-14 22:13:24,895 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-14 22:13:24,895 | INFO | ======================================================================
+2026-06-14 22:13:24,901 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-14 22:13:24,901 | INFO | Chargement des données features...
+2026-06-14 22:13:24,962 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-14 22:13:24,963 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-14 22:13:24,963 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-14 22:13:24,963 | INFO |   Features : 28
+2026-06-14 22:13:24,963 | INFO | 
+======================================================================
+2026-06-14 22:13:24,963 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-14 22:13:24,963 | INFO | ======================================================================
+2026-06-14 22:13:24,963 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-14 22:13:27,246 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-14 22:13:27,246 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-14 22:13:27,247 | INFO | 
+── XGBoost + Optuna ──
+2026-06-14 22:13:27,247 | INFO |   scale_pos_weight : 12.27
+2026-06-14 22:13:27,247 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 22:13:43,141 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 199, 'max_depth': 3, 'learning_rate': 0.012055963176307402, 'subsample': 0.9875460627284097, 'colsample_bytree': 0.9838814842972695, 'reg_alpha': 1.9397007962643356, 'reg_lambda': 1.7108786190439118, 'scale_pos_weight': 12.268465280849181, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-14 22:13:45,537 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-14 22:13:45,991 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-14 22:13:45,996 | INFO |   XGBoost                | AUC=0.9520 | F1=0.6304 | Recall=0.7535 | Precision=0.5419 | Threshold=0.823
+2026-06-14 22:13:45,996 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-14 22:13:45,997 | INFO | 
+── LightGBM + Optuna ──
+2026-06-14 22:13:45,998 | INFO |   Optimisation Optuna (50 essais) sur VALIDATION seulement...
+2026-06-14 22:14:05,900 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-14 22:14:06,325 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-14 22:14:06,329 | INFO |   LightGBM               | AUC=0.9517 | F1=0.6281 | Recall=0.8240 | Precision=0.5075 | Threshold=0.783
+2026-06-14 22:14:06,329 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-14 22:14:06,330 | INFO | 
+── Random Forest Bagging ──
+2026-06-14 22:14:09,820 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-14 22:14:09,820 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-14 22:14:09,821 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-14 22:14:10,134 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.90, LightGBM=0.10
+2026-06-14 22:14:12,187 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6305 | Recall=0.7531 | Precision=0.5422 | Threshold=0.824
+2026-06-14 22:14:12,191 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-14 22:14:12,192 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-14 22:14:12,602 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0269
+2026-06-14 22:14:14,899 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.948 | VAL precision=0.8029 recall=0.0616
+2026-06-14 22:14:17,079 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-14 22:14:17,079 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-14 22:14:17,079 | INFO |   XGBoost                | AUC=0.9520 | F1=0.6304 | Recall=0.7535 | Precision=0.5419 | Threshold=0.823
+2026-06-14 22:14:17,079 | INFO |   LightGBM               | AUC=0.9517 | F1=0.6281 | Recall=0.8240 | Precision=0.5075 | Threshold=0.783
+2026-06-14 22:14:17,079 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-14 22:14:17,079 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6305 | Recall=0.7531 | Precision=0.5422 | Threshold=0.824
+2026-06-14 22:14:17,079 | INFO | 
+🏆 Meilleur modèle : SoftVoting_XGB_LGBM | precision validation = 0.5422 | AUC validation = 0.9521
+2026-06-14 22:14:17,079 | INFO | 
+── Évaluation finale TEST : SoftVoting_XGB_LGBM ──
+2026-06-14 22:14:17,152 | INFO |   SoftVoting_XGB_LGBM TEST | AUC=0.9686 | F1=0.6056 | Recall=0.5629 | Precision=0.6554 | Threshold=0.824
+2026-06-14 22:14:17,152 | INFO |   Confusion Matrix : {'tn': 26220, 'fp': 652, 'fn': 963, 'tp': 1240}
+2026-06-14 22:14:17,163 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-14 22:14:17,163 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-14 22:14:17,163 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-14 22:14:17,163 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-14 22:14:17,163 | INFO | ======================================================================
+2026-06-14 22:14:17,163 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-14 22:14:17,163 | INFO | 🏆 Meilleur modèle : SoftVoting_XGB_LGBM | AUC validation : 0.9521
+2026-06-14 22:14:17,163 | INFO | Prochaine étape : mlflow ui
+2026-06-14 22:14:17,163 | INFO | ======================================================================
+2026-06-14 23:58:14,428 | INFO | Chargement des données features...
+2026-06-14 23:58:14,528 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-14 23:58:14,528 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-14 23:58:14,529 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-14 23:58:14,529 | INFO |   Features : 28
+2026-06-14 23:58:38,558 | INFO | Chargement des données features...
+2026-06-14 23:58:38,658 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-14 23:58:38,658 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-14 23:58:38,658 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-14 23:58:38,658 | INFO |   Features : 28
+2026-06-15 00:01:06,232 | INFO | ======================================================================
+2026-06-15 00:01:06,232 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-15 00:01:06,232 | INFO | ======================================================================
+2026-06-15 00:01:06,242 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-15 00:01:06,242 | INFO | Chargement des données features...
+2026-06-15 00:01:06,335 | INFO |   Train : (30000, 28) | Taux : 7.54%
+2026-06-15 00:01:06,335 | INFO |   Val   : (29510, 28) | Taux : 9.18%
+2026-06-15 00:01:06,335 | INFO |   Test  : (29075, 28) | Taux : 7.58%
+2026-06-15 00:01:06,335 | INFO |   Features : 28
+2026-06-15 00:01:06,335 | INFO | 
+======================================================================
+2026-06-15 00:01:06,335 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-15 00:01:06,335 | INFO | ======================================================================
+2026-06-15 00:01:06,335 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-15 00:01:09,774 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-15 00:01:09,774 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-15 00:01:09,775 | INFO | 
+── XGBoost + Optuna ──
+2026-06-15 00:01:09,775 | INFO |   scale_pos_weight : 12.27
+2026-06-15 00:01:09,776 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-15 01:11:35,496 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 173, 'max_depth': 3, 'learning_rate': 0.01846067517821074, 'subsample': 0.6530590132179841, 'colsample_bytree': 0.9837524056056105, 'reg_alpha': 0.5497796858791006, 'reg_lambda': 4.19381975549963, 'scale_pos_weight': 12.268465280849181, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-15 01:11:43,653 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-15 01:11:45,709 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-15 01:11:45,737 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6298 | Recall=0.7764 | Precision=0.5297 | Threshold=0.828
+2026-06-15 01:11:45,741 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-15 01:11:45,749 | INFO | 
+── LightGBM + Optuna ──
+2026-06-15 01:11:45,751 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-15 01:13:41,181 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-15 01:13:43,286 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-15 01:13:43,312 | INFO |   LightGBM               | AUC=0.9518 | F1=0.6283 | Recall=0.8369 | Precision=0.5030 | Threshold=0.770
+2026-06-15 01:13:43,313 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-15 01:13:43,317 | INFO | 
+── CatBoost + Optuna ──
+2026-06-15 01:13:43,320 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-15 01:17:48,627 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 231, 'depth': 3, 'learning_rate': 0.02052908906857973, 'l2_leaf_reg': 7.1161243467520965, 'subsample': 0.7291233284121799, 'scale_pos_weight': 12.268465280849181, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-15 01:17:56,991 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-15 01:17:58,958 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-15 01:17:58,970 | INFO |   CatBoost               | AUC=0.9509 | F1=0.6288 | Recall=0.8170 | Precision=0.5111 | Threshold=0.804
+2026-06-15 01:17:58,970 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-15 01:17:58,975 | INFO | 
+── Random Forest Bagging ──
+2026-06-15 01:18:11,666 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-15 01:18:11,666 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-15 01:18:11,669 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-15 01:18:12,794 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.50, LightGBM=0.50
+2026-06-15 01:18:19,520 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6294 | Recall=0.8111 | Precision=0.5143 | Threshold=0.802
+2026-06-15 01:18:19,521 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-15 01:18:19,528 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-15 01:18:24,178 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.60, LightGBM=0.30, CatBoost=0.10
+2026-06-15 01:18:31,981 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9520 | F1=0.6298 | Recall=0.7978 | Precision=0.5202 | Threshold=0.813
+2026-06-15 01:18:31,982 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-15 01:18:31,988 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-15 01:18:33,871 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0269
+2026-06-15 01:18:41,048 | INFO |   XGBoost                | target=0.80 | threshold=0.946 | VAL precision=0.8228 recall=0.0240
+2026-06-15 01:18:47,235 | INFO |   CatBoost               | target=0.80 | threshold=0.961 | VAL precision=0.8021 recall=0.0284
+2026-06-15 01:18:48,552 | INFO |   CatBoost               | target=0.85 | threshold=0.961 | VAL precision=0.8554 recall=0.0262
+2026-06-15 01:18:54,615 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.948 | VAL precision=0.8029 recall=0.0616
+2026-06-15 01:19:02,858 | INFO |   SoftVoting_XGB_LGBM    | target=0.80 | threshold=0.941 | VAL precision=0.8228 recall=0.0240
+2026-06-15 01:19:07,429 | INFO |   SoftVoting_XGB_LGB_CAT | target=0.80 | threshold=0.944 | VAL precision=0.8000 recall=0.0236
+2026-06-15 01:19:08,864 | INFO |   SoftVoting_XGB_LGB_CAT | target=0.85 | threshold=0.944 | VAL precision=0.8551 recall=0.0218
+2026-06-15 01:19:12,568 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-15 01:19:12,569 | INFO |   LogisticRegression     | AUC=0.8949 | F1=0.5345 | Recall=0.6554 | Precision=0.4513 | Threshold=0.857
+2026-06-15 01:19:12,576 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6298 | Recall=0.7764 | Precision=0.5297 | Threshold=0.828
+2026-06-15 01:19:12,577 | INFO |   LightGBM               | AUC=0.9518 | F1=0.6283 | Recall=0.8369 | Precision=0.5030 | Threshold=0.770
+2026-06-15 01:19:12,577 | INFO |   CatBoost               | AUC=0.9509 | F1=0.6288 | Recall=0.8170 | Precision=0.5111 | Threshold=0.804
+2026-06-15 01:19:12,577 | INFO |   RandomForest_Bagging   | AUC=0.9445 | F1=0.6045 | Recall=0.8753 | Precision=0.4617 | Threshold=0.656
+2026-06-15 01:19:12,578 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6294 | Recall=0.8111 | Precision=0.5143 | Threshold=0.802
+2026-06-15 01:19:12,578 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9520 | F1=0.6298 | Recall=0.7978 | Precision=0.5202 | Threshold=0.813
+2026-06-15 01:19:12,578 | INFO | 
+🏆 Meilleur modèle : XGBoost | precision validation = 0.5297 | AUC validation = 0.9521
+2026-06-15 01:19:12,578 | INFO | 
+── Évaluation finale TEST : XGBoost ──
+2026-06-15 01:19:12,804 | INFO |   XGBoost TEST           | AUC=0.9686 | F1=0.6143 | Recall=0.5869 | Precision=0.6442 | Threshold=0.828
+2026-06-15 01:19:12,804 | INFO |   Confusion Matrix : {'tn': 26158, 'fp': 714, 'fn': 910, 'tp': 1293}
+2026-06-15 01:19:12,815 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-15 01:19:12,815 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-15 01:19:12,815 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-15 01:19:12,815 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-15 01:19:12,816 | INFO | ======================================================================
+2026-06-15 01:19:12,816 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-15 01:19:12,816 | INFO | 🏆 Meilleur modèle : XGBoost | AUC validation : 0.9521
+2026-06-15 01:19:12,816 | INFO | Prochaine étape : mlflow ui
+2026-06-15 01:19:12,816 | INFO | ======================================================================

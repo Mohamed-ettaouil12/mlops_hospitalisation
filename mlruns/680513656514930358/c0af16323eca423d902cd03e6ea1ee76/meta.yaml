@@ -1,0 +1,14 @@
+artifact_uri: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/c0af16323eca423d902cd03e6ea1ee76/artifacts
+end_time: 1781486291667
+entry_point_name: ''
+experiment_id: '680513656514930358'
+lifecycle_stage: active
+run_id: c0af16323eca423d902cd03e6ea1ee76
+run_name: RandomForest_Bagging
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1781486278978
+status: 3
+tags: []
+user_id: tawil

@@ -1,0 +1,14 @@
+artifact_uri: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/51ebbb936442476e9eb5d78738f3c58f/artifacts
+end_time: 1781486299521
+entry_point_name: ''
+experiment_id: '680513656514930358'
+lifecycle_stage: active
+run_id: 51ebbb936442476e9eb5d78738f3c58f
+run_name: SoftVoting_XGB_LGBM
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1781486292796
+status: 3
+tags: []
+user_id: tawil

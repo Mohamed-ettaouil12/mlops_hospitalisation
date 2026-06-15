@@ -278,3 +278,111 @@
 2026-05-10 08:28:17,655 | INFO | ============================================================
 2026-05-10 08:28:17,655 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
 2026-05-10 08:28:17,655 | INFO | ============================================================
+2026-05-10 08:44:12,741 | INFO | ============================================================
+2026-05-10 08:44:12,741 | INFO | PIPELINE DATA CLEANING — DÉBUT
+2026-05-10 08:44:12,741 | INFO | ============================================================
+2026-05-10 08:44:12,741 | INFO | Chargement Beneficiary 2008...
+2026-05-10 08:44:13,000 | INFO |   → 30,000 patients chargés
+2026-05-10 08:44:13,495 | INFO | Ben09 : 29,510 | Ben10 : 29,075
+2026-05-10 08:44:13,496 | INFO | Chargement des claims (filtrés sur les 30K patients)...
+2026-05-10 08:44:13,843 | INFO |   inpatient: 17,325 lignes
+2026-05-10 08:44:17,789 | INFO |   outpatient: 205,642 lignes
+2026-05-10 08:44:46,055 | INFO |   carrier_A: 625,356 lignes
+2026-05-10 08:45:14,825 | INFO |   carrier_B: 608,505 lignes
+2026-05-10 08:45:19,108 | INFO |   prescription: 1,436,994 lignes
+2026-05-10 08:45:19,474 | INFO | Conversion des dates...
+2026-05-10 08:45:22,580 | INFO |   → Dates converties avec succès
+2026-05-10 08:45:22,581 | INFO | Construction de la cible (OBS_DATE=2008-01-01, horizon=6M)...
+2026-05-10 08:45:22,589 | INFO |   → 2,261 patients hospitalisés | Taux : 7.54%
+2026-05-10 08:45:22,590 | INFO | Construction de la cible (OBS_DATE=2009-01-01, horizon=6M)...
+2026-05-10 08:45:22,598 | INFO |   → 2,710 patients hospitalisés | Taux : 9.18%
+2026-05-10 08:45:22,599 | INFO | Construction de la cible (OBS_DATE=2010-01-01, horizon=6M)...
+2026-05-10 08:45:22,605 | INFO |   → 2,203 patients hospitalisés | Taux : 7.58%
+2026-05-10 08:45:22,611 | INFO | Nettoyage des données patients...
+2026-05-10 08:45:22,663 | INFO |   Doublons supprimés : 0
+2026-05-10 08:45:23,005 | INFO |   Âge médian utilisé pour imputation : 72.7 ans
+2026-05-10 08:45:23,015 | INFO |   Âges aberrants supprimés : 0
+2026-05-10 08:45:23,017 | INFO |   Winsorisation MEDREIMB_IP : 882 valeurs plafonnées à 36400
+2026-05-10 08:45:23,019 | INFO |   Winsorisation BENRES_IP : 746 valeurs plafonnées à 3072
+2026-05-10 08:45:23,020 | INFO |   Winsorisation PPPYMT_IP : 410 valeurs plafonnées à 0
+2026-05-10 08:45:23,022 | INFO |   Winsorisation MEDREIMB_OP : 885 valeurs plafonnées à 6210
+2026-05-10 08:45:23,023 | INFO |   Winsorisation BENRES_OP : 880 valeurs plafonnées à 2030
+2026-05-10 08:45:23,025 | INFO |   Winsorisation PPPYMT_OP : 867 valeurs plafonnées à 300
+2026-05-10 08:45:23,027 | INFO |   Winsorisation MEDREIMB_CAR : 883 valeurs plafonnées à 6230
+2026-05-10 08:45:23,028 | INFO |   Winsorisation BENRES_CAR : 876 valeurs plafonnées à 1700
+2026-05-10 08:45:23,030 | INFO |   Winsorisation PPPYMT_CAR : 725 valeurs plafonnées à 400
+2026-05-10 08:45:23,033 | INFO |   → Table finale : 88,585 lignes, 33 colonnes
+2026-05-10 08:45:23,107 | INFO | 
+✅ Données sauvegardées → data/cleaned/patients_cleaned.parquet
+2026-05-10 08:45:23,147 | INFO |   Claims inpatient → data/cleaned/claims_inpatient_cleaned.parquet
+2026-05-10 08:45:23,612 | INFO |   Claims outpatient → data/cleaned/claims_outpatient_cleaned.parquet
+2026-05-10 08:45:24,030 | INFO |   Claims prescription → data/cleaned/claims_prescription_cleaned.parquet
+2026-05-10 08:45:26,938 | INFO |   Claims carrier → data/cleaned/claims_carrier_cleaned.parquet
+2026-05-10 08:45:26,938 | INFO | ============================================================
+2026-05-10 08:45:26,938 | INFO | PIPELINE DATA CLEANING — TERMINÉ ✅
+2026-05-10 08:45:26,938 | INFO | ============================================================
+2026-06-14 20:41:20,488 | INFO | ======================================================================
+2026-06-14 20:41:20,488 | INFO | PIPELINE DATA CLEANING — DÉBUT MEMORY-SAFE
+2026-06-14 20:41:20,488 | INFO | ======================================================================
+2026-06-14 20:41:20,488 | INFO | Chargement Beneficiary 2008...
+2026-06-14 20:41:20,778 | INFO |   → 30,000 patients chargés pour 2008
+2026-06-14 20:41:20,783 | INFO | Patients de référence sélectionnés : 30,000
+2026-06-14 20:41:20,783 | INFO | Chargement Beneficiary 2009...
+2026-06-14 20:41:21,069 | INFO |   → 29,510 patients chargés pour 2009
+2026-06-14 20:41:21,070 | INFO | Chargement Beneficiary 2010...
+2026-06-14 20:41:21,353 | INFO |   → 29,075 patients chargés pour 2010
+2026-06-14 20:41:21,354 | INFO | Chargement des claims filtrés sur les patients sélectionnés...
+2026-06-14 20:41:21,354 | INFO | Chargement inpatient par chunks memory-safe...
+2026-06-14 20:42:32,207 | INFO | PIPELINE CLEANING START
+2026-06-14 20:42:32,957 | INFO | Chargement claims SAFE...
+2026-06-14 20:45:09,714 | INFO | PIPELINE CLEANING START
+2026-06-14 20:45:09,958 | INFO | Patients 2008: 30,000
+2026-06-14 20:45:10,218 | INFO | Patients 2009: 30,000
+2026-06-14 20:45:10,441 | INFO | Patients 2010: 30,000
+2026-06-14 20:45:10,819 | INFO | inpatient: 17,325
+2026-06-14 20:45:15,848 | INFO | outpatient: 205,642
+2026-06-14 20:45:47,007 | INFO | carrier: 625,356
+2026-06-14 21:08:51,886 | INFO | PIPELINE CLEANING START
+2026-06-14 21:08:52,185 | INFO | Patients 2008: 30,000
+2026-06-14 21:08:52,455 | INFO | Patients 2009: 30,000
+2026-06-14 21:08:52,714 | INFO | Patients 2010: 30,000
+2026-06-14 21:08:53,156 | INFO | inpatient: 17,325
+2026-06-14 21:08:58,032 | INFO | outpatient: 205,642
+2026-06-14 21:09:29,545 | INFO | carrier_A: 625,356
+2026-06-14 21:10:02,669 | INFO | carrier_B: 608,505
+2026-06-14 21:10:07,276 | INFO | prescription: 1,436,994
+2026-06-14 21:10:10,543 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-14 21:10:10,551 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-14 21:10:10,558 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,328 admissions urgentes matchées | 2,261 patients uniques
+2026-06-14 21:10:10,562 | INFO | Target rate: 0.075
+2026-06-14 21:10:10,567 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,366 admissions urgentes matchées | 2,710 patients uniques
+2026-06-14 21:10:10,573 | INFO | Target rate: 0.025
+2026-06-14 21:10:10,578 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,463 admissions urgentes matchées | 2,203 patients uniques
+2026-06-14 21:10:10,584 | INFO | Target rate: 0.019
+2026-06-14 21:10:10,829 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-14 21:10:11,511 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-14 21:10:12,236 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-14 21:10:16,417 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-14 21:10:16,417 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-14 21:10:54,561 | INFO | PIPELINE CLEANING START
+2026-06-14 21:10:54,867 | INFO | Patients 2008: 30,000
+2026-06-14 21:10:55,154 | INFO | Patients 2009: 29,510
+2026-06-14 21:10:55,430 | INFO | Patients 2010: 29,075
+2026-06-14 21:10:55,865 | INFO | inpatient: 17,325
+2026-06-14 21:11:00,770 | INFO | outpatient: 205,642
+2026-06-14 21:11:31,865 | INFO | carrier_A: 625,356
+2026-06-14 21:12:03,662 | INFO | carrier_B: 608,505
+2026-06-14 21:12:08,257 | INFO | prescription: 1,436,994
+2026-06-14 21:12:11,524 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-14 21:12:11,525 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-14 21:12:11,529 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,328 admissions urgentes matchées | 2,261 patients uniques
+2026-06-14 21:12:11,533 | INFO | Target rate: 0.075
+2026-06-14 21:12:11,538 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,366 admissions urgentes matchées | 2,710 patients uniques
+2026-06-14 21:12:11,541 | INFO | Target rate: 0.092
+2026-06-14 21:12:11,545 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,463 admissions urgentes matchées | 2,203 patients uniques
+2026-06-14 21:12:11,548 | INFO | Target rate: 0.076
+2026-06-14 21:12:11,742 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-14 21:12:12,411 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-14 21:12:13,081 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-14 21:12:17,160 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-14 21:12:17,160 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅

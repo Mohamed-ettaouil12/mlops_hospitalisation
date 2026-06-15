@@ -1,0 +1,10 @@
+artifact_location: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/models/m-182a8e016e084874881abd6dd636191e/artifacts
+creation_timestamp: 1781474937686
+experiment_id: '680513656514930358'
+last_updated_timestamp: 1781474939994
+model_id: m-182a8e016e084874881abd6dd636191e
+model_type: null
+name: model
+source_run_id: 519b05f9552b4caca75d112a546680f5
+status: 2
+status_message: null

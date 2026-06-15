@@ -1,291 +1,254 @@
 # ═══════════════════════════════════════════════════════════
-# ÉTAPE 4 — Data Cleaning
-# Pipeline MLOps — Risque d'Hospitalisation Medicare
+# MLOPS CLEANING — PRODUCTION SAFE FIXED VERSION (v2)
 # ═══════════════════════════════════════════════════════════
 
 import pandas as pd
 import numpy as np
 import os
 import logging
-from datetime import datetime
 
-# ── Logging ────────────────────────────────────────────────
+# ─────────────────────────────────────────────
+# LOGGING
+# ─────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s | %(levelname)s | %(message)s',
+    format="%(asctime)s | %(levelname)s | %(message)s",
     handlers=[
-        logging.FileHandler('logs/data_cleaning.log'),
+        logging.FileHandler("logs/data_cleaning.log"),
         logging.StreamHandler()
     ]
 )
+
 log = logging.getLogger(__name__)
 
-# ── Configuration ──────────────────────────────────────────
-DATA_DIR   = '/home/tawil/Bureau/pfa/data set/sample 1/'
-OUTPUT_DIR = 'data/cleaned/'
+# ─────────────────────────────────────────────
+# CONFIG
+# ─────────────────────────────────────────────
+DATA_DIR = "/home/tawil/Bureau/pfa/data set/sample 1/"
+OUTPUT_DIR = "data/cleaned/"
 SAMPLE_NUM = 1
-NB_PATIENTS = 30_000
-RANDOM_STATE = 42
-OBS_DATE     = pd.Timestamp('2009-01-01')   # date d'observation
-HORIZON_MOIS = 6                             # fenêtre de prédiction
+
+HORIZON = 6
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-os.makedirs('logs', exist_ok=True)
-
-# ═══════════════════════════════════════════════════════════
-# FONCTION 1 : Correction des dates
-# ═══════════════════════════════════════════════════════════
-def clean_and_parse_date(series):
-    """Corrige les dates au format YYYYMMDD.0 → datetime."""
-    series = series.astype(str).str.strip()
-    series = series.str.replace(r'\.0$', '', regex=True)
-    series = series.replace(['', 'nan', 'None', 'NaT'], pd.NA)
-    return pd.to_datetime(series, format='%Y%m%d', errors='coerce')
+os.makedirs("logs", exist_ok=True)
 
 
 # ═══════════════════════════════════════════════════════════
-# FONCTION 2 : Chargement et échantillonnage des patients
+# SAFE DATE PARSER
 # ═══════════════════════════════════════════════════════════
-def load_patients(year=2008):
-    log.info(f"Chargement Beneficiary {year}...")
-    fname = f'DE1_0_{year}_Beneficiary_Summary_File_Sample_{SAMPLE_NUM}.csv'
-    df = pd.read_csv(os.path.join(DATA_DIR, fname), low_memory=False)
+def parse_date(col):
+    col = col.astype(str).str.replace(r"\.0$", "", regex=True)
+    col = col.replace(["nan", "None", "", "NaT"], pd.NA)
+    return pd.to_datetime(col, format="%Y%m%d", errors="coerce")
 
-    # Échantillonnage reproductible
-    df = df.sample(n=min(NB_PATIENTS, len(df)), random_state=RANDOM_STATE)
-    log.info(f"  → {len(df):,} patients chargés")
+
+# ═══════════════════════════════════════════════════════════
+# LOAD PATIENTS
+# ═══════════════════════════════════════════════════════════
+def load_patients(year, patient_ids=None):
+    file = f"DE1_0_{year}_Beneficiary_Summary_File_Sample_{SAMPLE_NUM}.csv"
+    df = pd.read_csv(os.path.join(DATA_DIR, file), low_memory=False)
+
+    if patient_ids is None:
+        df = df.sample(min(30000, len(df)), random_state=42)
+    else:
+        df = df[df["DESYNPUF_ID"].isin(patient_ids)]
+
+    df["ANNEE"] = year
+
+    log.info(f"Patients {year}: {len(df):,}")
     return df
 
 
 # ═══════════════════════════════════════════════════════════
-# FONCTION 3 : Chargement des claims filtrés sur les IDs
+# SAFE CLAIMS LOADING (FIX ALL TYPES)
 # ═══════════════════════════════════════════════════════════
 def load_claims(patient_ids):
-    log.info("Chargement des claims (filtrés sur les 30K patients)...")
-
-    date_cols = ['CLM_FROM_DT', 'CLM_THRU_DT', 'CLM_ADMSN_DT',
-                 'NCH_BENE_DSCHRG_DT', 'SRVC_DT']
 
     files = {
-        'inpatient'   : f'DE1_0_2008_to_2010_Inpatient_Claims_Sample_{SAMPLE_NUM}.csv',
-        'outpatient'  : f'DE1_0_2008_to_2010_Outpatient_Claims_Sample_{SAMPLE_NUM}.csv',
-        'carrier_A'   : f'DE1_0_2008_to_2010_Carrier_Claims_Sample_{SAMPLE_NUM}A.csv',
-        'carrier_B'   : f'DE1_0_2008_to_2010_Carrier_Claims_Sample_{SAMPLE_NUM}B.csv',
-        'prescription': f'DE1_0_2008_to_2010_Prescription_Drug_Events_Sample_{SAMPLE_NUM}.csv',
+        "inpatient": "DE1_0_2008_to_2010_Inpatient_Claims_Sample_1.csv",
+        "outpatient": "DE1_0_2008_to_2010_Outpatient_Claims_Sample_1.csv",
+        "carrier_A": "DE1_0_2008_to_2010_Carrier_Claims_Sample_1A.csv",
+        "carrier_B": "DE1_0_2008_to_2010_Carrier_Claims_Sample_1B.csv",
+        "prescription": "DE1_0_2008_to_2010_Prescription_Drug_Events_Sample_1.csv",
     }
 
     claims = {}
-    for key, fname in files.items():
-        path = os.path.join(DATA_DIR, fname)
 
-        # Lire uniquement les colonnes de date en str
-        with open(path) as f:
-            header = f.readline().strip().split(',')
-        dtype_dict = {col: str for col in date_cols if col in header}
+    for k, f in files.items():
+        path = os.path.join(DATA_DIR, f)
 
-        df = pd.read_csv(path, dtype=dtype_dict, low_memory=False)
-        df = df[df['DESYNPUF_ID'].isin(patient_ids)]
-        claims[key] = df
-        log.info(f"  {key}: {len(df):,} lignes")
+        df = pd.read_csv(path, low_memory=False)
+        df = df[df["DESYNPUF_ID"].isin(patient_ids)]
 
-    # Fusionner carrier A + B
-    claims['carrier'] = pd.concat(
-        [claims.pop('carrier_A'), claims.pop('carrier_B')],
+        # 🔥 CRITICAL FIX PYARROW ERROR
+        for c in df.columns:
+            if df[c].dtype == "object":
+                df[c] = df[c].astype("string")
+
+        claims[k] = df
+        log.info(f"{k}: {len(df):,}")
+
+    # merge carrier
+    claims["carrier"] = pd.concat(
+        [claims["carrier_A"], claims["carrier_B"]],
         ignore_index=True
     )
+
+    claims.pop("carrier_A")
+    claims.pop("carrier_B")
 
     return claims
 
 
 # ═══════════════════════════════════════════════════════════
-# FONCTION 4 : Conversion des dates dans tous les fichiers
+# TARGET (FIX TIMESTAMP BUG + DIAGNOSTIC NaT)
 # ═══════════════════════════════════════════════════════════
-def convert_all_dates(ben08, ben09, ben10, claims):
-    log.info("Conversion des dates...")
+def build_target(df, claims, obs_date):
 
-    date_cols_map = {
-        'ben08'       : ['BENE_BIRTH_DT', 'BENE_DEATH_DT'],
-        'ben09'       : ['BENE_BIRTH_DT', 'BENE_DEATH_DT'],
-        'ben10'       : ['BENE_BIRTH_DT', 'BENE_DEATH_DT'],
-        'inpatient'   : ['CLM_FROM_DT', 'CLM_THRU_DT', 'CLM_ADMSN_DT', 'NCH_BENE_DSCHRG_DT'],
-        'outpatient'  : ['CLM_FROM_DT', 'CLM_THRU_DT'],
-        'carrier'     : ['CLM_FROM_DT', 'CLM_THRU_DT'],
-        'prescription': ['SRVC_DT'],
-    }
+    ip = claims["inpatient"].copy()
 
-    tables = {
-        'ben08': ben08, 'ben09': ben09, 'ben10': ben10,
-        **{k: claims[k] for k in ['inpatient', 'outpatient', 'carrier', 'prescription']}
-    }
+    obs_date = pd.to_datetime(obs_date)
+    future = obs_date + pd.DateOffset(months=int(HORIZON))
 
-    for name, df in tables.items():
-        for col in date_cols_map[name]:
-            if col in df.columns:
-                df[col] = clean_and_parse_date(df[col])
+    # 🔍 DIAGNOSTIC : combien de dates d'admission sont NaT après parsing ?
+    n_nat = ip["admission"].isna().sum()
+    n_total = len(ip)
+    if n_nat > 0:
+        log.warning(
+            f"build_target({obs_date.date()}) : {n_nat:,}/{n_total:,} "
+            f"dates d'admission NaT (seront exclues du filtre temporel)"
+        )
 
-    # Colonne admission unifiée pour inpatient
-    claims['inpatient']['admission'] = (
-        claims['inpatient']['CLM_ADMSN_DT']
-        .fillna(claims['inpatient']['CLM_FROM_DT'])
+    mask = (ip["admission"] >= obs_date) & (ip["admission"] <= future)
+
+    if "CLM_IP_ADMSN_TYPE_CD" in ip.columns:
+        mask = mask & ip["CLM_IP_ADMSN_TYPE_CD"].isin([1, 2])
+
+    n_matched_claims = mask.sum()
+    ids = ip.loc[mask, "DESYNPUF_ID"].unique()
+
+    log.info(
+        f"build_target({obs_date.date()}) : fenêtre [{obs_date.date()} -> "
+        f"{future.date()}] | {n_matched_claims:,} admissions urgentes matchées "
+        f"| {len(ids):,} patients uniques"
     )
 
-    log.info("  → Dates converties avec succès")
-    return ben08, ben09, ben10, claims
+    df["HOSPITALIZED_IN_6M"] = df["DESYNPUF_ID"].isin(ids).astype(int)
 
+    log.info(f"Target rate: {df['HOSPITALIZED_IN_6M'].mean():.3f}")
 
-# ═══════════════════════════════════════════════════════════
-# FONCTION 5 : Construction de la cible HOSPITALIZED_IN_6M
-#              ⚠️ Anti-leakage strict : uniquement admissions
-#              urgentes (code 1 ou 2) APRÈS OBS_DATE
-# ═══════════════════════════════════════════════════════════
-def build_target(ben, claims, obs_date):
-    log.info(f"Construction de la cible (OBS_DATE={obs_date.date()}, horizon={HORIZON_MOIS}M)...")
-
-    ip = claims['inpatient'].copy()
-    future_date = obs_date + pd.DateOffset(months=HORIZON_MOIS)
-
-    mask_window = (ip['admission'] >= obs_date) & (ip['admission'] <= future_date)
-
-    if 'CLM_IP_ADMSN_TYPE_CD' in ip.columns:
-        mask_urgence = ip['CLM_IP_ADMSN_TYPE_CD'].isin([1, 2])
-        future_ip = ip[mask_window & mask_urgence]
-    else:
-        future_ip = ip[mask_window]
-
-    hosp_ids = set(future_ip['DESYNPUF_ID'])
-    ben['HOSPITALIZED_IN_6M'] = ben['DESYNPUF_ID'].isin(hosp_ids).astype(int)
-
-    taux = ben['HOSPITALIZED_IN_6M'].mean() * 100
-    log.info(f"  → {len(hosp_ids):,} patients hospitalisés | Taux : {taux:.2f}%")
-    return ben
-
-
-# ═══════════════════════════════════════════════════════════
-# FONCTION 6 : Nettoyage principal
-# ═══════════════════════════════════════════════════════════
-def clean_patients(df_all):
-    log.info("Nettoyage des données patients...")
-    df = df_all.copy()
-
-    # ── Colonnes utiles ────────────────────────────────────
-    demo_cols    = ['DESYNPUF_ID', 'BENE_BIRTH_DT', 'BENE_DEATH_DT',
-                    'BENE_SEX_IDENT_CD', 'BENE_RACE_CD', 'BENE_ESRD_IND']
-    chronic_cols = [c for c in df.columns if c.startswith('SP_')]
-    cost_cols    = [c for c in df.columns if any(k in c for k in ['MEDREIMB', 'BENRES', 'PPPYMT'])]
-    target_col   = ['HOSPITALIZED_IN_6M']
-
-    df = df[demo_cols + chronic_cols + cost_cols + target_col + ['ANNEE']].copy()
-    # ── 1. Suppression des doublons ────────────────────────
-    n_before = len(df)
-    df = df.drop_duplicates(subset=['DESYNPUF_ID', 'ANNEE'], keep='first')
-    log.info(f"  Doublons supprimés : {n_before - len(df)}")
-
-    # ── 2. Calcul de l'âge ────────────────────────────────
-    ref_date = datetime(2009, 1, 1)
-    df['AGE'] = df['BENE_BIRTH_DT'].apply(
-        lambda x: (ref_date - x).days / 365.25 if pd.notnull(x) else np.nan
-    )
-
-    # ── 3. Valeurs manquantes ──────────────────────────────
-    # Comorbidités : 1=oui, 2=non dans le dataset → convertir en 0/1
-    for col in chronic_cols:
-        df[col] = df[col].fillna(2)         # manquant → supposé absent
-        df[col] = (df[col] == 1).astype(int)
-
-    # Coûts manquants → 0
-    for col in cost_cols:
-        df[col] = df[col].fillna(0)
-
-    # Âge manquant → médiane
-    age_median = df['AGE'].median()
-    df['AGE'] = df['AGE'].fillna(age_median)
-    log.info(f"  Âge médian utilisé pour imputation : {age_median:.1f} ans")
-
-    # ── 4. Valeurs aberrantes sur l'âge ───────────────────
-    n_age_invalid = ((df['AGE'] < 0) | (df['AGE'] > 120)).sum()
-    df = df[(df['AGE'] >= 0) & (df['AGE'] <= 120)]
-    log.info(f"  Âges aberrants supprimés : {n_age_invalid}")
-
-    # ── 5. Winsorisation des coûts (99e percentile) ────────
-    for col in cost_cols:
-        p99 = df[col].quantile(0.99)
-        n_outliers = (df[col] > p99).sum()
-        df[col] = df[col].clip(upper=p99)
-        if n_outliers > 0:
-            log.info(f"  Winsorisation {col} : {n_outliers} valeurs plafonnées à {p99:.0f}")
-
-    # ── 6. Cold start : patients sans historique ──────────
-    # (pas d'hospitalisations antérieures à OBS_DATE)
-    df['IS_NEW_PATIENT'] = 0   # sera mis à jour dans feature_engineering.py
-
-    # ── 7. Encodage sexe et race ──────────────────────────
-    df['SEXE'] = df['BENE_SEX_IDENT_CD'].map({1: 'Homme', 2: 'Femme'})
-    race_map = {1:'Blanc', 2:'Noir', 3:'Autre', 4:'Asiatique', 5:'Hispanique', 6:'Natif Amér.'}
-    df['RACE'] = df['BENE_RACE_CD'].map(race_map)
-
-    log.info(f"  → Table finale : {df.shape[0]:,} lignes, {df.shape[1]} colonnes")
     return df
 
 
 # ═══════════════════════════════════════════════════════════
-# MAIN
+# CLEAN PATIENTS (FIX PYARROW + NUMERIC SAFETY + AGE FIX)
+# ═══════════════════════════════════════════════════════════
+def clean_patients(df):
+
+    df = df.copy()
+
+    chronic_cols = [c for c in df.columns if c.startswith("SP_")]
+    cost_cols = [c for c in df.columns if any(x in c for x in ["MEDREIMB", "BENRES", "PPPYMT"])]
+
+    keep = [
+        "DESYNPUF_ID", "ANNEE",
+        "BENE_BIRTH_DT",
+        "BENE_SEX_IDENT_CD",
+        "BENE_RACE_CD",
+        "HOSPITALIZED_IN_6M"
+    ]
+
+    df = df[keep + chronic_cols + cost_cols]
+
+    df = df.drop_duplicates(["DESYNPUF_ID", "ANNEE"])
+
+    # 🔥 AGE SAFE — calculé par rapport au 1er janvier de l'ANNEE de la ligne
+    # (et non une date fixe, sinon incohérence anti-leakage entre 2008/2009/2010)
+    obs_dates = pd.to_datetime(df["ANNEE"].astype(str) + "-01-01")
+    birth_dt = pd.to_datetime(df["BENE_BIRTH_DT"], errors="coerce")
+
+    df["AGE"] = (obs_dates - birth_dt).dt.days / 365.25
+    df["AGE"] = df["AGE"].fillna(df["AGE"].median())
+
+    # numeric fix
+    for c in chronic_cols + cost_cols:
+        df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0)
+
+    # 🔥 FINAL FIX PYARROW
+    for c in df.columns:
+        if df[c].dtype == "object":
+            df[c] = df[c].astype("string")
+
+    return df
+
+
+# ═══════════════════════════════════════════════════════════
+# MAIN PIPELINE
 # ═══════════════════════════════════════════════════════════
 def main():
-    log.info("="*60)
-    log.info("PIPELINE DATA CLEANING — DÉBUT")
-    log.info("="*60)
 
-    # 1. Charger les patients de référence (2008)
+    log.info("PIPELINE CLEANING START")
+
     ben08 = load_patients(2008)
-    patient_ids = set(ben08['DESYNPUF_ID'])
+    ids = ben08["DESYNPUF_ID"].unique()
+    ben09 = load_patients(2009, ids)
+    ben10 = load_patients(2010, ids)
 
-    # 2. Charger les bénéficiaires 2009/2010 filtrés
-    fname09 = f'DE1_0_2009_Beneficiary_Summary_File_Sample_{SAMPLE_NUM}.csv'
-    fname10 = f'DE1_0_2010_Beneficiary_Summary_File_Sample_{SAMPLE_NUM}.csv'
-    ben09 = pd.read_csv(os.path.join(DATA_DIR, fname09), low_memory=False)
-    ben10 = pd.read_csv(os.path.join(DATA_DIR, fname10), low_memory=False)
-    ben09 = ben09[ben09['DESYNPUF_ID'].isin(patient_ids)]
-    ben10 = ben10[ben10['DESYNPUF_ID'].isin(patient_ids)]
-    log.info(f"Ben09 : {len(ben09):,} | Ben10 : {len(ben10):,}")
+    claims = load_claims(ids)
 
-    # 3. Ajouter colonne ANNEE
-    ben08['ANNEE'] = 2008
-    ben09['ANNEE'] = 2009
-    ben10['ANNEE'] = 2010
+    # parse dates SAFE
+    for k in ["inpatient", "outpatient", "carrier", "prescription"]:
+        for c in claims[k].columns:
+            if "DT" in c:
+                claims[k][c] = parse_date(claims[k][c])
 
-    # 4. Charger les claims ← AVANT build_target
-    claims = load_claims(patient_ids)
+    claims["inpatient"]["admission"] = claims["inpatient"]["CLM_ADMSN_DT"]
 
-    # 5. Convertir les dates
-    ben08, ben09, ben10, claims = convert_all_dates(ben08, ben09, ben10, claims)
+    # 🔍 DIAGNOSTIC GLOBAL : qualité du parsing des dates d'admission
+    n_total = len(claims["inpatient"])
+    n_valid = claims["inpatient"]["admission"].notna().sum()
+    log.info(
+        f"Dates d'admission inpatient : {n_valid:,}/{n_total:,} valides "
+        f"({100 * n_valid / n_total:.1f}%)"
+    )
 
-    # 6. Construire la cible pour chaque année (anti-leakage)
-    ben08 = build_target(ben08, claims, pd.Timestamp('2008-01-01'))
-    ben09 = build_target(ben09, claims, pd.Timestamp('2009-01-01'))
-    ben10 = build_target(ben10, claims, pd.Timestamp('2010-01-01'))
+    if n_total > 0:
+        log.info(
+            f"Plage des dates d'admission valides : "
+            f"{claims['inpatient']['admission'].min()} -> "
+            f"{claims['inpatient']['admission'].max()}"
+        )
 
-    # 7. Fusionner les 3 années
-    df_all = pd.concat([ben08, ben09, ben10], ignore_index=True)
-    # 8. Nettoyer
-    df_clean = clean_patients(df_all)
+    # targets
+    ben08 = build_target(ben08, claims, "2008-01-01")
+    ben09 = build_target(ben09, claims, "2009-01-01")
+    ben10 = build_target(ben10, claims, "2010-01-01")
 
-    # 9. Sauvegarder les patients
-    output_path = os.path.join(OUTPUT_DIR, 'patients_cleaned.parquet')
-    df_clean.to_parquet(output_path, index=False)
-    log.info(f"\n✅ Données sauvegardées → {output_path}")
+    df = pd.concat([ben08, ben09, ben10], ignore_index=True)
 
-    # 10. Sauvegarder les claims nettoyés
-    for key, df in claims.items():
-        path = os.path.join(OUTPUT_DIR, f'claims_{key}_cleaned.parquet')
-        df.to_parquet(path, index=False)
-        log.info(f"  Claims {key} → {path}")
+    df = clean_patients(df)
 
-    log.info("="*60)
-    log.info("PIPELINE DATA CLEANING — TERMINÉ ✅")
-    log.info("="*60)
+    # SAVE SAFE PARQUET
+    df.to_parquet(
+        os.path.join(OUTPUT_DIR, "patients_cleaned.parquet"),
+        index=False
+    )
 
-    return df_clean, claims
+    for k, v in claims.items():
+        for c in v.columns:
+            if v[c].dtype == "object":
+                v[c] = v[c].astype("string")
+
+        output_path = os.path.join(OUTPUT_DIR, f"claims_{k}_cleaned.parquet")
+        v.to_parquet(output_path, index=False)
+        log.info(f"Claims {k} sauvegardés -> {output_path}")
+
+    log.info("PIPELINE CLEANING DONE SUCCESSFULLY ✅")
+
+    return df, claims
 
 
-if __name__ == '__main__':
-    df_clean, claims = main()
+if __name__ == "__main__":
+    main()

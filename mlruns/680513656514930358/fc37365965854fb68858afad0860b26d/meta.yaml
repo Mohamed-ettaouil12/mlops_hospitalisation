@@ -1,0 +1,14 @@
+artifact_uri: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/fc37365965854fb68858afad0860b26d/artifacts
+end_time: 1781471956742
+entry_point_name: ''
+experiment_id: '680513656514930358'
+lifecycle_stage: active
+run_id: fc37365965854fb68858afad0860b26d
+run_name: LogisticRegression
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1781471953953
+status: 3
+tags: []
+user_id: tawil

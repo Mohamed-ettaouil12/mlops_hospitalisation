@@ -1,0 +1,22 @@
+artifact_path: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/models/m-2785862a75dd4e21ba5418c2cfe6140a/artifacts
+flavors:
+  python_function:
+    data: model.ubj
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.14.4
+  xgboost:
+    code: null
+    data: model.ubj
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: ubj
+    xgb_version: 3.2.0
+mlflow_version: 3.12.0
+model_id: m-2785862a75dd4e21ba5418c2cfe6140a
+model_size_bytes: 227195
+model_uuid: m-2785862a75dd4e21ba5418c2cfe6140a
+prompts: null
+run_id: 2662bd8aa8f643109934d7afe5542df1
+utc_time_created: '2026-06-14 22:08:34.495251'

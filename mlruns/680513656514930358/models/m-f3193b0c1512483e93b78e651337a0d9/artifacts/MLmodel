@@ -1,0 +1,23 @@
+artifact_path: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/models/m-f3193b0c1512483e93b78e651337a0d9/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.14.4
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.12.0
+model_id: m-f3193b0c1512483e93b78e651337a0d9
+model_size_bytes: 8760214
+model_uuid: m-f3193b0c1512483e93b78e651337a0d9
+prompts: null
+run_id: c0af16323eca423d902cd03e6ea1ee76
+utc_time_created: '2026-06-15 01:18:05.618429'

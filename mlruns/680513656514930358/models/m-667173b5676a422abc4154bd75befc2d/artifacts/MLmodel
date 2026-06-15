@@ -1,0 +1,23 @@
+artifact_path: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/models/m-667173b5676a422abc4154bd75befc2d/artifacts
+flavors:
+  lightgbm:
+    code: null
+    data: model.pkl
+    lgb_version: 4.6.0
+    model_class: lightgbm.sklearn.LGBMClassifier
+    serialization_format: cloudpickle
+    skops_trusted_types: null
+  python_function:
+    data: model.pkl
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.14.4
+mlflow_version: 3.12.0
+model_id: m-667173b5676a422abc4154bd75befc2d
+model_size_bytes: 912429
+model_uuid: m-667173b5676a422abc4154bd75befc2d
+prompts: null
+run_id: fdc323a00d05496c82ca522bbc711e20
+utc_time_created: '2026-05-10 08:51:27.203772'

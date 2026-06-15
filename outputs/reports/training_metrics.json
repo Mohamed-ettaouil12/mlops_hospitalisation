@@ -1,0 +1,468 @@
+{
+  "best_model": "XGBoost",
+  "all_info": {
+    "best_model": "XGBoost",
+    "best_model_path": "models/best_model.pkl",
+    "threshold": 0.8275833129882812,
+    "threshold_beta": 1.0,
+    "selection_metric": "precision",
+    "min_recall_for_selection": 0.5,
+    "validation_metrics": {
+      "auc_roc": 0.9521068045381946,
+      "f1": 0.6297515713858126,
+      "precision": 0.5297079556898288,
+      "recall": 0.7763837638376384,
+      "threshold": 0.8275833129882812
+    },
+    "test_metrics": {
+      "auc_roc": 0.9685939036554256,
+      "f1": 0.6142517814726841,
+      "precision": 0.6442451420029895,
+      "recall": 0.5869269178393101,
+      "threshold": 0.8275833129882812
+    },
+    "confusion_matrix_test": {
+      "tn": 26158,
+      "fp": 714,
+      "fn": 910,
+      "tp": 1293
+    },
+    "model_params": {
+      "n_estimators": 173,
+      "max_depth": 3,
+      "learning_rate": 0.01846067517821074,
+      "subsample": 0.6530590132179841,
+      "colsample_bytree": 0.9837524056056105,
+      "reg_alpha": 0.5497796858791006,
+      "reg_lambda": 4.19381975549963,
+      "scale_pos_weight": 12.268465280849181,
+      "objective": "binary:logistic",
+      "eval_metric": "auc",
+      "random_state": 42,
+      "n_jobs": -1,
+      "tree_method": "hist"
+    },
+    "high_precision_report": {
+      "targets": [
+        0.8,
+        0.85,
+        0.89,
+        0.9,
+        0.93
+      ],
+      "min_positive_predictions_validation": 50,
+      "note": "Les seuils sont choisis sur validation uniquement. Le test est affiché pour controle, pas pour sélectionner le modèle.",
+      "models": {
+        "LogisticRegression": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.9999992060526028,
+            "validation_metrics": {
+              "auc_roc": 0.8949268877017129,
+              "f1": 0.052124241342377725,
+              "precision": 0.8021978021978022,
+              "recall": 0.026937269372693726,
+              "threshold": 0.9999992060526028
+            },
+            "validation_confusion_matrix": {
+              "tn": 26782,
+              "fp": 18,
+              "fn": 2637,
+              "tp": 73
+            },
+            "validation_predicted_positive": 91,
+            "test_metrics": {
+              "auc_roc": 0.8789607752939677,
+              "f1": 0.0241179097811523,
+              "precision": 0.75,
+              "recall": 0.012256014525646845,
+              "threshold": 0.9999992060526028
+            },
+            "test_confusion_matrix": {
+              "tn": 26863,
+              "fp": 9,
+              "fn": 2176,
+              "tp": 27
+            },
+            "test_predicted_positive": 36
+          },
+          "0.85": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "XGBoost": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.945509135723114,
+            "validation_metrics": {
+              "auc_roc": 0.9521068045381946,
+              "f1": 0.046611688777339545,
+              "precision": 0.8227848101265823,
+              "recall": 0.023985239852398525,
+              "threshold": 0.945509135723114
+            },
+            "validation_confusion_matrix": {
+              "tn": 26786,
+              "fp": 14,
+              "fn": 2645,
+              "tp": 65
+            },
+            "validation_predicted_positive": 79,
+            "test_metrics": {
+              "auc_roc": 0.9685939036554256,
+              "f1": 0.0072300045187528245,
+              "precision": 0.8,
+              "recall": 0.003631411711302769,
+              "threshold": 0.945509135723114
+            },
+            "test_confusion_matrix": {
+              "tn": 26870,
+              "fp": 2,
+              "fn": 2195,
+              "tp": 8
+            },
+            "test_predicted_positive": 10
+          },
+          "0.85": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "LightGBM": {
+          "0.80": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.85": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "CatBoost": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.9607191573690294,
+            "validation_metrics": {
+              "auc_roc": 0.9509398303684529,
+              "f1": 0.0548823948681397,
+              "precision": 0.8020833333333334,
+              "recall": 0.02841328413284133,
+              "threshold": 0.9607191573690294
+            },
+            "validation_confusion_matrix": {
+              "tn": 26781,
+              "fp": 19,
+              "fn": 2633,
+              "tp": 77
+            },
+            "validation_predicted_positive": 96,
+            "test_metrics": {
+              "auc_roc": 0.9674186645264509,
+              "f1": 0.002717391304347826,
+              "precision": 0.6,
+              "recall": 0.0013617793917385383,
+              "threshold": 0.9607191573690294
+            },
+            "test_confusion_matrix": {
+              "tn": 26870,
+              "fp": 2,
+              "fn": 2200,
+              "tp": 3
+            },
+            "test_predicted_positive": 5
+          },
+          "0.85": {
+            "achievable": true,
+            "threshold": 0.9613998888321054,
+            "validation_metrics": {
+              "auc_roc": 0.9509398303684529,
+              "f1": 0.05084138918725385,
+              "precision": 0.8554216867469879,
+              "recall": 0.026199261992619925,
+              "threshold": 0.9613998888321054
+            },
+            "validation_confusion_matrix": {
+              "tn": 26788,
+              "fp": 12,
+              "fn": 2639,
+              "tp": 71
+            },
+            "validation_predicted_positive": 83,
+            "test_metrics": {
+              "auc_roc": 0.9674186645264509,
+              "f1": 0.002717391304347826,
+              "precision": 0.6,
+              "recall": 0.0013617793917385383,
+              "threshold": 0.9613998888321054
+            },
+            "test_confusion_matrix": {
+              "tn": 26870,
+              "fp": 2,
+              "fn": 2200,
+              "tp": 3
+            },
+            "test_predicted_positive": 5
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "RandomForest_Bagging": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.9475292225164711,
+            "validation_metrics": {
+              "auc_roc": 0.9444708789998347,
+              "f1": 0.11446196024674435,
+              "precision": 0.8028846153846154,
+              "recall": 0.06162361623616236,
+              "threshold": 0.9475292225164711
+            },
+            "validation_confusion_matrix": {
+              "tn": 26759,
+              "fp": 41,
+              "fn": 2543,
+              "tp": 167
+            },
+            "validation_predicted_positive": 208,
+            "test_metrics": {
+              "auc_roc": 0.9627391019472351,
+              "f1": 0.01883408071748879,
+              "precision": 0.7777777777777778,
+              "recall": 0.009532455742169769,
+              "threshold": 0.9475292225164711
+            },
+            "test_confusion_matrix": {
+              "tn": 26866,
+              "fp": 6,
+              "fn": 2182,
+              "tp": 21
+            },
+            "test_predicted_positive": 27
+          },
+          "0.85": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "SoftVoting_XGB_LGBM": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.9409529723671155,
+            "validation_metrics": {
+              "auc_roc": 0.9520728988819739,
+              "f1": 0.046611688777339545,
+              "precision": 0.8227848101265823,
+              "recall": 0.023985239852398525,
+              "threshold": 0.9409529723671155
+            },
+            "validation_confusion_matrix": {
+              "tn": 26786,
+              "fp": 14,
+              "fn": 2645,
+              "tp": 65
+            },
+            "validation_predicted_positive": 79,
+            "test_metrics": {
+              "auc_roc": 0.9686464214202479,
+              "f1": 0.0072300045187528245,
+              "precision": 0.8,
+              "recall": 0.003631411711302769,
+              "threshold": 0.9409529723671155
+            },
+            "test_confusion_matrix": {
+              "tn": 26870,
+              "fp": 2,
+              "fn": 2195,
+              "tp": 8
+            },
+            "test_predicted_positive": 10
+          },
+          "0.85": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        },
+        "SoftVoting_XGB_LGB_CAT": {
+          "0.80": {
+            "achievable": true,
+            "threshold": 0.9443144656127047,
+            "validation_metrics": {
+              "auc_roc": 0.9520498017293605,
+              "f1": 0.045878136200716846,
+              "precision": 0.8,
+              "recall": 0.023616236162361623,
+              "threshold": 0.9443144656127047
+            },
+            "validation_confusion_matrix": {
+              "tn": 26784,
+              "fp": 16,
+              "fn": 2646,
+              "tp": 64
+            },
+            "validation_predicted_positive": 80,
+            "test_metrics": {
+              "auc_roc": 0.9686634994068144,
+              "f1": 0.002718622564567286,
+              "precision": 0.75,
+              "recall": 0.0013617793917385383,
+              "threshold": 0.9443144656127047
+            },
+            "test_confusion_matrix": {
+              "tn": 26871,
+              "fp": 1,
+              "fn": 2200,
+              "tp": 3
+            },
+            "test_predicted_positive": 4
+          },
+          "0.85": {
+            "achievable": true,
+            "threshold": 0.9443821775448633,
+            "validation_metrics": {
+              "auc_roc": 0.9520498017293605,
+              "f1": 0.04246131702051097,
+              "precision": 0.855072463768116,
+              "recall": 0.021771217712177122,
+              "threshold": 0.9443821775448633
+            },
+            "validation_confusion_matrix": {
+              "tn": 26790,
+              "fp": 10,
+              "fn": 2651,
+              "tp": 59
+            },
+            "validation_predicted_positive": 69,
+            "test_metrics": {
+              "auc_roc": 0.9686634994068144,
+              "f1": 0.002718622564567286,
+              "precision": 0.75,
+              "recall": 0.0013617793917385383,
+              "threshold": 0.9443821775448633
+            },
+            "test_confusion_matrix": {
+              "tn": 26871,
+              "fp": 1,
+              "fn": 2200,
+              "tp": 3
+            },
+            "test_predicted_positive": 4
+          },
+          "0.89": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.90": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          },
+          "0.93": {
+            "achievable": false,
+            "reason": "Aucun seuil validation n'atteint cette précision avec au moins 50 prédictions positives."
+          }
+        }
+      }
+    },
+    "n_features": 28,
+    "feature_cols": [
+      "SP_ALZHDMTA",
+      "SP_CHF",
+      "SP_CHRNKIDN",
+      "SP_CNCR",
+      "SP_COPD",
+      "SP_DEPRESSN",
+      "SP_DIABETES",
+      "SP_ISCHMCHT",
+      "SP_OSTEOPRS",
+      "SP_RA_OA",
+      "SP_STRKETIA",
+      "AGE",
+      "SEXE_ENC",
+      "RACE_ENC",
+      "BENE_ESRD_IND",
+      "GROUPE_AGE_ENC",
+      "NB_COMORBIDITES",
+      "CHARLSON_INDEX",
+      "COUT_TOTAL",
+      "IS_NEW_PATIENT",
+      "NB_HOSP_PASSEES",
+      "NB_OP_3M",
+      "NB_OP_6M",
+      "NB_OP_12M",
+      "NB_CAR_6M",
+      "NB_PRESCRIPTIONS",
+      "NB_MOLECULES_UNIQUES",
+      "POLYPHARMACIE"
+    ]
+  }
+}

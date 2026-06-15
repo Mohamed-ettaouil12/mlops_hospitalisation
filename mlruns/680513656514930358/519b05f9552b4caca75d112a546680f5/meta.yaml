@@ -1,0 +1,14 @@
+artifact_uri: /home/tawil/mlops_hospitalisation/mlruns/680513656514930358/519b05f9552b4caca75d112a546680f5/artifacts
+end_time: 1781474940517
+entry_point_name: ''
+experiment_id: '680513656514930358'
+lifecycle_stage: active
+run_id: 519b05f9552b4caca75d112a546680f5
+run_name: LightGBM_Optuna
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1781474937376
+status: 3
+tags: []
+user_id: tawil

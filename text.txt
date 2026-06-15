@@ -1,0 +1,1373 @@
+mainetent je faire le rapport que j'ai finit le projet donner tous le resultats comme j'ai finit le rapport ok compelt tous cela avec des estimation bien extaira ok tu peut le faire si tu peut . donner moi code ltaex xomplet"\documentclass{rapportENSIAS}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows.meta,calc}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+\definecolor{primary}{RGB}{0,84,166}
+\definecolor{secondary}{RGB}{0,150,214}
+\definecolor{accent}{RGB}{255,140,0}
+\definecolor{success}{RGB}{34,139,34}
+\definecolor{danger}{RGB}{220,50,47}
+\definecolor{lightgray}{RGB}{245,245,245}
+\definecolor{lightblue}{RGB}{230,242,255}
+\definecolor{lightyellow}{RGB}{255,253,230}
+\definecolor{lightgreen}{RGB}{230,255,237}
+
+\newtcolorbox{infobox}[1][]{colback=lightblue,colframe=primary,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{resultatbox}[1][]{colback=lightgreen,colframe=success,fonttitle=\bfseries,title=#1,breakable}
+\newtcolorbox{alertbox}[1][]{colback=lightyellow,colframe=accent,fonttitle=\bfseries,title=#1,breakable}
+
+\title{Rapport ENSIAS - MLOps}
+
+\begin{document}
+
+\titre{Plateforme MLOps pour la D'{e}tection Pr'{e}coce\du Risque d'Hospitalisation}
+\sujet{Projet de Fin d'Ann'{e}e --- Intelligence Artificielle & MLOps}
+\enseignant{Encadrant \textsc{Acad'{e}mique}}
+\eleves{Mohamed \textsc{Ettaouil}}
+\jury{Membre du jury \textsc{1} \ Membre du jury \textsc{2}}
+
+\fairemarges
+\fairepagedegarde
+
+%------- Remerciements -------
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements}
+
+Je tiens `{a} exprimer ma profonde gratitude envers toutes les personnes qui ont contribu'{e}, de pr`{e}s ou de loin, `{a} la r'{e}alisation de ce projet de fin d'ann'{e}e.
+
+Mes remerciements les plus sinc`{e}res vont `{a} mon encadrant acad'{e}mique pour sa disponibilit'{e}, ses conseils avis'{e}s et son suivi rigoureux tout au long de ce projet. Sa guidance a '{e}t'{e} d'{e}terminante dans la structuration de ma d'{e}marche et la qualit'{e} du travail produit.
+
+Je remercie '{e}galement l''{e}quipe p'{e}dagogique de l'ENSIAS pour la formation d'excellence dispens'{e}e tout au long de mon cursus, ainsi que pour les ressources mises `{a} notre disposition.
+
+Ma gratitude va aussi aux membres du jury qui ont accept'{e} d''{e}valuer ce travail. Enfin, je d'{e}die ce travail `{a} ma famille, dont le soutien ind'{e}fectible m'a permis de pers'{e}v'{e}rer.
+
+\bigskip
+\textit{Mohamed Ettaouil --- 2025}
+
+%------- R'{e}sum'{e} -------
+\chapter*{R'{e}sum'{e}}
+\addcontentsline{toc}{chapter}{R'{e}sum'{e}}
+
+\noindent\textbf{Contexte :} La gestion pr'{e}ventive des hospitalisations constitue un enjeu majeur des syst`{e}mes de sant'{e} modernes. Dans un contexte o`{u} les ressources hospitali`{e}res sont limit'{e}es et les populations vieillissantes, la capacit'{e} `{a} anticiper les besoins d'hospitalisation repr'{e}sente un levier strat'{e}gique pour les institutions de sant'{e}.
+
+\bigskip
+\noindent\textbf{Objectif :} Ce projet propose la conception et l'impl'{e}mentation d'une plateforme MLOps compl`{e}te pour la d'{e}tection pr'{e}coce du risque d'hospitalisation `{a} six mois, en s'appuyant sur les donn'{e}es synth'{e}tiques Medicare CMS DE-SynPUF (2008--2010) couvrant 2,3 millions de b'{e}n'{e}ficiaires.
+
+\bigskip
+\noindent\textbf{M'{e}thodologie :} La plateforme int`{e}gre l'ensemble du cycle de vie d'un mod`{e}le de machine learning en production : analyse exploratoire des donn'{e}es, nettoyage rigoureux avec pr'{e}vention des fuites de donn'{e}es (\textit{data leakage}), ing'{e}nierie des variables par fen^{e}tres temporelles, mod'{e}lisation comparative (R'{e}gression Logistique, XGBoost, LightGBM) avec optimisation bay'{e}sienne via Optuna, et d'{e}ploiement via FastAPI et Docker.
+
+\bigskip
+\noindent\textbf{R'{e}sultats :} Le meilleur mod`{e}le atteint une AUC-ROC de \textbf{0,9082} avec un recall de \textbf{93,39,%} sur la r'{e}gression logistique de base, avec un seuil de d'{e}cision optimis'{e} sur la courbe pr'{e}cision-rappel.
+
+\bigskip
+\noindent\textbf{Mots-cl'{e}s :} MLOps, Machine Learning, Sant'{e}, Hospitalisation, FastAPI, Docker, MLflow, DVC, Monitoring, D'{e}rive des donn'{e}es, Medicare, Pr'{e}diction de risque.
+
+\bigskip\noindent\hrulefill\bigskip
+
+\noindent\textbf{Abstract:} This project presents the design and implementation of a complete MLOps platform for early detection of hospitalization risk. Using CMS DE-SynPUF synthetic Medicare data (2008--2010) covering 2.3~million beneficiaries, the platform integrates the full machine learning lifecycle: EDA, rigorous cleaning with anti-leakage rules, temporal feature engineering, comparative modelling with Bayesian optimization, and production deployment via FastAPI and Docker, with continuous monitoring and drift detection.
+
+\bigskip
+\noindent\textbf{Keywords:} MLOps, Machine Learning, Healthcare, Hospitalization, FastAPI, Docker, MLflow, DVC, Monitoring, Data Drift, Medicare, Risk Prediction.
+
+%------- Abr'{e}viations -------
+\chapter*{Liste des Abr'{e}viations}
+\addcontentsline{toc}{chapter}{Liste des Abr'{e}viations}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\bfseries\color{primary}}p{4cm} p{10cm}}
+\toprule
+\textbf{Abr'{e}viation} & \textbf{Signification} \
+\midrule
+AUC-ROC & Area Under the Curve -- Receiver Operating Characteristic \
+\rowcolor{lightgray}
+CI/CD & Continuous Integration / Continuous Deployment \
+CMS & Centers for Medicare & Medicaid Services \
+\rowcolor{lightgray}
+DVC & Data Version Control \
+EDA & Exploratory Data Analysis \
+\rowcolor{lightgray}
+API & Application Programming Interface \
+ML & Machine Learning \
+\rowcolor{lightgray}
+MLOps & Machine Learning Operations \
+PSI & Population Stability Index \
+\rowcolor{lightgray}
+SHAP & SHapley Additive exPlanations \
+SMOTE & Synthetic Minority Over-sampling Technique \
+\rowcolor{lightgray}
+DE-SynPUF & Data Entrepreneurs' Synthetic Public Use File \
+FastAPI & Fast Application Programming Interface \
+\rowcolor{lightgray}
+GBM & Gradient Boosting Machine \
+XGBoost & eXtreme Gradient Boosting \
+\rowcolor{lightgray}
+LightGBM & Light Gradient Boosting Machine \
+REST & Representational State Transfer \
+\rowcolor{lightgray}
+KPI & Key Performance Indicator \
+\bottomrule
+\end{tabular}
+\end{center}
+
+%------- Introduction -------
+\newpage
+\chapter*{Introduction G'{e}n'{e}rale}
+\addcontentsline{toc}{chapter}{Introduction G'{e}n'{e}rale}
+
+\noindent Les syst`{e}mes de sant'{e} contemporains font face `{a} un double d'{e}fi : l'augmentation constante des besoins m'{e}dicaux d'une population vieillissante et la n'{e}cessit'{e} d'optimiser des ressources hospitali`{e}res limit'{e}es. Selon les '{e}tudes, pr`{e}s de 20,% des patients hospitalis'{e}s sont r'{e}admis dans les 30~jours suivant leur sortie, g'{e}n'{e}rant des co^{u}ts '{e}vit'{e}s et des complications '{e}vitables.
+
+\medskip
+Dans ce contexte, l'intelligence artificielle et le machine learning offrent des perspectives prometteuses pour identifier en amont les patients `{a} haut risque. Toutefois, construire un mod`{e}le pr'{e}dictif performant n'est que la premi`{e}re '{e}tape d'une d'{e}marche qui se doit d'^{e}tre industrielle, reproductible et maintenable dans le temps --- c'est pr'{e}cis'{e}ment l'objet du \textbf{MLOps}.
+
+\medskip
+Ce projet de fin d'ann'{e}e propose la conception et l'impl'{e}mentation d'une \textbf{plateforme MLOps compl`{e}te} pour la d'{e}tection pr'{e}coce du risque d'hospitalisation, en s'appuyant sur le jeu de donn'{e}es synth'{e}tique CMS DE-SynPUF repr'{e}sentant 2,3~millions de b'{e}n'{e}ficiaires Medicare sur trois ann'{e}es.
+
+\medskip
+\noindent\textbf{Structure du rapport :} Ce document s'organise en six chapitres. Le \textbf{Chapitre1} pr'{e}sente le contexte et la probl'{e}matique. Le \textbf{Chapitre2} d'{e}crit les donn'{e}es et l'analyse exploratoire. Le \textbf{Chapitre3} d'{e}taille le pipeline de traitement. Le \textbf{Chapitre4} expose la mod'{e}lisation. Le \textbf{Chapitre5} traite du d'{e}ploiement. Le \textbf{Chapitre6} aborde le monitoring et les perspectives.
+
+\newpage
+\tabledematieres
+\newpage
+\listoffigures
+\newpage
+\listoftables
+
+%======================================================
+% CHAPITRE 1
+%======================================================
+\chapter{Contexte G'{e}n'{e}ral et Probl'{e}matique}
+
+\section{Contexte M'{e}dical et Enjeux}
+
+\subsection{La probl'{e}matique des hospitalisations non planifi'{e}es}
+
+Les hospitalisations non planifi'{e}es repr'{e}sentent un fardeau consid'{e}rable pour les syst`{e}mes de sant'{e}. Aux '{E}tats-Unis, le programme Medicare d'{e}pense annuellement des dizaines de milliards de dollars pour des r'{e}admissions potentiellement '{e}vitables. La loi PPACA (Affordable Care Act) a introduit des p'{e}nalit'{e}s financi`{e}res pour les h^{o}pitaux pr'{e}sentant des taux de r'{e}admission '{e}lev'{e}s.
+
+Les facteurs de risque identifi'{e}s dans la litt'{e}rature m'{e}dicale incluent : l'^{a}ge avanc'{e}, la polypathologie, la polypharmacie, les hospitalisations ant'{e}rieures r'{e}centes, et le niveau de recours aux soins ambulatoires.
+
+\subsection{L'opportunit'{e} du Machine Learning en Sant'{e}}
+
+Le machine learning offre la capacit'{e} d'int'{e}grer simultan'{e}ment de nombreux facteurs de risque pour produire un score pr'{e}dictif individualis'{e}. Contrairement aux outils de stratification clinique traditionnels (scores LACE, HOSPITAL), les mod`{e}les d'apprentissage automatique peuvent :
+
+\begin{itemize}[itemsep=0.3em]
+\item Apprendre des interactions non lin'{e}aires entre variables ;
+\item S'adapter aux '{e}volutions des profils '{e}pid'{e}miologiques ;
+\item Traiter de tr`{e}s grands volumes de donn'{e}es ;
+\item Produire des pr'{e}dictions interpr'{e}tables via des outils modernes (SHAP).
+\end{itemize}
+
+\subsection{Les d'{e}fis sp'{e}cifiques aux donn'{e}es de sant'{e}}
+
+\begin{table}[H]
+\centering
+\caption{D'{e}fis sp'{e}cifiques aux donn'{e}es m'{e}dicales et solutions adopt'{e}es}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.8cm} p{5cm} p{5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{D'{e}fi} & \textbf{Manifestation} & \textbf{Solution adopt'{e}e} \
+\midrule
+D'{e}s'{e}quilibre des classes & Taux d'hospitalisation 
+≈
+≈ 9,% & Optimisation du seuil de d'{e}cision \
+\rowcolor{lightgray}
+Data Leakage & Variables calcul'{e}es sur le futur & Split temporel strict 2008/2009/2010 \
+Valeurs aberrantes & Co^{u}ts extr^{e}mes & Winsorisation au 99\textsuperscript{e} percentile \
+\rowcolor{lightgray}
+D'{e}rive temporelle & '{E}volution des pratiques & Monitoring PSI + d'{e}tection auto \
+Volume et scalabilit'{e} & 2,3M de patients / 60Go & Vectorisation Pandas, groupby \
+\rowcolor{lightgray}
+Interpr'{e}tabilit'{e} & D'{e}cisions cliniques critiques & Analyse SHAP \
+\bottomrule
+\end{tabular}
+\label{tab:defis}
+\end{table}
+
+\section{Cadre MLOps du Projet}
+
+\subsection{D'{e}finition et positionnement du MLOps}
+
+Le terme \textbf{MLOps} d'{e}signe un ensemble de pratiques visant `{a} d'{e}ployer et maintenir des mod`{e}les de machine learning en production de mani`{e}re fiable et efficace. Il constitue le pont entre les '{e}quipes de data science et les '{e}quipes d'ing'{e}nierie logicielle, en s'inspirant des principes DevOps.
+
+\subsection{Architecture globale du projet}
+
+Le pipeline suit une architecture lin'{e}aire bout en bout, repr'{e}sent'{e}e ci-dessous :
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+box/.style={rectangle, rounded corners=3pt, draw=primary, fill=lightblue,
+minimum width=2.2cm, minimum height=0.7cm,
+font=\small\bfseries, text centered},
+arr/.style={-{Latex}, thick, color=primary}
+]
+% Row 1
+\node[box] (d1) at (0,0) {Donn'{e}es};
+\node[box] (d2) at (2.6,0) {EDA};
+\node[box] (d3) at (5.2,0) {Cleaning};
+\node[box] (d4) at (7.8,0) {Features};
+% Row 2
+\node[box] (d5) at (7.8,-1.4) {Mod'{e}lisation};
+\node[box] (d6) at (5.2,-1.4) {MLflow};
+\node[box] (d7) at (2.6,-1.4) {FastAPI};
+\node[box] (d8) at (0,-1.4) {Docker};
+% Row 3
+\node[box] (d9) at (0,-2.8) {Monitoring};
+\node[box] (d10) at (2.6,-2.8) {Drift};
+\node[box] (d11) at (5.2,-2.8) {Rollback};
+
+\draw[arr] (d1)--(d2); \draw[arr] (d2)--(d3); \draw[arr] (d3)--(d4);
+\draw[arr] (d4)--(d5); \draw[arr] (d5)--(d6); \draw[arr] (d6)--(d7);
+\draw[arr] (d7)--(d8); \draw[arr] (d8)--(d9);
+\draw[arr] (d9)--(d10); \draw[arr] (d10)--(d11);
+\draw[arr,dashed,color=accent] (d11) -- ++(0,0.6) -- ++(5.2,0) -- (d4.east);
+\end{tikzpicture}
+\caption{Architecture globale de la plateforme MLOps}
+\label{fig:architecture}
+\end{figure}
+
+\subsection{Structure du d'{e}p^{o}t et organisation des fichiers}
+
+\begin{table}[H]
+\centering
+\caption{Structure du d'{e}p^{o}t du projet}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{>{\ttfamily}p{5.5cm} p{8cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{R'{e}pertoire / Fichier} & \textbf{R^{o}le} \
+\midrule
+src/data_cleaning.py & Nettoyage, corrections, construction de la cible \
+\rowcolor{lightgray}
+src/data_preprocessing.py & Encodage, normalisation, split temporel \
+src/feature_engineering.py & Variables par fen^{e}tres temporelles \
+\rowcolor{lightgray}
+src/train.py & Entra^{i}nement multi-mod`{e}les + MLflow \
+src/api.py & API FastAPI de pr'{e}diction \
+\rowcolor{lightgray}
+src/pipeline.py & Orchestration bout en bout \
+data/raw/ -- data/cleaned/ -- data/features/ & Donn'{e}es versionn'{e}es par DVC \
+\rowcolor{lightgray}
+models/ & Mod`{e}les s'{e}rialis'{e}s (DVC) \
+Dockerfile + docker-compose.yml & Containerisation des services \
+\rowcolor{lightgray}
+.github/workflows/ci.yml & Pipeline CI/CD GitHub Actions \
+\bottomrule
+\end{tabular}
+\label{tab:structure}
+\end{table}
+
+\section{Objectifs et Contributions du Projet}
+
+\subsection{Objectifs scientifiques}
+
+Ce projet vise `{a} d'{e}montrer que des donn'{e}es administratives de sant'{e}, correctement trait'{e}es, permettent de construire un mod`{e}le pr'{e}dictif du risque d'hospitalisation `{a} horizon6mois avec un niveau de performance cliniquement utile (AUC 
+≥
+≥ 0,85, Recall 
+≥
+≥ 0,80).
+
+\subsection{Contributions originales}
+
+\begin{itemize}[itemsep=0.3em]
+\item Conception d'un pipeline anti-leakage rigoureux pour donn'{e}es longitudinales de sant'{e} ;
+\item Mise en \oe{}uvre d'un split temporel strict (2008/2009/2010) plut^{o}t qu'un split al'{e}atoire classique ;
+\item Optimisation du seuil de d'{e}cision sur la courbe pr'{e}cision-rappel pour minimiser les faux n'{e}gatifs ;
+\item Simulation d'une d'{e}rive temporelle 2010~
+→
+→~2026 pour valider le syst`{e}me de monitoring.
+\end{itemize}
+
+%======================================================
+% CHAPITRE 2
+%======================================================
+\chapter{Donn'{e}es et Analyse Exploratoire}
+
+\section{Pr'{e}sentation du Dataset CMS DE-SynPUF}
+
+\subsection{Origine et nature des donn'{e}es}
+
+Le dataset \textbf{CMS DE-SynPUF} est mis `{a} disposition par les Centers for Medicare & Medicaid Services des '{E}tats-Unis. Il s'agit de donn'{e}es \textit{synth'{e}tiques} g'{e}n'{e}r'{e}es pour pr'{e}server la confidentialit'{e} des patients tout en maintenant les distributions statistiques des vraies donn'{e}es Medicare.
+
+\begin{infobox}[Caract'{e}ristiques du Dataset]
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{P'{e}riode couverte :} 2008 `{a} 2010 (3ann'{e}es cons'{e}cutives)
+\item \textbf{Volume total :} 60Go r'{e}partis en 20samples
+\item \textbf{B'{e}n'{e}ficiaires par sample :} 
+≈
+≈ 116,000 patients
+\item \textbf{Total b'{e}n'{e}ficiaires :} 2,3millions de patients uniques
+\item \textbf{Phase de d'{e}veloppement :} 30,000 patients (Sample~1, 2008)
+\item \textbf{Type de donn'{e}es :} Administratives (remboursements, diagnostics, prescriptions)
+\end{itemize}
+\end{infobox}
+
+\subsection{Tables composant le dataset}
+
+\begin{table}[H]
+\centering
+\caption{Description des tables du dataset CMS DE-SynPUF}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.8cm} p{3.5cm} p{6.5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Table} & \textbf{Cl'{e}} & \textbf{Contenu} \
+\midrule
+Beneficiary Summary & DESYNPUF_ID & D'{e}mographie, comorbidit'{e}s, co^{u}ts annuels \
+\rowcolor{lightgray}
+Inpatient Claims & CLM_ID & Hospitalisations, dates, type d'admission \
+Outpatient Claims & CLM_ID & Consultations externes, proc'{e}dures \
+\rowcolor{lightgray}
+Carrier Claims & CLM_ID & Actes m'{e}dicaux ambulatoires \
+Prescription Drug Events & PDE_ID & M'{e}dicaments d'{e}livr'{e}s, mol'{e}cules \
+\bottomrule
+\end{tabular}
+\label{tab:tables}
+\end{table}
+
+\subsection{Variables disponibles}
+
+\subsubsection{Variables d'{e}mographiques}
+Date de naissance, date de d'{e}c`{e}s, genre (1~=Homme, 2=Femme), race/ethnicit'{e} (6modalit'{e}s), et '{E}tat de r'{e}sidence.
+
+\subsubsection{Comorbidit'{e}s chroniques (11 indicateurs binaires)}
+Le dataset contient 11~indicateurs de conditions chroniques : Alzheimer, insuffisance cardiaque, maladie coronarienne, d'{e}pression, diab`{e}te, BPCO/emphys`{e}me, cancer, ost'{e}oporose, arthrite, AVC, et insuffisance r'{e}nale terminale (ESRD).
+
+\subsubsection{Variables de co^{u}ts Medicare}
+Cinq variables de co^{u}ts annuels : hospitalisations, soins ambulatoires, actes m'{e}dicaux, soins de longue dur'{e}e, et m'{e}dicaments.
+
+\section{Analyse Exploratoire des Donn'{e}es}
+
+\subsection{Construction de la variable cible}
+
+La variable cible \texttt{HOSPITALIZED_IN_6M} est construite en appliquant des r`{e}gles strictes d'anti-leakage :
+
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{Date d'observation} : 1\textsuperscript{er} janvier de l'ann'{e}e courante ;
+\item \textbf{Fen^{e}tre de pr'{e}diction} : Les 6mois suivants ;
+\item \textbf{Crit`{e}re} : Admission urgente (codes1 ou~2) dans la fen^{e}tre future ;
+\item \textbf{Anti-leakage} : Aucune information post'{e}rieure `{a} l'obs_date utilis'{e}e.
+\end{itemize}
+
+\subsection{Distribution de la variable cible}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ybar, width=9cm, height=6cm, bar width=2.5cm,
+xlabel={Statut d'hospitalisation},
+ylabel={Nombre de patients},
+xtick=data, xticklabels={Non hospitalis'{e}, Hospitalis'{e}},
+ymin=0, ymax=35000,
+nodes near coords, nodes near coords align={vertical},
+every node near coord/.append style={font=\small},
+axis lines*=left, ymajorgrids=true, grid style=dashed,
+]
+\addplot[fill=primary!70, draw=primary] coordinates {(1,27730) (2,2270)};
+\end{axis}
+\end{tikzpicture}
+\caption{Distribution de la variable cible (30,000 patients, 2008)}
+\label{fig:target}
+\end{figure}
+
+\subsection{Taux d'hospitalisation par groupe d'^{a}ge}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+ybar, width=10cm, height=6cm, bar width=1.8cm,
+xlabel={Groupe d'^{a}ge},
+ylabel={Taux d'hospitalisation (%)},
+xtick=data,
+xticklabels={$<$65 ans, 65--74 ans, 75--84 ans, $\geq$85 ans},
+ymin=0, ymax=20,
+nodes near coords, nodes near coords align={vertical},
+every node near coord/.append style={font=\small},
+axis lines*=left, ymajorgrids=true, grid style=dashed,
+]
+\addplot[fill=accent!80, draw=accent!120] coordinates {(1,3.8) (2,6.4) (3,9.2) (4,15.7)};
+\end{axis}
+\end{tikzpicture}
+\caption{Taux d'hospitalisation par groupe d'^{a}ge}
+\label{fig:taux_age}
+\end{figure}
+
+\subsection{Pr'{e}valence des comorbidit'{e}s}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+xbar, width=11cm, height=8cm, bar width=0.5cm,
+xlabel={Pr'{e}valence (%)},
+ytick=data,
+yticklabels={ESRD, Cancer, AVC, D'{e}pression, Emphys`{e}me,
+Ost'{e}oporose, Diab`{e}te, Coronaropathie, Arthrite,
+Ins.~Cardiaque, Alzheimer},
+xmin=0, xmax=55,
+nodes near coords, nodes near coords align={horizontal},
+every node near coord/.append style={font=\tiny},
+axis lines*=left, xmajorgrids=true, grid style=dashed,
+]
+\addplot[fill=danger!60, draw=danger] coordinates {
+(2.1,1)(5.8,2)(8.3,3)(14.2,4)(18.9,5)
+(22.4,6)(28.7,7)(31.2,8)(38.5,9)(41.3,10)(43.8,11)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Pr'{e}valence des 11 comorbidit'{e}s chroniques}
+\label{fig:comorbidites}
+\end{figure}
+
+\subsection{Analyse bivari'{e}e : association comorbidit'{e}s -- hospitalisation}
+
+\begin{table}[H]
+\centering
+\caption{Association entre comorbidit'{e}s et risque d'hospitalisation}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l c c c}
+\toprule
+\rowcolor{primary!15}
+\textbf{Comorbidit'{e}} & \textbf{Taux (oui)} & \textbf{Taux (non)} & \textbf{Odds Ratio} \
+\midrule
+Insuffisance cardiaque & 18,4,% & 4,2,% & 5,1 \
+\rowcolor{lightgray}
+AVC & 16,2,% & 6,3,% & 3,0 \
+Emphys`{e}me/BPCO & 15,8,% & 5,9,% & 3,1 \
+\rowcolor{lightgray}
+Diab`{e}te & 12,3,% & 5,8,% & 2,3 \
+Coronaropathie & 11,7,% & 5,1,% & 2,5 \
+\rowcolor{lightgray}
+D'{e}pression & 10,9,% & 6,2,% & 1,9 \
+\bottomrule
+\end{tabular}
+\label{tab:bivar}
+\end{table}
+
+\subsection{R'{e}sultats de l'ACP et du clustering K-Means}
+
+L'analyse en composantes principales conduite sur les 11~comorbidit'{e}s et les variables de co^{u}ts r'{e}v`{e}le trois groupes de patients distincts :
+
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{Cluster0 (Faible risque)} : Patients jeunes, peu de comorbidit'{e}s, faibles co^{u}ts ;
+\item \textbf{Cluster1 (Risque mod'{e}r'{e})} : Patients ^{a}g'{e}s avec 2--3comorbidit'{e}s ;
+\item \textbf{Cluster2 (Haut risque)} : Patients polypathologiques --- taux d'hospitalisation de 22,%.
+\end{itemize}
+
+\subsection{D'{e}fis identifi'{e}s lors de l'EDA}
+
+\begin{enumerate}[itemsep=0.3em]
+\item \textbf{Format de dates incorrect :} Les colonnes de dates sont stock'{e}es comme flottants (ex. \texttt{20100312.0}), mal interpr'{e}t'{e}es comme timestamps Unix si l'on utilise \texttt{pd.to_datetime()} directement.
+\item \textbf{Variable BENE_ESRD_IND mixte :} Cette variable contient `{a} la fois des valeurs num'{e}riques (0) et des cha^{\i}nes (\texttt{'Y'}), n'{e}cessitant un mapping explicite.
+\item \textbf{Co^{u}ts fortement asym'{e}triques :} Pr'{e}sence de valeurs extr^{e}mes n'{e}cessitant une winsorisation.
+\item \textbf{D'{e}doublonnage incorrect :} Un d'{e}doublonnage sur \texttt{DESYNPUF_ID} seul supprimait les ann'{e}es 2009 et 2010.
+\end{enumerate}
+
+%======================================================
+% CHAPITRE 3
+%======================================================
+\chapter{Pipeline de Traitement des Donn'{e}es}
+
+\section{Strat'{e}gie Globale de Traitement}
+
+\subsection{Principe anti-leakage comme contrainte fondamentale}
+
+\begin{alertbox}[R`{e}gle Anti-Leakage Fondamentale]
+\textbf{Toute variable explicative utilis'{e}e pour pr'{e}dire l'hospitalisation sur la fen^{e}tre [jan N, juin N] ne doit ^{e}tre calcul'{e}e qu'`{a} partir d''{e}v`{e}nements ant'{e}rieurs au 1\textsuperscript{er} janvier de l'ann'{e}e N.}
+
+Cette r`{e}gle est appliqu'{e}e strictement `{a} toutes les '{e}tapes du pipeline.
+\end{alertbox}
+
+\subsection{Split temporel strict}
+
+\begin{table}[H]
+\centering
+\caption{Split temporel strict du projet}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{c c c c c}
+\toprule
+\rowcolor{primary!15}
+\textbf{Ensemble} & \textbf{Ann'{e}e} & \textbf{N patients} & \textbf{Taux hosp.} & \textbf{Utilisation} \
+\midrule
+Train & 2008 & 30,000 & 7,54,% & Entra^{i}nement des mod`{e}les \
+\rowcolor{lightgray}
+Validation & 2009 & 29,510 & 9,18,% & Optimisation hyperparamètres \
+Test & 2010 & 29,075 & 7,58,% & '{E}valuation finale \
+\bottomrule
+\end{tabular}
+\label{tab:split}
+\end{table}
+
+\section{Nettoyage des Donn'{e}es}
+
+\subsection{Correction du format des dates}
+
+Les colonnes de dates dans le dataset CMS DE-SynPUF sont stock'{e}es comme des flottants (ex.\texttt{20100312.0}). Une conversion directe via \texttt{pd.to_datetime()} les interpr'{e}terait comme des timestamps Unix (secondes depuis 1970), donnant des dates erron'{e}es autour de l'ann'{e}e2607.
+
+La solution impl'{e}ment'{e}e proc`{e}de en trois '{e}tapes :
+\begin{enumerate}[itemsep=0.3em]
+\item Conversion en cha^{\i}ne de caract`{e}res ;
+\item Suppression du suffixe \texttt{.0} par expression r'{e}guli`{e}re ;
+\item Parsing avec le format explicite \texttt{%Y%m%d}.
+\end{enumerate}
+
+\subsection{Correction de la variable BENE_ESRD_IND}
+
+La variable indicatrice d'insuffisance r'{e}nale terminale contient des valeurs h'{e}t'{e}rog`{e}nes : des entiers (\texttt{0}), des cha^{\i}nes (\texttt{'0'}), et des lettres (\texttt{'Y'}). La solution adopt'{e}e est un mapping explicite : \texttt{Y}~
+→
+→1, autres
+→
+→~0.
+
+\subsection{Construction de la variable cible avec anti-leakage}
+
+La cible \texttt{HOSPITALIZED_IN_6M} est construite pour chaque patient selon :
+\begin{enumerate}[itemsep=0.3em]
+\item D'{e}finir la date d'observation au 1\textsuperscript{er} janvier de l'ann'{e}e courante ;
+\item Identifier toutes les admissions dans la fen^{e}tre [obs_date, obs_date~+6mois] ;
+\item Filtrer uniquement les admissions d'urgence (types 1 ou2) ;
+\item Affecter la valeur1 si au moins une telle admission existe, 0 sinon.
+\end{enumerate}
+
+\subsection{Fusion des trois ann'{e}es}
+
+Les trois cohortes annuelles sont concat'{e}n'{e}es apr`{e}s ajout d'une colonne \texttt{ANNEE}. Le d'{e}doublonnage s'effectue sur le couple \texttt{(DESYNPUF_ID, ANNEE)}.
+
+\begin{alertbox}[Erreur Classique Corrig'{e}e]
+Un d'{e}doublonnage sur \texttt{DESYNPUF_ID} seul (sans \texttt{ANNEE}) supprimerait les observations de 2009 et~2010 pour les patients '{e}galement pr'{e}sents en 2008. Ce bug a '{e}t'{e} identifi'{e} et corrig'{e}.
+\end{alertbox}
+
+\subsection{R'{e}sultats du nettoyage}
+
+\begin{resultatbox}[R'{e}sultats du Data Cleaning]
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{Table finale :} 
+≈
+≈ 88,500 lignes, 33~colonnes
+\item \textbf{2008 :} 30,000 patients | Taux d'hospitalisation : 7,54,%
+\item \textbf{2009 :} 29,510 patients | Taux d'hospitalisation : 9,18,%
+\item \textbf{2010 :} 29,075 patients | Taux d'hospitalisation : 7,58,%
+\item \textbf{Valeurs aberrantes :} Co^{u}ts winsori'{e}s au 99\textsuperscript{e} percentile
+\item \textbf{Donn'{e}es manquantes :} Imput'{e}es `{a}~0 ou `{a} la m'{e}diane selon la variable
+\end{itemize}
+\end{resultatbox}
+
+\section{Pr'{e}traitement et Feature Engineering}
+
+\subsection{Variables statiques}
+
+Les variables statiques correspondent aux informations annuelles disponibles dans la table b'{e}n'{e}ficiaires : variables d'{e}mographiques, comorbidit'{e}s chroniques, et co^{u}ts annuels agr'{e}g'{e}s.
+
+\subsection{Variables dynamiques par fen^{e}tres temporelles}
+
+\begin{table}[H]
+\centering
+\caption{Variables dynamiques construites par fen^{e}tres temporelles}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\ttfamily}p{4.5cm} c p{6.5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Variable} & \textbf{Fen^{e}tre} & \textbf{Description} \
+\midrule
+NB_HOSP_3M & 3mois & Hospitalisations urgentes r'{e}centes \
+\rowcolor{lightgray}
+NB_HOSP_6M & 6mois & Hospitalisations 6mois (fortement pr'{e}dictif) \
+NB_HOSP_12M & 12mois & Hospitalisations ann'{e}e pr'{e}c'{e}dente \
+\rowcolor{lightgray}
+NB_OP_3M & 3mois & Consultations ambulatoires r'{e}centes \
+NB_OP_6M & 6mois & Consultations ambulatoires \
+\rowcolor{lightgray}
+NB_CAR_6M & 6mois & Actes m'{e}dicaux sp'{e}cialis'{e}s \
+NB_PRESCRIPTIONS & 12mois & Nombre total de prescriptions \
+\rowcolor{lightgray}
+NB_MOLECULES_UNIQUES & 12~mois & Mol'{e}cules distinctes (polypharmacie) \
+COUT_HOSP_PASSE & Cumul'{e} & Co^{u}t cumul'{e} des hospitalisations \
+\bottomrule
+\end{tabular}
+\label{tab:features_dyn}
+\end{table}
+
+\subsection{Variables composites et indices cliniques}
+
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{NB_COMORBIDITES} : Somme des 11indicateurs de comorbidit'{e}s ;
+\item \textbf{CHARLSON_INDEX} : Version pond'{e}r'{e}e de l'index de Charlson ;
+\item \textbf{POLYPHARMACIE} : Indicateur binaire si 
+>
+>5mol'{e}cules distinctes ;
+\item \textbf{COUT_TOTAL} : Somme de toutes les d'{e}penses Medicare ;
+\item \textbf{GROUPE_AGE} : Variable ordinale en 4cat'{e}gories ($<$65, 65--74, 75--84, $\geq$85~ans).
+\end{itemize}
+
+\subsection{Normalisation et encodage}
+
+Les variables cat'{e}gorielles (sexe, race) sont encod'{e}es avec \texttt{LabelEncoder}. Les variables num'{e}riques sont normalis'{e}es avec \texttt{StandardScaler}, dont les paramètres calcul'{e}s sur le train 2008 sont sauvegard'{e}s dans \texttt{models/scaler.pkl} pour l'inf'{e}rence en production.
+
+\subsection{R'{e}sultats du Feature Engineering}
+
+\begin{resultatbox}[R'{e}sultats du Preprocessing]
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{Nombre total de features :} 29~variables explicatives
+\item \textbf{Train (2008) :} 30,000 patients | Taux cible : 7,54,%
+\item \textbf{Validation (2009) :} 29,510 patients | Taux cible : 9,18,%
+\item \textbf{Test (2010) :} 29,075 patients | Taux cible : 7,58,%
+\item \textbf{Scaler sauvegard'{e} :} \texttt{models/scaler.pkl}
+\end{itemize}
+\end{resultatbox}
+
+\section{Validation des Donn'{e}es avec Great Expectations}
+
+\subsection{R`{e}gles de validation impl'{e}ment'{e}es}
+
+Les principales r`{e}gles d'{e}finies dans la suite \texttt{cms_raw_suite} sont :
+\begin{itemize}[itemsep=0.3em]
+\item Les colonnes obligatoires sont pr'{e}sentes (\texttt{DESYNPUF_ID}, \texttt{ANNEE}, etc.) ;
+\item L'^{a}ge est dans l'intervalle [18, 120]~ans ;
+\item Les co^{u}ts sont non-n'{e}gatifs ;
+\item Les indicateurs binaires de comorbidit'{e}s sont dans 
+{
+0
+,
+1
+}
+{0,1} ;
+\item La variable cible est dans 
+{
+0
+,
+1
+}
+{0,1}.
+\end{itemize}
+
+%======================================================
+% CHAPITRE 4
+%======================================================
+\chapter{Mod'{e}lisation et Exp'{e}rimentation}
+
+\section{Strat'{e}gie de Mod'{e}lisation}
+
+\subsection{Choix des mod`{e}les}
+
+Trois familles de mod`{e}les ont '{e}t'{e} retenues :
+\begin{enumerate}[itemsep=0.3em]
+\item \textbf{R'{e}gression Logistique} : Mod`{e}le de base lin'{e}aire, hautement interpr'{e}table, r'{e}f'{e}rence clinique ;
+\item \textbf{XGBoost avec Optuna} : Gradient boosting extr^{e}me, performant sur donn'{e}es tabulaires ;
+\item \textbf{LightGBM avec Optuna} : Variante rapide et efficace, adapt'{e}e aux grands volumes.
+\end{enumerate}
+
+\subsection{M'{e}trique principale : AUC-ROC}
+
+En contexte m'{e}dical avec classes d'{e}s'{e}quilibr'{e}es, l'AUC-ROC est la m'{e}trique de r'{e}f'{e}rence car elle '{e}value la capacit'{e} de discrimination du mod`{e}le ind'{e}pendamment du seuil.
+
+\subsection{Optimisation du seuil de d'{e}cision}
+
+Le seuil par d'{e}faut de 0,5 est inadapt'{e} aux donn'{e}es d'{e}s'{e}quilibr'{e}es. Le seuil est s'{e}lectionn'{e} sur la courbe pr'{e}cision-rappel en maximisant le F1-score sur la validation 2009 :
+
+\begin{equation}
+\text{seuil}^* = \arg\max_{\tau} ; F_1(\tau) = \arg\max_{\tau} \frac{2 \cdot P(\tau) \cdot R(\tau)}{P(\tau) + R(\tau)}
+\label{eq:threshold}
+\end{equation}
+
+\section{R'{e}sultats des Mod`{e}les}
+
+\subsection{Performances comparatives}
+
+\begin{table}[H]
+\centering
+\caption{Performances comparatives sur l'ensemble de validation (2009)}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l c c c c}
+\toprule
+\rowcolor{primary!15}
+\textbf{Mod`{e}le} & \textbf{AUC-ROC} & \textbf{F1-Score} & \textbf{Recall} & \textbf{Pr'{e}cision} \
+\midrule
+R'{e}gression Logistique & \textbf{0,9082} & 0,3825 & \textbf{0,9339} & 0,2405 \
+\rowcolor{lightgray}
+XGBoost + Optuna & En cours & --- & --- & --- \
+LightGBM + Optuna & En cours & --- & --- & --- \
+\bottomrule
+\end{tabular}
+\label{tab:resultats}
+\end{table}
+
+\begin{infobox}[Interpr'{e}tation des R'{e}sultats]
+Un AUC-ROC de \textbf{0,9082} est excellent et indique que le mod`{e}le discrimine tr`{e}s bien les patients. Le recall de \textbf{93,39,%} est particulièrement important cliniquement : le mod`{e}le identifie 93patients sur100 qui seront effectivement hospitalis'{e}s. Le F1-score plus modeste (0,38) refl`{e}te la faible pr'{e}cision, choix d'{e}lib'{e}r'{e} pour ne pas manquer d'hospitalisations.
+\end{infobox}
+
+\subsection{Analyse SHAP des importances de variables}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+xbar, width=11cm, height=8cm, bar width=0.5cm,
+xlabel={Importance SHAP moyenne},
+ytick=data,
+yticklabels={
+POLYPHARMACIE,
+NB_PRESCRIPTIONS,
+Ins.~Cardiaque,
+NB_HOSP_12M,
+Age,
+CHARLSON_INDEX,
+NB_MOLECULES,
+COUT_TOTAL,
+NB_HOSP_6M,
+NB_COMORBIDITES
+},
+xmin=0, xmax=0.2,
+nodes near coords, nodes near coords align={horizontal},
+every node near coord/.append style={font=\tiny},
+axis lines*=left, xmajorgrids=true, grid style=dashed,
+]
+\addplot[fill=primary!70, draw=primary] coordinates {
+(0.063,1)(0.071,2)(0.079,3)(0.087,4)(0.095,5)
+(0.108,6)(0.121,7)(0.134,8)(0.148,9)(0.162,10)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Importances SHAP des 10 variables les plus pr'{e}dictives}
+\label{fig:shap}
+\end{figure}
+
+\section{Suivi des Exp'{e}riences avec MLflow}
+
+\subsection{Architecture MLflow dans le projet}
+
+MLflow est utilis'{e} pour tracer chaque exp'{e}rience d'entra^{i}nement. L'interface accessible sur \texttt{http://127.0.0.1:5000} permet de comparer visuellement les runs.
+
+\subsection{'{E}l'{e}ments trac'{e}s pour chaque run}
+
+\begin{table}[H]
+\centering
+\caption{'{E}l'{e}ments enregistr'{e}s dans MLflow}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.5cm} p{10cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Cat'{e}gorie} & \textbf{'{E}l'{e}ments enregistr'{e}s} \
+\midrule
+Paramètres & Hyperparamètres, seuil de d'{e}cision, taille des ensembles \
+\rowcolor{lightgray}
+M'{e}triques & AUC-ROC, F1, Recall, Pr'{e}cision (train, val, test) \
+Artefacts & Mod`{e}le s'{e}rialis'{e}, scaler, graphiques SHAP, matrices de confusion \
+\rowcolor{lightgray}
+Tags & Nom du mod`{e}le, date, version dataset, hash Git \
+\bottomrule
+\end{tabular}
+\label{tab:mlflow}
+\end{table}
+
+\section{Versionnement des Donn'{e}es et Mod`{e}les}
+
+\subsection{Git + DVC : s'{e}paration code / donn'{e}es}
+
+\begin{itemize}[itemsep=0.3em]
+\item \textbf{Code source} : Versionn'{e} avec Git (fichiers \texttt{.py}, \texttt{Dockerfile}, etc.) ;
+\item \textbf{Donn'{e}es et mod`{e}les} : Versionn'{e}s avec DVC (fichiers \texttt{.parquet}, \texttt{.pkl}, etc.).
+\end{itemize}
+
+\subsection{Workflow DVC}
+
+Après chaque ex'{e}cution du pipeline :
+\begin{enumerate}[itemsep=0.3em]
+\item \texttt{dvc add data/cleaned/ data/features/ models/} ;
+\item \texttt{git add .} puis \texttt{git commit -m "Version X"} ;
+\item \texttt{dvc push} vers le stockage distant.
+\end{enumerate}
+
+Cette approche garantit la reproductibilit'{e} totale : toute version du code peut ^{e}tre associ'{e}e `{a} la version exacte des donn'{e}es via \texttt{git checkout} + \texttt{dvc pull}.
+
+%======================================================
+% CHAPITRE 5
+%======================================================
+\chapter{D'{e}ploiement et Industrialisation}
+
+\section{API de Pr'{e}diction FastAPI}
+
+\subsection{Architecture de l'API}
+
+L'API REST est d'{e}velopp'{e}e avec \textbf{FastAPI}, framework Python moderne offrant : validation automatique des entr'{e}es, documentation interactive (Swagger~UI), haute performance, et typage fort avec Pydantic.
+
+\subsection{Endpoints disponibles}
+
+\begin{table}[H]
+\centering
+\caption{Endpoints de l'API FastAPI}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\ttfamily}p{3.5cm} c p{4cm} p{4.5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Endpoint} & \textbf{M'{e}thode} & \textbf{Entr'{e}e} & \textbf{Sortie} \
+\midrule
+/health & GET & --- & Statut API + mod`{e}le \
+\rowcolor{lightgray}
+/predict & POST & JSON patient (29~features) & Score, classe, confiance \
+/model/info & GET & --- & M'{e}tadonn'{e}es du mod`{e}le \
+\rowcolor{lightgray}
+/metrics & GET & --- & M'{e}triques de performance \
+\bottomrule
+\end{tabular}
+\label{tab:api}
+\end{table}
+
+\subsection{Format de r'{e}ponse du endpoint \texttt{/predict}}
+
+\begin{itemize}[itemsep=0.2em]
+\item \texttt{risk_score} : Probabilit'{e} d'hospitalisation dans les 6mois (flottant [0,1]) ;
+\item \texttt{prediction} : Classe binaire (0=faible risque, 1=~haut risque) ;
+\item \texttt{confidence} : Niveau de confiance de la pr'{e}diction ;
+\item \texttt{model_version} : Version du mod`{e}le ayant produit la pr'{e}diction.
+\end{itemize}
+
+\section{Containerisation Docker}
+
+\subsection{Architecture Docker Compose}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+box/.style={rectangle, rounded corners=4pt, draw=secondary!80, fill=secondary!15,
+minimum width=4cm, minimum height=1.2cm,
+font=\small\bfseries, text centered},
+arr/.style={<->, thick, color=primary}
+]
+\node[box] (api) at (0,0) {Service \textbf{api}\FastAPI : 8000};
+\node[box] (mlf) at (6,0) {Service \textbf{mlflow}\MLflow : 5000};
+\draw[arr] (api)--(mlf) node[midway, above, font=\small]{R'{e}seau interne Docker};
+\end{tikzpicture}
+\caption{Architecture Docker Compose du projet}
+\label{fig:docker}
+\end{figure}
+
+\subsection{Bonnes pratiques Dockerfile}
+
+\begin{itemize}[itemsep=0.3em]
+\item Image de base l'{e}g`{e}re (\texttt{python:3.11-slim}) ;
+\item Installation des d'{e}pendances en couche s'{e}par'{e}e (cache Docker) ;
+\item Copie du code source après les d'{e}pendances ;
+\item Exposition du port~8000, lancement avec \texttt{uvicorn}.
+\end{itemize}
+
+\section{Pipeline CI/CD avec GitHub Actions}
+
+\subsection{'{E}tapes du workflow \texttt{ci.yml}}
+
+\begin{enumerate}[itemsep=0.3em]
+\item \textbf{Checkout} : R'{e}cup'{e}ration du code depuis GitHub ;
+\item \textbf{Setup Python} : Installation de l'environnement Python~3.11 ;
+\item \textbf{Install deps} : \texttt{pip install -r requirements.txt} ;
+\item \textbf{Lint} : V'{e}rification de la qualit'{e} du code (flake8) ;
+\item \textbf{Tests} : Ex'{e}cution des tests pytest sur les modules ;
+\item \textbf{Build Docker} : Construction de l'image ;
+\item \textbf{Push Docker Hub} : Publication de l'image (branche main uniquement).
+\end{enumerate}
+
+\section{Scalabilit'{e} : de 30K `{a} 2,3 Millions de Patients}
+
+\subsection{Philosophie de scalabilit'{e}}
+
+Un principe directeur du projet est la scalabilit'{e} \textit{by design} : chaque script doit fonctionner identiquement sur 30,000patients (d'{e}veloppement) et sur 2,3millions (production) sans r'{e}'{e}criture.
+
+\subsection{R`{e}gles de codage pour la scalabilit'{e}}
+
+\begin{table}[H]
+\centering
+\caption{R`{e}gles de codage pour la scalabilit'{e}}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{5cm} p{9cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Pratique} & \textbf{Justification} \
+\midrule
+\texttt{df.groupby().agg()} & Op'{e}rations vectoris'{e}es, 
+O
+(
+n
+)
+O(n) vs 
+O
+(
+n
+2
+)
+O(n 
+2
+ ) pour les boucles \
+\rowcolor{lightgray}
+\texttt{df.merge()} & Jointures SQL-like optimis'{e}es par Pandas \
+Format Parquet & Stockage colonnaire comprim'{e}, lecture partielle \
+\rowcolor{lightgray}
+Filtrage par \texttt{isin()} & Lecture des seuls patients n'{e}cessaires \
+\texttt{chunksize} & Traitement par blocs pour les tr`{e}s grands datasets \
+\bottomrule
+\end{tabular}
+\label{tab:scalability}
+\end{table}
+
+%======================================================
+% CHAPITRE 6
+%======================================================
+\chapter{Monitoring, Drift Detection et Perspectives}
+
+\section{Monitoring en Production}
+
+\subsection{Pourquoi le monitoring est critique en sant'{e}}
+
+Un mod`{e}le m'{e}dical est expos'{e} `{a} des '{e}volutions permanentes : changements des pratiques de codage, '{e}volution '{e}pid'{e}miologique, modifications des critères d'admission. Sans monitoring, un mod`{e}le performant au d'{e}ploiement peut se d'{e}grader silencieusement.
+
+\subsection{Seuils de monitoring d'{e}finis}
+
+\begin{table}[H]
+\centering
+\caption{Seuils de monitoring et actions automatiques}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l c c}
+\toprule
+\rowcolor{primary!15}
+\textbf{M'{e}trique} & \textbf{Seuil d'alerte} & \textbf{Action d'{e}clench'{e}e} \
+\midrule
+PSI (d'{e}rive donn'{e}es) & 
+>
+> 0,20 & R'{e}-entra^{i}nement automatique \
+\rowcolor{lightgray}
+AUC-ROC production & 
+<
+< 0,75 & Rollback mod`{e}le pr'{e}c'{e}dent \
+D'{e}gradation AUC (2sem.) & 
+>
+> 5,% & Alerte '{e}quipe \
+\rowcolor{lightgray}
+Latence P99 & 
+>
+> 150ms & Alerte infrastructure \
+Recall & 
+<
+< 0,70 & R'{e}-entra^{i}nement automatique \
+\rowcolor{lightgray}
+Volume pr'{e}dictions & 
+±
+±~30,% vs baseline & Alerte anomalie d'usage \
+\bottomrule
+\end{tabular}
+\label{tab:monitoring}
+\end{table}
+
+\section{D'{e}tection de D'{e}rive}
+
+\subsection{Taxonomie des d'{e}rives}
+
+\begin{table}[H]
+\centering
+\caption{Types de d'{e}rive et m'{e}thodes de d'{e}tection}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\bfseries}p{3.5cm} p{5cm} p{5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Type} & \textbf{D'{e}finition} & \textbf{M'{e}thode} \
+\midrule
+Covariate drift & Distribution des features change & PSI \
+\rowcolor{lightgray}
+Concept drift & Relation 
+X
+→
+Y
+X→Y change & Suivi AUC sur donn'{e}es r'{e}centes \
+Prior drift & Taux d'hospitalisation change & Test Chi-carr'{e} \
+\bottomrule
+\end{tabular}
+\label{tab:drift_types}
+\end{table}
+
+\subsection{Population Stability Index (PSI)}
+
+\begin{equation}
+\text{PSI} = \sum_{i=1}^{n} \left( P_{\text{prod},i} - P_{\text{ref},i} \right) \cdot \ln!\left(\frac{P_{\text{prod},i}}{P_{\text{ref},i}}\right)
+\label{eq:psi}
+\end{equation}
+
+\begin{table}[H]
+\centering
+\caption{Interpr'{e}tation du PSI}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{c c c}
+\toprule
+\rowcolor{primary!15}
+\textbf{PSI} & \textbf{Interpr'{e}tation} & \textbf{Action} \
+\midrule
+<
+< 0,10 & D'{e}rive n'{e}gligeable & Aucune \
+\rowcolor{lightgray}
+0,10 -- 0,20 & D'{e}rive mod'{e}r'{e}e & Surveillance renforc'{e}e \
+>
+> 0,20 & D'{e}rive significative & R'{e}-entra^{i}nement \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Simulation de d'{e}rive temporelle 2010~
+→
+→~2026}
+
+Pour valider le système de monitoring, une d'{e}rive artificielle est simul'{e}e :
+\begin{itemize}[itemsep=0.3em]
+\item Co^{u}ts m'{e}dicaux augment'{e}s de 30,% (inflation sant'{e}) ;
+\item Pr'{e}valence de certaines comorbidit'{e}s augment'{e}e ;
+\item Distribution des ^{a}ges modifi'{e}e (vieillissement) ;
+\item Taux d'hospitalisation de base alt'{e}r'{e}.
+\end{itemize}
+
+\section{Architecture de R'{e}ponse Automatique}
+
+\subsection{Boucle complète de monitoring}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+box/.style={rectangle, rounded corners=3pt, draw=primary, fill=lightblue,
+minimum width=3.8cm, minimum height=0.7cm,
+font=\small\bfseries, text centered},
+dec/.style={diamond, draw=accent, fill=lightyellow,
+minimum width=2.5cm, minimum height=0.7cm,
+font=\small\bfseries, text centered, aspect=2},
+arr/.style={-{Latex}, thick, color=primary}
+]
+\node[box] (p1) at (0,0) {Donn'{e}es production};
+\node[box] (p2) at (0,-1.4) {Evidently AI: PSI};
+\node[dec] (d1) at (0,-2.8) {PSI 
+>
+> 0,20 ?};
+\node[box] (p3) at (-3,-4.2) {Alerte Grafana/Slack};
+\node[box] (p4) at (-3,-5.6) {Prefect: R'{e}-entra^{i}nement};
+\node[box] (p5) at (-3,-7.0) {MLflow: Comparaison};
+\node[dec] (d2) at (-3,-8.4) {Meilleur AUC ?};
+\node[box] (p6) at (-5.5,-9.8) {D'{e}ploiement};
+\node[box] (p7) at (-0.5,-9.8) {Rollback};
+\node[box] (p8) at (3,-4.2) {Monitoring continu};
+
+\draw[arr] (p1)--(p2);
+\draw[arr] (p2)--(d1);
+\draw[arr] (d1)--node[left,font=\small]{Oui}(p3);
+\draw[arr] (d1)--(3,-2.8)node[right,font=\small]{Non}--(p8);
+\draw[arr] (p3)--(p4);
+\draw[arr] (p4)--(p5);
+\draw[arr] (p5)--(d2);
+\draw[arr] (d2)--node[left,font=\small]{Oui}(p6);
+\draw[arr] (d2)--node[right,font=\small]{Non}(p7);
+\draw[arr,dashed,color=success] (p6.south)--++(0,-0.4)--++(5.5,0)|-(p8.south);
+\draw[arr,dashed,color=danger] (p7.south)--++(0,-0.4)--++(3.5,0)|-(p8.south);
+\end{tikzpicture}
+\caption{Boucle complète de monitoring et r'{e}ponse automatique}
+\label{fig:monitoring_loop}
+\end{figure}
+
+\section{Analyse d''{E}quit'{e} (Fairness)}
+
+\subsection{Enjeux '{e}thiques en sant'{e}}
+
+L'utilisation de mod`{e}les pr'{e}dictifs en sant'{e} soul`{e}ve des questions '{e}thiques fondamentales. Un mod`{e}le biais'{e} pourrait sous-estimer le risque pour certains groupes d'{e}mographiques, conduisant `{a} une in'{e}galit'{e} d'accès aux soins pr'{e}ventifs.
+
+\subsection{Analyse planifi'{e}e par groupe racial}
+
+Pour chaque groupe racial (6~modalit'{e}s dans le dataset), les m'{e}triques suivantes seront calcul'{e}es :
+\begin{itemize}[itemsep=0.3em]
+\item AUC-ROC par groupe ;
+\item Recall par groupe : groupes pour lesquels le mod`{e}le manque plus d'hospitalisations ;
+\item Taux de faux positifs par groupe.
+\end{itemize}
+
+\section{Perspectives d'Extension}
+
+\begin{table}[H]
+\centering
+\caption{Plan de d'{e}veloppement des extensions}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{c >{\bfseries}p{4cm} c p{5.5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Priorit'{e}} & \textbf{Extension} & \textbf{Dur'{e}e} & \textbf{Valeur ajout'{e}e} \
+\midrule
+\textcolor{danger}{\textbf{Urgent}} & Evidently AI branch'{e} & 2j & Monitoring auto op'{e}rationnel \
+\rowcolor{lightgray}
+\textcolor{danger}{\textbf{Urgent}} & Rollback automatique & 1j & R'{e}silience en production \
+\textcolor{accent}{\textbf{Important}} & CI/CD GitHub Actions & 1j & D'{e}ploiement automatis'{e} \
+\rowcolor{lightgray}
+\textcolor{accent}{\textbf{Important}} & Grafana Dashboard & 1j & Observabilit'{e} temps r'{e}el \
+\textcolor{accent}{\textbf{Important}} & Prefect orchestration & 1j & Planification des pipelines \
+\rowcolor{lightgray}
+\textcolor{success}{\textbf{Extension}} & Feature Store Redis & 2j & R'{e}duction latence \
+\textcolor{success}{\textbf{Extension}} & Kafka + Spark Streaming & 3j & Temps r'{e}el `{a} grande '{e}chelle \
+\rowcolor{lightgray}
+\textcolor{success}{\textbf{Extension}} & Analyse Fairness & 1j & Conformit'{e} '{e}thique \
+\bottomrule
+\end{tabular}
+\label{tab:extensions}
+\end{table}
+
+%======================================================
+% CONCLUSION
+%======================================================
+\newpage
+\chapter*{Conclusion G'{e}n'{e}rale}
+\addcontentsline{toc}{chapter}{Conclusion G'{e}n'{e}rale}
+
+Ce projet de fin d'ann'{e}e a permis de concevoir et d'impl'{e}menter une \textbf{plateforme MLOps complète} pour la d'{e}tection pr'{e}coce du risque d'hospitalisation, couvrant l'ensemble du cycle de vie d'un mod`{e}le de machine learning en production.
+
+\bigskip
+\noindent\textbf{Sur le plan technique}, les contributions majeures sont :
+\begin{itemize}[itemsep=0.4em]
+\item Un \textbf{pipeline anti-leakage rigoureux} avec split temporel strict (2008/2009/2010) ;
+\item L'ing'{e}nierie de \textbf{29~variables explicatives} incluant fen^{e}tres temporelles et indices cliniques ;
+\item Une \textbf{AUC-ROC de 0,9082} avec recall de 93,39,% et seuil optimis'{e} ;
+\item Une \textbf{API REST FastAPI} containeris'{e}e avec Docker ;
+\item Un \textbf{système de monitoring} avec d'{e}tection de d'{e}rive et rollback automatique.
+\end{itemize}
+
+\bigskip
+\noindent\textbf{Sur le plan MLOps}, ce projet illustre la diff'{e}rence fondamentale entre un projet acad'{e}mique et une solution industrielle. Les choix qui font la diff'{e}rence sont : le versionnement des donn'{e}es (DVC), le suivi des exp'{e}riences (MLflow), la containerisation (Docker), le pipeline CI/CD, et surtout la capacit'{e} `{a} maintenir le mod`{e}le en production sans interruption.
+
+\bigskip
+\noindent\textbf{Perspectives :} Les travaux futurs porteront sur le branchement d'EvidentlyAI, l'impl'{e}mentation du CI/CD, l'orchestration avec Prefect, et l'analyse d''{e}quit'{e} par groupe d'{e}mographique. L'extension vers 2,3millions de patients sur les 20~samples complets constitue l''{e}tape ultime de validation.
+
+\bigskip
+\begin{center}
+\begin{tcolorbox}[colback=primary!10, colframe=primary, width=0.85\textwidth]
+\centering
+\textit{`` La diff'{e}rence entre un mod`{e}le de laboratoire et un mod`{e}le de production, c'est tout ce qui se passe après la première pr'{e}diction. ''}
+\end{tcolorbox}
+\end{center}
+
+%======================================================
+% BIBLIOGRAPHIE
+%======================================================
+\newpage
+\bibliographystyle{plain}
+\begin{thebibliography}{99}
+
+\bibitem{cms_synpuf}
+Centers for Medicare & Medicaid Services.
+\textit{DE-SynPUF: CMS 2008-2010 Data Entrepreneurs' Synthetic Public Use File}.
+Technical Report, CMS, 2013.
+
+\bibitem{mlops_sculley}
+D. Sculley et al.
+\textit{Hidden Technical Debt in Machine Learning Systems}.
+NeurIPS, 28, 2015.
+
+\bibitem{shap_lundberg}
+S. Lundberg and S.-I. Lee.
+\textit{A Unified Approach to Interpreting Model Predictions}.
+NeurIPS, 30, 2017.
+
+\bibitem{optuna}
+T. Akiba et al.
+\textit{Optuna: A Next-generation Hyperparameter Optimization Framework}.
+KDD, 2019.
+
+\bibitem{lightgbm}
+G. Ke et al.
+\textit{LightGBM: A Highly Efficient Gradient Boosting Decision Tree}.
+NeurIPS, 30, 2017.
+
+\bibitem{xgboost}
+T. Chen and C. Guestrin.
+\textit{XGBoost: A Scalable Tree Boosting System}.
+KDD, 2016.
+
+\bibitem{fastapi}
+S. Ram'{\i}rez.
+\textit{FastAPI: Modern, fast web framework for building APIs with Python}.
+\url{https://fastapi.tiangolo.com}, 2018.
+
+\bibitem{mlflow}
+M. Zaharia et al.
+\textit{Accelerating the Machine Learning Lifecycle with MLflow}.
+IEEE Data Eng. Bulletin, 41(4), 2018.
+
+\bibitem{dvc}
+I. Kuprieiev et al.
+\textit{DVC: Data Version Control -- Git for Data and Models}.
+\url{https://dvc.org}, 2017.
+
+\bibitem{evidently}
+E. Mandel et al.
+\textit{Evidently AI: Open-source ML Monitoring}.
+\url{https://www.evidentlyai.com}, 2021.
+
+\bibitem{charlson}
+M.~E. Charlson et al.
+\textit{A new method of classifying prognostic comorbidity}.
+J. Chronic Diseases, 40(5), 1987.
+
+\bibitem{readmission}
+S. F. Jencks et al.
+\textit{Rehospitalizations among patients in the Medicare program}.
+NEJM, 360(14), 2009.
+
+\bibitem{great_expectations}
+A. Campbell et al.
+\textit{Great Expectations: Data Quality for ML Pipelines}.
+\url{https://greatexpectations.io}, 2019.
+
+\end{thebibliography}
+
+%======================================================
+% ANNEXES
+%======================================================
+\newpage
+\chapter*{Annexes}
+\addcontentsline{toc}{chapter}{Annexes}
+
+\section*{Annexe A --- Commandes Essentielles}
+
+\begin{table}[H]
+\centering
+\caption{Commandes essentielles du projet}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{>{\ttfamily\small}p{8.5cm} p{5.5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Commande} & \textbf{Action} \
+\midrule
+source venv/bin/activate & Activer l'environnement \
+\rowcolor{lightgray}
+PYTHONPATH=. python3 src/pipeline.py & Pipeline complet \
+PYTHONPATH=. python3 src/train.py & Entra^{i}nement seul \
+\rowcolor{lightgray}
+mlflow ui & Interface MLflow (5000) \
+PYTHONPATH=. python3 src/api.py & API FastAPI (8000) \
+\rowcolor{lightgray}
+docker compose up & Tous les services Docker \
+dvc add data/cleaned/ data/features/ models/ & Versionner les donn'{e}es \
+\rowcolor{lightgray}
+git add . && git commit -m "Update" & Commit avec DVC \
+dvc push & Envoi vers stockage distant \
+\rowcolor{lightgray}
+pytest tests/ -v & Tests unitaires \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Annexe B --- D'{e}pendances Python}
+
+\begin{table}[H]
+\centering
+\caption{D'{e}pendances Python (\texttt{requirements.txt})}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{>{\ttfamily}p{5cm} p{9cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{Package} & \textbf{Utilisation} \
+\midrule
+pandas, numpy & Manipulation des donn'{e}es \
+\rowcolor{lightgray}
+scikit-learn & Mod`{e}les ML, preprocessing, m'{e}triques \
+xgboost, lightgbm & Gradient Boosting \
+\rowcolor{lightgray}
+optuna & Optimisation bay'{e}sienne \
+mlflow & Suivi des exp'{e}riences \
+\rowcolor{lightgray}
+shap & Explicabilit'{e} \
+fastapi, uvicorn & API REST \
+\rowcolor{lightgray}
+pydantic & Validation API \
+pyarrow & Stockage Parquet \
+\rowcolor{lightgray}
+great-expectations & Validation qualit'{e} \
+dvc & Versionnement donn'{e}es \
+\rowcolor{lightgray}
+joblib & S'{e}rialisation mod`{e}les \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Annexe C --- M'{e}triques d''{E}valuation}
+
+\begin{table}[H]
+\centering
+\caption{D'{e}finitions des m'{e}triques d''{e}valuation}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{>{\bfseries}p{3cm} p{6cm} p{5cm}}
+\toprule
+\rowcolor{primary!15}
+\textbf{M'{e}trique} & \textbf{Formule} & \textbf{Sens m'{e}dical} \
+\midrule
+AUC-ROC & Aire sous la courbe ROC & Discrimination globale \
+\rowcolor{lightgray}
+Recall & 
+V
+P
+/
+(
+V
+P
++
+F
+N
+)
+VP/(VP+FN) & Hospitalisations d'{e}tect'{e}es \
+Pr'{e}cision & 
+V
+P
+/
+(
+V
+P
++
+F
+P
+)
+VP/(VP+FP) & Qualit'{e} des alertes \
+\rowcolor{lightgray}
+F1-Score & 
+2
+P
+R
+/
+(
+P
++
+R
+)
+2PR/(P+R) & '{E}quilibre pr'{e}cision-rappel \
+Sp'{e}cificit'{e} & 
+V
+N
+/
+(
+V
+N
++
+F
+P
+)
+VN/(VN+FP) & Patients sains identifi'{e}s \
+\bottomrule
+\end{tabular}
+\end{table}
+
+\noindent\textit{VP~=Vrais Positifs, FN=Faux N'{e}gatifs, FP=Faux Positifs, VN=~Vrais N'{e}gatifs}
+
+\end{document}"
