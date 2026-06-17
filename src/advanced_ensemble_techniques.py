@@ -528,6 +528,8 @@ def log_ensemble_to_mlflow(
     try:
         import mlflow
         
+        MLFLOW_URI = str(PROJECT_ROOT / "mlruns")
+        mlflow.set_tracking_uri(MLFLOW_URI)
         mlflow.set_experiment(experiment_name)
         
         with mlflow.start_run(run_name=run_name):

@@ -97,10 +97,10 @@ def prepare_patients(df: pd.DataFrame) -> pd.DataFrame:
         df[col] = safe_numeric(df[col])
 
     df["COUT_TOTAL"] = df[cost_cols].sum(axis=1) if cost_cols else 0
-    df["AGE"] = safe_numeric(df.get("AGE", pd.Series(0, index=df.index)))
-    df["SEXE_ENC"] = safe_numeric(df.get("BENE_SEX_IDENT_CD", pd.Series(0, index=df.index)))
-    df["RACE_ENC"] = safe_numeric(df.get("BENE_RACE_CD", pd.Series(0, index=df.index)))
-    df["BENE_ESRD_IND"] = safe_numeric(df.get("BENE_ESRD_IND", pd.Series(0, index=df.index)))
+    df["AGE"] = safe_numeric(df["AGE"] if "AGE" in df.columns else pd.Series(0, index=df.index))
+    df["SEXE_ENC"] = safe_numeric(df["BENE_SEX_IDENT_CD"] if "BENE_SEX_IDENT_CD" in df.columns else pd.Series(0, index=df.index))
+    df["RACE_ENC"] = safe_numeric(df["BENE_RACE_CD"] if "BENE_RACE_CD" in df.columns else pd.Series(0, index=df.index))
+    df["BENE_ESRD_IND"] = safe_numeric(df["BENE_ESRD_IND"] if "BENE_ESRD_IND" in df.columns else pd.Series(0, index=df.index))
 
     df[TARGET] = safe_numeric(df[TARGET]).astype(int)
     return df
@@ -181,7 +181,9 @@ def build_dynamic_features(patients: pd.DataFrame, claims) -> pd.DataFrame:
     ]
 
     for col in dynamic_cols:
-        df[col] = safe_numeric(df.get(col, pd.Series(0, index=df.index)))
+        if col not in df.columns:
+            df[col] = 0
+        df[col] = safe_numeric(df[col])
 
     df["IS_NEW_PATIENT"] = (
         (df["NB_HOSP_PASSEES"] == 0)

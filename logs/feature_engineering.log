@@ -64,3 +64,11 @@
 2026-05-10 08:22:17,145 | INFO | ============================================================
 2026-05-10 08:22:17,145 | INFO | FEATURE ENGINEERING — TERMINÉ ✅
 2026-05-10 08:22:17,145 | INFO | ============================================================
+2026-06-17 00:33:01,240 | INFO | Ajout des features composites patients...
+2026-06-17 00:33:01,260 | INFO |   NB_COMORBIDITES moyen : 11.00
+2026-06-17 00:33:01,260 | INFO |   CHARLSON_INDEX moyen : 13.00
+2026-06-17 00:33:01,260 | INFO |   COUT_TOTAL moyen : 0.00
+2026-06-17 00:33:01,261 | INFO | Ajout des features composites patients...
+2026-06-17 00:33:01,272 | INFO |   NB_COMORBIDITES moyen : 0.00
+2026-06-17 00:33:01,272 | INFO |   CHARLSON_INDEX moyen : 0.00
+2026-06-17 00:33:01,272 | INFO |   COUT_TOTAL moyen : 0.00

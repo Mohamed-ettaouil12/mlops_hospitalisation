@@ -74,7 +74,7 @@ class PatientData(BaseModel):
     SP_OSTEOPRS       : int = Field(0, ge=0, le=1)
     SP_RA_OA          : int = Field(0, ge=0, le=1)
     SP_STRKETIA       : int = Field(0, ge=0, le=1)
-    SP_STATE_CODE     : int = Field(0, ge=0)
+    SP_STATE_CODE     : int   = Field(0, ge=0, description="Code état (non utilisé par le modèle)")
 
     # Features composites
     NB_COMORBIDITES   : float = Field(0, ge=0)

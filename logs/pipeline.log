@@ -195,3 +195,1626 @@ ModuleNotFoundError: No module named 'src'
 2026-06-14 21:19:56,809 | INFO | Meilleur modele : LightGBM
 2026-06-14 21:19:56,809 | INFO | AUC validation : 0.9517
 2026-06-14 21:19:56,809 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-16 23:42:05,719 | INFO | ======================================================================
+2026-06-16 23:42:05,719 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-16 23:42:05,719 | INFO | ======================================================================
+2026-06-16 23:42:05,719 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-16 23:42:05,719 | INFO | 
+2026-06-16 23:42:05,719 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:42:05,719 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-16 23:42:05,719 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:42:08,537 | INFO | Could not find local file-backed GX project
+2026-06-16 23:42:08,537 | INFO | Created temporary directory '/tmp/tmpl0pyrzh2' for ephemeral docs site
+2026-06-16 23:42:08,538 | INFO | Loading 'datasources' ->
+[]
+2026-06-16 23:42:08,640 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-16 23:42:08,681 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-16 23:42:08,702 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-16 23:42:08,704 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-16 23:42:08,758 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 3.04s
+2026-06-16 23:42:08,758 | INFO | 
+2026-06-16 23:42:08,758 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:42:08,758 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-16 23:42:08,758 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:42:08,759 | INFO | PIPELINE CLEANING START
+2026-06-16 23:42:09,014 | INFO | Patients 2008: 30,000
+2026-06-16 23:42:09,275 | INFO | Patients 2009: 29,510
+2026-06-16 23:42:09,528 | INFO | Patients 2010: 29,075
+2026-06-16 23:42:09,906 | INFO | inpatient: 17,325
+2026-06-16 23:42:14,583 | INFO | outpatient: 205,642
+2026-06-16 23:42:51,548 | INFO | carrier_A: 625,356
+2026-06-16 23:43:25,210 | INFO | carrier_B: 608,505
+2026-06-16 23:43:29,860 | INFO | prescription: 1,436,994
+2026-06-16 23:43:33,307 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-16 23:43:33,311 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-16 23:43:33,365 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-16 23:43:33,372 | INFO | Target rate: 0.075
+2026-06-16 23:43:33,377 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-16 23:43:33,380 | INFO | Target rate: 0.091
+2026-06-16 23:43:33,386 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-16 23:43:33,389 | INFO | Target rate: 0.076
+2026-06-16 23:43:33,858 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-16 23:43:34,690 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-16 23:43:35,299 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-16 23:43:39,168 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-16 23:43:39,168 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-16 23:43:39,171 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-16 23:43:39,171 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-16 23:43:39,171 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-16 23:43:39,171 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-16 23:43:39,171 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-16 23:43:39,171 | INFO | Patients clean shape : (88585, 28)
+2026-06-16 23:43:39,171 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-16 23:43:39,171 | INFO | OK Etape 2/4 : Data Cleaning termine en 90.41s
+2026-06-16 23:43:39,172 | INFO | 
+2026-06-16 23:43:39,172 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:43:39,172 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-16 23:43:39,172 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:43:39,435 | INFO | ============================================================
+2026-06-16 23:43:39,435 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-16 23:43:39,435 | INFO | ============================================================
+2026-06-16 23:43:39,435 | INFO | Chargement des donnees nettoyees...
+2026-06-16 23:43:39,484 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-16 23:43:43,153 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-16 23:43:45,340 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-16 23:43:45,358 | INFO | Construction des features composites...
+2026-06-16 23:43:45,373 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-16 23:43:45,373 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-16 23:43:45,373 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-16 23:43:45,423 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-16 23:43:45,423 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-16 23:43:45,423 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-16 23:43:45,423 | INFO |   Nombre de features : 28
+2026-06-16 23:43:45,491 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-16 23:43:45,491 | INFO | ============================================================
+2026-06-16 23:43:45,491 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-16 23:43:45,491 | INFO | ============================================================
+2026-06-16 23:43:45,760 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-16 23:43:45,760 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-16 23:43:45,760 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-16 23:43:45,760 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-16 23:43:45,760 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-16 23:43:45,760 | INFO | X_train : (30000, 28)
+2026-06-16 23:43:45,761 | INFO | X_val   : (29510, 28)
+2026-06-16 23:43:45,761 | INFO | X_test  : (29075, 28)
+2026-06-16 23:43:45,761 | INFO | y_train : 30000
+2026-06-16 23:43:45,761 | INFO | y_val   : 29510
+2026-06-16 23:43:45,761 | INFO | y_test  : 29075
+2026-06-16 23:43:45,761 | INFO | Features : 28
+2026-06-16 23:43:45,761 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.59s
+2026-06-16 23:43:45,761 | INFO | 
+2026-06-16 23:43:45,761 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:43:45,761 | INFO | START Etape 4/4 : Training modeles
+2026-06-16 23:43:45,761 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:43:48,400 | INFO | ======================================================================
+2026-06-16 23:43:48,400 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-16 23:43:48,400 | INFO | ======================================================================
+2026-06-16 23:43:48,408 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-16 23:43:48,408 | INFO | Chargement des données features...
+2026-06-16 23:43:48,449 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-16 23:43:48,449 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-16 23:43:48,449 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-16 23:43:48,449 | INFO |   Features : 28
+2026-06-16 23:43:48,449 | INFO | 
+======================================================================
+2026-06-16 23:43:48,449 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-16 23:43:48,450 | INFO | ======================================================================
+2026-06-16 23:43:48,450 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-16 23:43:51,250 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-16 23:43:51,250 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-16 23:43:51,251 | INFO | 
+── XGBoost + Optuna ──
+2026-06-16 23:43:51,252 | INFO |   scale_pos_weight : 12.29
+2026-06-16 23:43:51,252 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-16 23:44:25,768 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 320, 'max_depth': 3, 'learning_rate': 0.012019370984050246, 'subsample': 0.6822651290854935, 'colsample_bytree': 0.9993323152286129, 'reg_alpha': 9.169662344632847, 'reg_lambda': 5.907816836991678, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-16 23:44:28,327 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-16 23:44:28,796 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-16 23:44:28,804 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6285 | Recall=0.8164 | Precision=0.5109 | Threshold=0.808
+2026-06-16 23:44:28,804 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-16 23:44:28,805 | INFO | 
+── LightGBM + Optuna ──
+2026-06-16 23:44:28,806 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-16 23:44:53,436 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-16 23:44:53,866 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-16 23:44:53,875 | INFO |   LightGBM               | AUC=0.9523 | F1=0.6292 | Recall=0.7915 | Precision=0.5221 | Threshold=0.805
+2026-06-16 23:44:53,875 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-16 23:44:53,876 | INFO | 
+── CatBoost + Optuna ──
+2026-06-16 23:44:53,877 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-16 23:45:56,947 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 194, 'depth': 3, 'learning_rate': 0.0202595189073027, 'l2_leaf_reg': 8.02673062510699, 'subsample': 0.98604142312162, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-16 23:45:59,488 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-16 23:45:59,931 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-16 23:45:59,933 | INFO |   CatBoost               | AUC=0.9512 | F1=0.6282 | Recall=0.8190 | Precision=0.5095 | Threshold=0.811
+2026-06-16 23:45:59,934 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-16 23:45:59,935 | INFO | 
+── Random Forest Bagging ──
+2026-06-16 23:46:03,314 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-16 23:46:03,314 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-16 23:46:03,315 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-16 23:46:03,595 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.10, LightGBM=0.90
+2026-06-16 23:46:05,720 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9522 | F1=0.6285 | Recall=0.7893 | Precision=0.5221 | Threshold=0.807
+2026-06-16 23:46:05,720 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-16 23:46:05,721 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-16 23:46:06,875 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.10, LightGBM=0.90, CatBoost=0.00
+2026-06-16 23:46:09,381 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9522 | F1=0.6285 | Recall=0.7893 | Precision=0.5221 | Threshold=0.807
+2026-06-16 23:46:09,381 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-16 23:46:09,382 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-16 23:46:09,817 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-16 23:46:11,327 | INFO |   XGBoost                | target=0.80 | threshold=0.954 | VAL precision=0.8000 recall=0.0786
+2026-06-16 23:46:12,349 | INFO |   CatBoost               | target=0.80 | threshold=0.958 | VAL precision=0.8077 recall=0.0156
+2026-06-16 23:46:13,886 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-16 23:46:17,027 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-16 23:46:17,030 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-16 23:46:17,030 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6285 | Recall=0.8164 | Precision=0.5109 | Threshold=0.808
+2026-06-16 23:46:17,030 | INFO |   LightGBM               | AUC=0.9523 | F1=0.6292 | Recall=0.7915 | Precision=0.5221 | Threshold=0.805
+2026-06-16 23:46:17,030 | INFO |   CatBoost               | AUC=0.9512 | F1=0.6282 | Recall=0.8190 | Precision=0.5095 | Threshold=0.811
+2026-06-16 23:46:17,030 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-16 23:46:17,030 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9522 | F1=0.6285 | Recall=0.7893 | Precision=0.5221 | Threshold=0.807
+2026-06-16 23:46:17,030 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9522 | F1=0.6285 | Recall=0.7893 | Precision=0.5221 | Threshold=0.807
+2026-06-16 23:46:17,030 | INFO | 
+🏆 Meilleur modèle : LightGBM | precision validation = 0.5221 | AUC validation = 0.9523
+2026-06-16 23:46:17,030 | INFO | 
+── Évaluation finale TEST : LightGBM ──
+2026-06-16 23:46:17,087 | INFO |   LightGBM TEST          | AUC=0.9684 | F1=0.6308 | Recall=0.6202 | Precision=0.6418 | Threshold=0.805
+2026-06-16 23:46:17,087 | INFO |   Confusion Matrix : {'tn': 26119, 'fp': 760, 'fn': 834, 'tp': 1362}
+2026-06-16 23:46:17,090 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-16 23:46:17,090 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-16 23:46:17,090 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-16 23:46:17,090 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-16 23:46:17,090 | INFO | ======================================================================
+2026-06-16 23:46:17,090 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-16 23:46:17,090 | INFO | 🏆 Meilleur modèle : LightGBM | AUC validation : 0.9523
+2026-06-16 23:46:17,090 | INFO | Prochaine étape : mlflow ui
+2026-06-16 23:46:17,090 | INFO | ======================================================================
+2026-06-16 23:46:17,092 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-16 23:46:17,092 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-16 23:46:17,092 | INFO | Best model : LightGBM
+2026-06-16 23:46:17,092 | INFO | Best AUC   : 0.9523
+2026-06-16 23:46:17,092 | INFO | OK Etape 4/4 : Training modeles termine en 151.33s
+2026-06-16 23:46:17,092 | INFO | ======================================================================
+2026-06-16 23:46:17,092 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-16 23:46:17,092 | INFO | ======================================================================
+2026-06-16 23:46:17,092 | INFO | Duree totale : 251.37s
+2026-06-16 23:46:17,092 | INFO | Patients cleaned : 88,585
+2026-06-16 23:46:17,092 | INFO | Train : (30000, 28)
+2026-06-16 23:46:17,092 | INFO | Validation : (29510, 28)
+2026-06-16 23:46:17,092 | INFO | Test : (29075, 28)
+2026-06-16 23:46:17,092 | INFO | Nombre features : 28
+2026-06-16 23:46:17,092 | INFO | Meilleur modele : LightGBM
+2026-06-16 23:46:17,092 | INFO | AUC validation : 0.9523
+2026-06-16 23:46:17,092 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-16 23:48:29,461 | INFO | ======================================================================
+2026-06-16 23:48:29,462 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-16 23:48:29,462 | INFO | ======================================================================
+2026-06-16 23:48:29,462 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-16 23:48:29,462 | INFO | 
+2026-06-16 23:48:29,462 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:48:29,462 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-16 23:48:29,462 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:48:31,953 | INFO | Could not find local file-backed GX project
+2026-06-16 23:48:31,953 | INFO | Created temporary directory '/tmp/tmplg8vlra3' for ephemeral docs site
+2026-06-16 23:48:31,954 | INFO | Loading 'datasources' ->
+[]
+2026-06-16 23:48:32,055 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-16 23:48:32,097 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-16 23:48:32,120 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-16 23:48:32,122 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-16 23:48:32,179 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 2.72s
+2026-06-16 23:48:32,179 | INFO | 
+2026-06-16 23:48:32,179 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:48:32,179 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-16 23:48:32,179 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:48:32,180 | INFO | PIPELINE CLEANING START
+2026-06-16 23:48:32,438 | INFO | Patients 2008: 30,000
+2026-06-16 23:48:32,712 | INFO | Patients 2009: 29,510
+2026-06-16 23:48:32,976 | INFO | Patients 2010: 29,075
+2026-06-16 23:48:33,378 | INFO | inpatient: 17,325
+2026-06-16 23:48:38,238 | INFO | outpatient: 205,642
+2026-06-16 23:49:12,213 | INFO | carrier_A: 625,356
+2026-06-16 23:49:48,152 | INFO | carrier_B: 608,505
+2026-06-16 23:49:52,657 | INFO | prescription: 1,436,994
+2026-06-16 23:49:57,541 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-16 23:49:57,546 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-16 23:49:57,604 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-16 23:49:57,610 | INFO | Target rate: 0.075
+2026-06-16 23:49:57,615 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-16 23:49:57,621 | INFO | Target rate: 0.091
+2026-06-16 23:49:57,626 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-16 23:49:57,629 | INFO | Target rate: 0.076
+2026-06-16 23:49:58,108 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-16 23:49:59,034 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-16 23:49:59,671 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-16 23:50:03,712 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-16 23:50:03,713 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-16 23:50:03,715 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-16 23:50:03,715 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-16 23:50:03,715 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-16 23:50:03,715 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-16 23:50:03,715 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-16 23:50:03,715 | INFO | Patients clean shape : (88585, 28)
+2026-06-16 23:50:03,715 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-16 23:50:03,716 | INFO | OK Etape 2/4 : Data Cleaning termine en 91.54s
+2026-06-16 23:50:03,716 | INFO | 
+2026-06-16 23:50:03,716 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:50:03,716 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-16 23:50:03,716 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:50:03,981 | INFO | ============================================================
+2026-06-16 23:50:03,981 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-16 23:50:03,981 | INFO | ============================================================
+2026-06-16 23:50:03,981 | INFO | Chargement des donnees nettoyees...
+2026-06-16 23:50:04,029 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-16 23:50:07,617 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-16 23:50:09,806 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-16 23:50:09,824 | INFO | Construction des features composites...
+2026-06-16 23:50:09,839 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-16 23:50:09,839 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-16 23:50:09,839 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-16 23:50:09,890 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-16 23:50:09,891 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-16 23:50:09,891 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-16 23:50:09,891 | INFO |   Nombre de features : 28
+2026-06-16 23:50:09,961 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-16 23:50:09,961 | INFO | ============================================================
+2026-06-16 23:50:09,961 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-16 23:50:09,961 | INFO | ============================================================
+2026-06-16 23:50:10,242 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-16 23:50:10,242 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-16 23:50:10,242 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-16 23:50:10,243 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-16 23:50:10,243 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-16 23:50:10,243 | INFO | X_train : (30000, 28)
+2026-06-16 23:50:10,243 | INFO | X_val   : (29510, 28)
+2026-06-16 23:50:10,243 | INFO | X_test  : (29075, 28)
+2026-06-16 23:50:10,243 | INFO | y_train : 30000
+2026-06-16 23:50:10,243 | INFO | y_val   : 29510
+2026-06-16 23:50:10,243 | INFO | y_test  : 29075
+2026-06-16 23:50:10,243 | INFO | Features : 28
+2026-06-16 23:50:10,243 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.53s
+2026-06-16 23:50:10,243 | INFO | 
+2026-06-16 23:50:10,243 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:50:10,243 | INFO | START Etape 4/4 : Training modeles
+2026-06-16 23:50:10,243 | INFO | ----------------------------------------------------------------------
+2026-06-16 23:50:12,592 | INFO | ======================================================================
+2026-06-16 23:50:12,592 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-16 23:50:12,592 | INFO | ======================================================================
+2026-06-16 23:50:12,599 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-16 23:50:12,599 | INFO | Chargement des données features...
+2026-06-16 23:50:12,639 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-16 23:50:12,639 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-16 23:50:12,640 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-16 23:50:12,640 | INFO |   Features : 28
+2026-06-16 23:50:12,640 | INFO | 
+======================================================================
+2026-06-16 23:50:12,640 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-16 23:50:12,640 | INFO | ======================================================================
+2026-06-16 23:50:12,640 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-16 23:50:14,910 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-16 23:50:14,911 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-16 23:50:14,911 | INFO | 
+── XGBoost + Optuna ──
+2026-06-16 23:50:14,912 | INFO |   scale_pos_weight : 12.29
+2026-06-16 23:50:14,912 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-16 23:50:43,380 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 274, 'max_depth': 3, 'learning_rate': 0.010275803950118336, 'subsample': 0.9971627961838946, 'colsample_bytree': 0.9841197885832395, 'reg_alpha': 0.86090986334424, 'reg_lambda': 5.095569356144769, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-16 23:50:46,041 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-16 23:50:46,578 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-16 23:50:46,582 | INFO |   XGBoost                | AUC=0.9523 | F1=0.6306 | Recall=0.7548 | Precision=0.5415 | Threshold=0.833
+2026-06-16 23:50:46,582 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-16 23:50:46,583 | INFO | 
+── LightGBM + Optuna ──
+2026-06-16 23:50:46,584 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:02:27,309 | INFO | ======================================================================
+2026-06-17 00:02:27,309 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:02:27,309 | INFO | ======================================================================
+2026-06-17 00:02:27,309 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:02:27,309 | INFO | 
+2026-06-17 00:02:27,309 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:02:27,309 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:02:27,309 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:02:30,124 | INFO | Could not find local file-backed GX project
+2026-06-17 00:02:30,125 | INFO | Created temporary directory '/tmp/tmpa_s0qenh' for ephemeral docs site
+2026-06-17 00:02:30,126 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:02:30,254 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:02:30,297 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:02:30,329 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:02:30,333 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:02:30,394 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 3.08s
+2026-06-17 00:02:30,394 | INFO | 
+2026-06-17 00:02:30,395 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:02:30,395 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:02:30,395 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:02:30,395 | INFO | PIPELINE CLEANING START
+2026-06-17 00:02:30,692 | INFO | Patients 2008: 30,000
+2026-06-17 00:02:30,998 | INFO | Patients 2009: 29,510
+2026-06-17 00:02:31,294 | INFO | Patients 2010: 29,075
+2026-06-17 00:02:31,744 | INFO | inpatient: 17,325
+2026-06-17 00:02:36,882 | INFO | outpatient: 205,642
+2026-06-17 00:03:09,937 | INFO | carrier_A: 625,356
+2026-06-17 00:03:42,652 | INFO | carrier_B: 608,505
+2026-06-17 00:03:47,192 | INFO | prescription: 1,436,994
+2026-06-17 00:03:50,448 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 00:03:50,457 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 00:03:50,465 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 00:03:50,469 | INFO | Target rate: 0.075
+2026-06-17 00:03:50,474 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 00:03:50,477 | INFO | Target rate: 0.091
+2026-06-17 00:03:50,482 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 00:03:50,485 | INFO | Target rate: 0.076
+2026-06-17 00:03:50,688 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:03:51,351 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:03:51,975 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:03:55,838 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:03:55,838 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 00:03:55,840 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 00:03:55,840 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:03:55,840 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:03:55,840 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:03:55,840 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:03:55,840 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 00:03:55,840 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 00:03:55,840 | INFO | OK Etape 2/4 : Data Cleaning termine en 85.45s
+2026-06-17 00:03:55,840 | INFO | 
+2026-06-17 00:03:55,840 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:03:55,840 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 00:03:55,840 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:03:55,896 | INFO | ============================================================
+2026-06-17 00:03:55,896 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 00:03:55,896 | INFO | ============================================================
+2026-06-17 00:03:55,896 | INFO | Chargement des donnees nettoyees...
+2026-06-17 00:03:55,927 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 00:03:59,576 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 00:04:01,773 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 00:04:01,792 | INFO | Construction des features composites...
+2026-06-17 00:04:01,805 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 00:04:01,805 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 00:04:01,805 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 00:04:01,852 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 00:04:01,852 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 00:04:01,853 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 00:04:01,853 | INFO |   Nombre de features : 28
+2026-06-17 00:04:01,918 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 00:04:01,918 | INFO | ============================================================
+2026-06-17 00:04:01,918 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 00:04:01,918 | INFO | ============================================================
+2026-06-17 00:04:02,205 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 00:04:02,205 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 00:04:02,206 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 00:04:02,206 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 00:04:02,206 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 00:04:02,206 | INFO | X_train : (30000, 28)
+2026-06-17 00:04:02,206 | INFO | X_val   : (29510, 28)
+2026-06-17 00:04:02,206 | INFO | X_test  : (29075, 28)
+2026-06-17 00:04:02,206 | INFO | y_train : 30000
+2026-06-17 00:04:02,206 | INFO | y_val   : 29510
+2026-06-17 00:04:02,206 | INFO | y_test  : 29075
+2026-06-17 00:04:02,206 | INFO | Features : 28
+2026-06-17 00:04:02,206 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.37s
+2026-06-17 00:04:02,206 | INFO | 
+2026-06-17 00:04:02,206 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:04:02,206 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 00:04:02,206 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:04:03,621 | INFO | ======================================================================
+2026-06-17 00:04:03,621 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 00:04:03,621 | INFO | ======================================================================
+2026-06-17 00:04:03,629 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 00:04:03,629 | INFO | Chargement des données features...
+2026-06-17 00:04:03,669 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 00:04:03,670 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 00:04:03,670 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 00:04:03,670 | INFO |   Features : 28
+2026-06-17 00:04:03,670 | INFO | 
+======================================================================
+2026-06-17 00:04:03,670 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 00:04:03,670 | INFO | ======================================================================
+2026-06-17 00:04:03,670 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 00:04:06,181 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:04:06,181 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 00:04:06,182 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 00:04:06,182 | INFO |   scale_pos_weight : 12.29
+2026-06-17 00:04:06,182 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:04:34,971 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 288, 'max_depth': 3, 'learning_rate': 0.014051297778939913, 'subsample': 0.7976023128611336, 'colsample_bytree': 0.9883660129881751, 'reg_alpha': 7.247088628651715, 'reg_lambda': 3.1638238150276066, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 00:04:37,543 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 00:04:38,035 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 00:04:38,041 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6280 | Recall=0.8231 | Precision=0.5077 | Threshold=0.801
+2026-06-17 00:04:38,041 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 00:04:38,042 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 00:04:38,043 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:05:05,757 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 00:05:06,176 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 00:05:06,182 | INFO |   LightGBM               | AUC=0.9521 | F1=0.6275 | Recall=0.8490 | Precision=0.4976 | Threshold=0.772
+2026-06-17 00:05:06,182 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 00:05:06,183 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 00:05:06,184 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:06:35,971 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 480, 'depth': 3, 'learning_rate': 0.011710374153122403, 'l2_leaf_reg': 9.648715801966503, 'subsample': 0.7346018323453276, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 00:06:39,030 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 00:06:39,462 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 00:06:39,465 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6286 | Recall=0.7912 | Precision=0.5215 | Threshold=0.822
+2026-06-17 00:06:39,465 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 00:06:39,466 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 00:06:42,847 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:06:42,847 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 00:06:42,848 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 00:06:43,142 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.30, LightGBM=0.70
+2026-06-17 00:06:45,330 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6284 | Recall=0.8145 | Precision=0.5115 | Threshold=0.804
+2026-06-17 00:06:45,330 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 00:06:45,331 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 00:06:46,511 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.10, LightGBM=0.10, CatBoost=0.80
+2026-06-17 00:06:48,977 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9515 | F1=0.6285 | Recall=0.7953 | Precision=0.5195 | Threshold=0.818
+2026-06-17 00:06:48,977 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 00:06:48,978 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 00:06:49,357 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 00:06:53,487 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 00:06:57,447 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 00:06:57,447 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:06:57,447 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6280 | Recall=0.8231 | Precision=0.5077 | Threshold=0.801
+2026-06-17 00:06:57,447 | INFO |   LightGBM               | AUC=0.9521 | F1=0.6275 | Recall=0.8490 | Precision=0.4976 | Threshold=0.772
+2026-06-17 00:06:57,447 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6286 | Recall=0.7912 | Precision=0.5215 | Threshold=0.822
+2026-06-17 00:06:57,454 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:06:57,454 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9521 | F1=0.6284 | Recall=0.8145 | Precision=0.5115 | Threshold=0.804
+2026-06-17 00:06:57,454 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9515 | F1=0.6285 | Recall=0.7953 | Precision=0.5195 | Threshold=0.818
+2026-06-17 00:06:57,454 | INFO | 
+🏆 Meilleur modèle : CatBoost | precision validation = 0.5215 | AUC validation = 0.9511
+2026-06-17 00:06:57,454 | INFO | 
+── Évaluation finale TEST : CatBoost ──
+2026-06-17 00:06:57,499 | INFO |   CatBoost TEST          | AUC=0.9678 | F1=0.6319 | Recall=0.6184 | Precision=0.6461 | Threshold=0.822
+2026-06-17 00:06:57,499 | INFO |   Confusion Matrix : {'tn': 26135, 'fp': 744, 'fn': 838, 'tp': 1358}
+2026-06-17 00:06:57,501 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 00:06:57,501 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 00:06:57,501 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 00:06:57,501 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 00:06:57,501 | INFO | ======================================================================
+2026-06-17 00:06:57,501 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 00:06:57,501 | INFO | 🏆 Meilleur modèle : CatBoost | AUC validation : 0.9511
+2026-06-17 00:06:57,501 | INFO | Prochaine étape : mlflow ui
+2026-06-17 00:06:57,501 | INFO | ======================================================================
+2026-06-17 00:06:57,502 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 00:06:57,502 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 00:06:57,502 | INFO | Best model : CatBoost
+2026-06-17 00:06:57,502 | INFO | Best AUC   : 0.9511
+2026-06-17 00:06:57,502 | INFO | OK Etape 4/4 : Training modeles termine en 175.30s
+2026-06-17 00:06:57,502 | INFO | ======================================================================
+2026-06-17 00:06:57,502 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 00:06:57,503 | INFO | ======================================================================
+2026-06-17 00:06:57,503 | INFO | Duree totale : 270.19s
+2026-06-17 00:06:57,503 | INFO | Patients cleaned : 88,585
+2026-06-17 00:06:57,503 | INFO | Train : (30000, 28)
+2026-06-17 00:06:57,503 | INFO | Validation : (29510, 28)
+2026-06-17 00:06:57,503 | INFO | Test : (29075, 28)
+2026-06-17 00:06:57,503 | INFO | Nombre features : 28
+2026-06-17 00:06:57,503 | INFO | Meilleur modele : CatBoost
+2026-06-17 00:06:57,503 | INFO | AUC validation : 0.9511
+2026-06-17 00:06:57,503 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-17 00:09:48,477 | INFO | ======================================================================
+2026-06-17 00:09:48,478 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:09:48,478 | INFO | ======================================================================
+2026-06-17 00:09:48,478 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:09:48,478 | INFO | 
+2026-06-17 00:09:48,478 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:09:48,478 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:09:48,478 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:09:48,478 | ERROR | ECHEC Etape 1/4 : Validation des donnees raw apres 0.00s
+2026-06-17 00:09:48,478 | ERROR | Erreur : No module named 'great_expectations'
+2026-06-17 00:09:48,479 | ERROR | Traceback (most recent call last):
+  File "/home/tawil/mlops_hospitalisation/src/pipeline.py", line 51, in run_step
+    result = func()
+  File "/home/tawil/mlops_hospitalisation/src/pipeline.py", line 110, in step_validation
+    import src.validate_data  # noqa: F401
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/tawil/mlops_hospitalisation/src/validate_data.py", line 1, in <module>
+    import great_expectations as gx
+ModuleNotFoundError: No module named 'great_expectations'
+
+2026-06-17 00:11:16,597 | INFO | ======================================================================
+2026-06-17 00:11:16,597 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:11:16,597 | INFO | ======================================================================
+2026-06-17 00:11:16,597 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:11:16,598 | INFO | 
+2026-06-17 00:11:16,598 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:11:16,598 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:11:16,598 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:11:19,447 | INFO | Could not find local file-backed GX project
+2026-06-17 00:11:19,447 | INFO | Created temporary directory '/tmp/tmprpcgz3se' for ephemeral docs site
+2026-06-17 00:11:19,448 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:11:19,557 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:11:19,596 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:11:19,618 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:11:19,621 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:11:19,680 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 3.08s
+2026-06-17 00:11:19,681 | INFO | 
+2026-06-17 00:11:19,681 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:11:19,681 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:11:19,681 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:11:19,682 | INFO | PIPELINE CLEANING START
+2026-06-17 00:11:19,956 | INFO | Patients 2008: 30,000
+2026-06-17 00:11:20,243 | INFO | Patients 2009: 29,510
+2026-06-17 00:11:20,526 | INFO | Patients 2010: 29,075
+2026-06-17 00:11:20,947 | INFO | inpatient: 17,325
+2026-06-17 00:11:25,960 | INFO | outpatient: 205,642
+2026-06-17 00:12:00,629 | INFO | carrier_A: 625,356
+2026-06-17 00:12:21,670 | INFO | ======================================================================
+2026-06-17 00:12:21,670 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:12:21,670 | INFO | ======================================================================
+2026-06-17 00:12:21,670 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:12:21,670 | INFO | 
+2026-06-17 00:12:21,670 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:21,670 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:12:21,670 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:24,469 | INFO | Could not find local file-backed GX project
+2026-06-17 00:12:24,469 | INFO | Created temporary directory '/tmp/tmpr8peou7j' for ephemeral docs site
+2026-06-17 00:12:24,470 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:12:24,588 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:12:24,638 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:12:24,663 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:12:24,665 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:12:24,730 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 3.06s
+2026-06-17 00:12:24,730 | INFO | 
+2026-06-17 00:12:24,730 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:24,730 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:12:24,730 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:24,730 | INFO | PIPELINE CLEANING START
+2026-06-17 00:12:25,029 | INFO | Patients 2008: 30,000
+2026-06-17 00:12:25,329 | INFO | Patients 2009: 29,510
+2026-06-17 00:12:25,653 | INFO | Patients 2010: 29,075
+2026-06-17 00:12:26,145 | INFO | inpatient: 17,325
+2026-06-17 00:12:32,773 | INFO | outpatient: 205,642
+2026-06-17 00:12:34,931 | INFO | carrier_B: 608,505
+2026-06-17 00:12:39,933 | INFO | prescription: 1,436,994
+2026-06-17 00:12:44,963 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 00:12:44,968 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 00:12:45,013 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 00:12:45,019 | INFO | Target rate: 0.075
+2026-06-17 00:12:45,025 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 00:12:45,029 | INFO | Target rate: 0.091
+2026-06-17 00:12:45,035 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 00:12:45,038 | INFO | Target rate: 0.076
+2026-06-17 00:12:45,559 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:12:46,497 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:12:47,212 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:12:51,336 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:12:51,336 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 00:12:51,339 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 00:12:51,339 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:12:51,339 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:12:51,339 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:12:51,339 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:12:51,339 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 00:12:51,339 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 00:12:51,339 | INFO | OK Etape 2/4 : Data Cleaning termine en 91.66s
+2026-06-17 00:12:51,340 | INFO | 
+2026-06-17 00:12:51,340 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:51,340 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 00:12:51,340 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:12:51,646 | INFO | ============================================================
+2026-06-17 00:12:51,646 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 00:12:51,646 | INFO | ============================================================
+2026-06-17 00:12:51,646 | INFO | Chargement des donnees nettoyees...
+2026-06-17 00:12:51,709 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 00:13:03,519 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 00:13:05,773 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 00:13:05,790 | INFO | Construction des features composites...
+2026-06-17 00:13:05,807 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 00:13:05,807 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 00:13:05,807 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 00:13:05,857 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 00:13:05,858 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 00:13:05,858 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 00:13:05,858 | INFO |   Nombre de features : 28
+2026-06-17 00:13:05,937 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 00:13:05,937 | INFO | ============================================================
+2026-06-17 00:13:05,937 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 00:13:05,937 | INFO | ============================================================
+2026-06-17 00:13:06,240 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 00:13:06,240 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 00:13:06,240 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 00:13:06,240 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 00:13:06,240 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 00:13:06,241 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 00:13:06,241 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 00:13:06,241 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 00:13:06,241 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 00:13:06,241 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 00:13:06,241 | INFO | X_train : (30000, 28)
+2026-06-17 00:13:06,241 | INFO | X_val   : (29510, 28)
+2026-06-17 00:13:06,241 | INFO | X_test  : (29075, 28)
+2026-06-17 00:13:06,241 | INFO | y_train : 30000
+2026-06-17 00:13:06,241 | INFO | y_val   : 29510
+2026-06-17 00:13:06,241 | INFO | y_test  : 29075
+2026-06-17 00:13:06,241 | INFO | Features : 28
+2026-06-17 00:13:06,241 | INFO | OK Etape 3/4 : Data Preprocessing termine en 14.90s
+2026-06-17 00:13:06,241 | INFO | 
+2026-06-17 00:13:06,241 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:06,241 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 00:13:06,241 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:08,948 | INFO | ======================================================================
+2026-06-17 00:13:08,948 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 00:13:08,948 | INFO | ======================================================================
+2026-06-17 00:13:08,956 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 00:13:08,956 | INFO | Chargement des données features...
+2026-06-17 00:13:08,993 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 00:13:08,993 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 00:13:08,993 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 00:13:08,993 | INFO |   Features : 28
+2026-06-17 00:13:08,993 | INFO | 
+======================================================================
+2026-06-17 00:13:08,993 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 00:13:08,993 | INFO | ======================================================================
+2026-06-17 00:13:08,993 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 00:13:11,837 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:13:11,837 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 00:13:11,838 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 00:13:11,839 | INFO |   scale_pos_weight : 12.29
+2026-06-17 00:13:11,839 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:13:20,949 | INFO | ======================================================================
+2026-06-17 00:13:20,954 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:13:20,954 | INFO | ======================================================================
+2026-06-17 00:13:20,954 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:13:20,954 | INFO | 
+2026-06-17 00:13:20,954 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:20,955 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:13:20,955 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:25,984 | INFO | Could not find local file-backed GX project
+2026-06-17 00:13:25,985 | INFO | Created temporary directory '/tmp/tmpi7tdsn2p' for ephemeral docs site
+2026-06-17 00:13:25,986 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:13:26,250 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:13:26,342 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:13:26,407 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:13:26,413 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:13:26,549 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 5.59s
+2026-06-17 00:13:26,549 | INFO | 
+2026-06-17 00:13:26,549 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:26,549 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:13:26,549 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:13:26,550 | INFO | PIPELINE CLEANING START
+2026-06-17 00:13:26,891 | INFO | Patients 2008: 30,000
+2026-06-17 00:13:27,280 | INFO | Patients 2009: 29,510
+2026-06-17 00:13:27,746 | INFO | Patients 2010: 29,075
+2026-06-17 00:13:28,386 | INFO | inpatient: 17,325
+2026-06-17 00:13:36,008 | INFO | outpatient: 205,642
+2026-06-17 00:14:46,337 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 337, 'max_depth': 3, 'learning_rate': 0.032807406448596005, 'subsample': 0.7339260438809084, 'colsample_bytree': 0.951097559102987, 'reg_alpha': 1.0072038412129942, 'reg_lambda': 4.831093691806967, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 00:14:49,334 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 00:14:49,811 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 00:14:49,815 | INFO |   XGBoost                | AUC=0.9518 | F1=0.6298 | Recall=0.7804 | Precision=0.5280 | Threshold=0.800
+2026-06-17 00:14:49,816 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 00:14:49,817 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 00:14:49,818 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:15:11,241 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 00:15:11,668 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 00:15:11,675 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6290 | Recall=0.7671 | Precision=0.5331 | Threshold=0.800
+2026-06-17 00:15:11,675 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 00:15:11,677 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 00:15:11,677 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:16:18,830 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 188, 'depth': 3, 'learning_rate': 0.024365244046300746, 'l2_leaf_reg': 8.580864671925816, 'subsample': 0.9975955317263913, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 00:16:21,376 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 00:16:21,798 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 00:16:21,802 | INFO |   CatBoost               | AUC=0.9512 | F1=0.6281 | Recall=0.7993 | Precision=0.5173 | Threshold=0.820
+2026-06-17 00:16:21,802 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 00:16:21,803 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 00:16:25,227 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:16:25,227 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 00:16:25,228 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 00:16:25,494 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.60, LightGBM=0.40
+2026-06-17 00:16:27,679 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6304 | Recall=0.7756 | Precision=0.5310 | Threshold=0.800
+2026-06-17 00:16:27,679 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 00:16:27,680 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 00:16:28,859 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.60, LightGBM=0.40, CatBoost=0.00
+2026-06-17 00:16:31,381 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6304 | Recall=0.7756 | Precision=0.5310 | Threshold=0.800
+2026-06-17 00:16:31,381 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 00:16:31,382 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 00:16:31,799 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 00:16:34,438 | INFO |   CatBoost               | target=0.80 | threshold=0.962 | VAL precision=0.8000 recall=0.0148
+2026-06-17 00:16:36,044 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 00:16:39,900 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 00:16:39,900 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:16:39,900 | INFO |   XGBoost                | AUC=0.9518 | F1=0.6298 | Recall=0.7804 | Precision=0.5280 | Threshold=0.800
+2026-06-17 00:16:39,900 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6290 | Recall=0.7671 | Precision=0.5331 | Threshold=0.800
+2026-06-17 00:16:39,900 | INFO |   CatBoost               | AUC=0.9512 | F1=0.6281 | Recall=0.7993 | Precision=0.5173 | Threshold=0.820
+2026-06-17 00:16:39,900 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:16:39,900 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6304 | Recall=0.7756 | Precision=0.5310 | Threshold=0.800
+2026-06-17 00:16:39,900 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6304 | Recall=0.7756 | Precision=0.5310 | Threshold=0.800
+2026-06-17 00:16:39,900 | INFO | 
+🏆 Meilleur modèle : LightGBM | precision validation = 0.5331 | AUC validation = 0.9522
+2026-06-17 00:16:39,900 | INFO | 
+── Évaluation finale TEST : LightGBM ──
+2026-06-17 00:16:39,958 | INFO |   LightGBM TEST          | AUC=0.9684 | F1=0.6108 | Recall=0.5806 | Precision=0.6443 | Threshold=0.800
+2026-06-17 00:16:39,958 | INFO |   Confusion Matrix : {'tn': 26175, 'fp': 704, 'fn': 921, 'tp': 1275}
+2026-06-17 00:16:39,965 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 00:16:39,965 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 00:16:39,965 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 00:16:39,965 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 00:16:39,965 | INFO | ======================================================================
+2026-06-17 00:16:39,965 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 00:16:39,965 | INFO | 🏆 Meilleur modèle : LightGBM | AUC validation : 0.9522
+2026-06-17 00:16:39,965 | INFO | Prochaine étape : mlflow ui
+2026-06-17 00:16:39,965 | INFO | ======================================================================
+2026-06-17 00:16:39,966 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 00:16:39,966 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 00:16:39,966 | INFO | Best model : LightGBM
+2026-06-17 00:16:39,966 | INFO | Best AUC   : 0.9522
+2026-06-17 00:16:39,966 | INFO | OK Etape 4/4 : Training modeles termine en 213.73s
+2026-06-17 00:16:39,967 | INFO | ======================================================================
+2026-06-17 00:16:39,967 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 00:16:39,967 | INFO | ======================================================================
+2026-06-17 00:16:39,967 | INFO | Duree totale : 323.37s
+2026-06-17 00:16:39,967 | INFO | Patients cleaned : 88,585
+2026-06-17 00:16:39,967 | INFO | Train : (30000, 28)
+2026-06-17 00:16:39,967 | INFO | Validation : (29510, 28)
+2026-06-17 00:16:39,967 | INFO | Test : (29075, 28)
+2026-06-17 00:16:39,967 | INFO | Nombre features : 28
+2026-06-17 00:16:39,967 | INFO | Meilleur modele : LightGBM
+2026-06-17 00:16:39,967 | INFO | AUC validation : 0.9522
+2026-06-17 00:16:39,967 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-17 00:19:44,232 | INFO | ======================================================================
+2026-06-17 00:19:44,233 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:19:44,233 | INFO | ======================================================================
+2026-06-17 00:19:44,233 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:19:44,233 | INFO | 
+2026-06-17 00:19:44,233 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:19:44,233 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:19:44,233 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:19:46,767 | INFO | Could not find local file-backed GX project
+2026-06-17 00:19:46,767 | INFO | Created temporary directory '/tmp/tmp2laqxua6' for ephemeral docs site
+2026-06-17 00:19:46,768 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:19:46,867 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:19:46,904 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:19:46,926 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:19:46,928 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:19:46,981 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 2.75s
+2026-06-17 00:19:46,981 | INFO | 
+2026-06-17 00:19:46,981 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:19:46,981 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:19:46,981 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:19:46,983 | INFO | PIPELINE CLEANING START
+2026-06-17 00:19:47,234 | INFO | Patients 2008: 30,000
+2026-06-17 00:19:47,492 | INFO | Patients 2009: 29,510
+2026-06-17 00:19:47,747 | INFO | Patients 2010: 29,075
+2026-06-17 00:19:48,136 | INFO | inpatient: 17,325
+2026-06-17 00:19:52,867 | INFO | outpatient: 205,642
+2026-06-17 00:20:24,467 | INFO | carrier_A: 625,356
+2026-06-17 00:20:56,792 | INFO | carrier_B: 608,505
+2026-06-17 00:21:01,600 | INFO | prescription: 1,436,994
+2026-06-17 00:21:04,948 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 00:21:04,950 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 00:21:04,957 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 00:21:04,961 | INFO | Target rate: 0.075
+2026-06-17 00:21:04,967 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 00:21:04,970 | INFO | Target rate: 0.091
+2026-06-17 00:21:04,975 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 00:21:04,978 | INFO | Target rate: 0.076
+2026-06-17 00:21:05,183 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:21:05,877 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:21:06,621 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:21:10,704 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:21:10,704 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 00:21:10,705 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 00:21:10,705 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:21:10,705 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:21:10,705 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:21:10,705 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:21:10,705 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 00:21:10,705 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 00:21:10,705 | INFO | OK Etape 2/4 : Data Cleaning termine en 83.72s
+2026-06-17 00:21:10,705 | INFO | 
+2026-06-17 00:21:10,705 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:21:10,705 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 00:21:10,706 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:21:10,742 | INFO | ============================================================
+2026-06-17 00:21:10,742 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 00:21:10,742 | INFO | ============================================================
+2026-06-17 00:21:10,742 | INFO | Chargement des donnees nettoyees...
+2026-06-17 00:21:10,772 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 00:21:14,692 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 00:21:16,879 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 00:21:16,898 | INFO | Construction des features composites...
+2026-06-17 00:21:16,909 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 00:21:16,910 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 00:21:16,910 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 00:21:16,952 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 00:21:16,953 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 00:21:16,953 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 00:21:16,953 | INFO |   Nombre de features : 28
+2026-06-17 00:21:17,023 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 00:21:17,023 | INFO | ============================================================
+2026-06-17 00:21:17,023 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 00:21:17,023 | INFO | ============================================================
+2026-06-17 00:21:17,305 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 00:21:17,305 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 00:21:17,305 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 00:21:17,305 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 00:21:17,305 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 00:21:17,305 | INFO | X_train : (30000, 28)
+2026-06-17 00:21:17,305 | INFO | X_val   : (29510, 28)
+2026-06-17 00:21:17,305 | INFO | X_test  : (29075, 28)
+2026-06-17 00:21:17,305 | INFO | y_train : 30000
+2026-06-17 00:21:17,305 | INFO | y_val   : 29510
+2026-06-17 00:21:17,305 | INFO | y_test  : 29075
+2026-06-17 00:21:17,305 | INFO | Features : 28
+2026-06-17 00:21:17,305 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.60s
+2026-06-17 00:21:17,305 | INFO | 
+2026-06-17 00:21:17,305 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:21:17,305 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 00:21:17,305 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:21:18,362 | INFO | ======================================================================
+2026-06-17 00:21:18,362 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 00:21:18,362 | INFO | ======================================================================
+2026-06-17 00:21:18,368 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 00:21:18,368 | INFO | Chargement des données features...
+2026-06-17 00:21:18,406 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 00:21:18,406 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 00:21:18,406 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 00:21:18,406 | INFO |   Features : 28
+2026-06-17 00:21:18,406 | INFO | 
+======================================================================
+2026-06-17 00:21:18,406 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 00:21:18,406 | INFO | ======================================================================
+2026-06-17 00:21:18,406 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 00:21:20,594 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:21:20,595 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 00:21:20,595 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 00:21:20,596 | INFO |   scale_pos_weight : 12.29
+2026-06-17 00:21:20,596 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:21:53,956 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 257, 'max_depth': 3, 'learning_rate': 0.010068128978744567, 'subsample': 0.8260104437806222, 'colsample_bytree': 0.992107744717187, 'reg_alpha': 8.146504216276128, 'reg_lambda': 6.306392701380164, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 00:21:56,550 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 00:21:57,076 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 00:21:57,084 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6315 | Recall=0.7548 | Precision=0.5428 | Threshold=0.825
+2026-06-17 00:21:57,084 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 00:21:57,085 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 00:21:57,086 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:22:22,783 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 00:22:23,227 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 00:22:23,233 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6296 | Recall=0.7956 | Precision=0.5209 | Threshold=0.802
+2026-06-17 00:22:23,233 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 00:22:23,234 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 00:22:23,235 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:23:28,142 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 189, 'depth': 3, 'learning_rate': 0.01916679985681117, 'l2_leaf_reg': 9.799317420109796, 'subsample': 0.6870394427465811, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 00:23:30,706 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 00:23:31,127 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 00:23:31,130 | INFO |   CatBoost               | AUC=0.9515 | F1=0.6283 | Recall=0.8201 | Precision=0.5092 | Threshold=0.812
+2026-06-17 00:23:31,130 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 00:23:31,131 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 00:23:34,460 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:23:34,460 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 00:23:34,461 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 00:23:34,720 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.70, LightGBM=0.30
+2026-06-17 00:23:36,855 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6306 | Recall=0.7526 | Precision=0.5427 | Threshold=0.823
+2026-06-17 00:23:36,855 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 00:23:36,856 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 00:23:38,075 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.70, LightGBM=0.30, CatBoost=0.00
+2026-06-17 00:23:40,921 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6306 | Recall=0.7526 | Precision=0.5427 | Threshold=0.823
+2026-06-17 00:23:40,921 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 00:23:40,922 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 00:23:41,369 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 00:23:43,617 | INFO |   CatBoost               | target=0.80 | threshold=0.949 | VAL precision=0.8053 recall=0.0338
+2026-06-17 00:23:45,189 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 00:23:48,047 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 00:23:48,047 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:23:48,047 | INFO |   XGBoost                | AUC=0.9521 | F1=0.6315 | Recall=0.7548 | Precision=0.5428 | Threshold=0.825
+2026-06-17 00:23:48,047 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6296 | Recall=0.7956 | Precision=0.5209 | Threshold=0.802
+2026-06-17 00:23:48,047 | INFO |   CatBoost               | AUC=0.9515 | F1=0.6283 | Recall=0.8201 | Precision=0.5092 | Threshold=0.812
+2026-06-17 00:23:48,047 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:23:48,047 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6306 | Recall=0.7526 | Precision=0.5427 | Threshold=0.823
+2026-06-17 00:23:48,048 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6306 | Recall=0.7526 | Precision=0.5427 | Threshold=0.823
+2026-06-17 00:23:48,048 | INFO | 
+🏆 Meilleur modèle : XGBoost | precision validation = 0.5428 | AUC validation = 0.9521
+2026-06-17 00:23:48,048 | INFO | 
+── Évaluation finale TEST : XGBoost ──
+2026-06-17 00:23:48,107 | INFO |   XGBoost TEST           | AUC=0.9682 | F1=0.5944 | Recall=0.5460 | Precision=0.6523 | Threshold=0.825
+2026-06-17 00:23:48,107 | INFO |   Confusion Matrix : {'tn': 26240, 'fp': 639, 'fn': 997, 'tp': 1199}
+2026-06-17 00:23:48,114 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 00:23:48,114 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 00:23:48,114 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 00:23:48,114 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 00:23:48,114 | INFO | ======================================================================
+2026-06-17 00:23:48,114 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 00:23:48,114 | INFO | 🏆 Meilleur modèle : XGBoost | AUC validation : 0.9521
+2026-06-17 00:23:48,114 | INFO | Prochaine étape : mlflow ui
+2026-06-17 00:23:48,114 | INFO | ======================================================================
+2026-06-17 00:23:48,119 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 00:23:48,119 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 00:23:48,119 | INFO | Best model : XGBoost
+2026-06-17 00:23:48,119 | INFO | Best AUC   : 0.9521
+2026-06-17 00:23:48,119 | INFO | OK Etape 4/4 : Training modeles termine en 150.81s
+2026-06-17 00:23:48,119 | INFO | ======================================================================
+2026-06-17 00:23:48,119 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 00:23:48,119 | INFO | ======================================================================
+2026-06-17 00:23:48,119 | INFO | Duree totale : 243.89s
+2026-06-17 00:23:48,119 | INFO | Patients cleaned : 88,585
+2026-06-17 00:23:48,119 | INFO | Train : (30000, 28)
+2026-06-17 00:23:48,120 | INFO | Validation : (29510, 28)
+2026-06-17 00:23:48,120 | INFO | Test : (29075, 28)
+2026-06-17 00:23:48,120 | INFO | Nombre features : 28
+2026-06-17 00:23:48,120 | INFO | Meilleur modele : XGBoost
+2026-06-17 00:23:48,120 | INFO | AUC validation : 0.9521
+2026-06-17 00:23:48,120 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-17 00:39:41,299 | INFO | ======================================================================
+2026-06-17 00:39:41,299 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:39:41,299 | INFO | ======================================================================
+2026-06-17 00:39:41,299 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:39:41,299 | INFO | 
+2026-06-17 00:39:41,299 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:39:41,299 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:39:41,299 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:39:43,785 | INFO | Could not find local file-backed GX project
+2026-06-17 00:39:43,786 | INFO | Created temporary directory '/tmp/tmp956bcw5j' for ephemeral docs site
+2026-06-17 00:39:43,786 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:39:43,893 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:39:43,930 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:39:43,950 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:39:43,953 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:39:44,006 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 2.71s
+2026-06-17 00:39:44,006 | INFO | 
+2026-06-17 00:39:44,006 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:39:44,006 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:39:44,006 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:39:44,014 | INFO | PIPELINE CLEANING START
+2026-06-17 00:39:44,267 | INFO | Patients 2008: 30,000
+2026-06-17 00:39:44,532 | INFO | Patients 2009: 29,510
+2026-06-17 00:39:44,804 | INFO | Patients 2010: 29,075
+2026-06-17 00:39:45,207 | INFO | inpatient: 17,325
+2026-06-17 00:39:49,929 | INFO | outpatient: 205,642
+2026-06-17 00:40:23,765 | INFO | carrier_A: 625,356
+2026-06-17 00:40:55,971 | INFO | carrier_B: 608,505
+2026-06-17 00:41:00,466 | INFO | prescription: 1,436,994
+2026-06-17 00:41:03,738 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 00:41:03,742 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 00:41:03,799 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 00:41:03,804 | INFO | Target rate: 0.075
+2026-06-17 00:41:03,810 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 00:41:03,813 | INFO | Target rate: 0.091
+2026-06-17 00:41:03,819 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 00:41:03,823 | INFO | Target rate: 0.076
+2026-06-17 00:41:04,282 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:41:05,199 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:41:05,814 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:41:09,707 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:41:09,707 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 00:41:09,710 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 00:41:09,710 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:41:09,710 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:41:09,710 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:41:09,710 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:41:09,710 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 00:41:09,710 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 00:41:09,710 | INFO | OK Etape 2/4 : Data Cleaning termine en 85.70s
+2026-06-17 00:41:09,710 | INFO | 
+2026-06-17 00:41:09,710 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:41:09,710 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 00:41:09,710 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:41:09,954 | INFO | ============================================================
+2026-06-17 00:41:09,955 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 00:41:09,955 | INFO | ============================================================
+2026-06-17 00:41:09,955 | INFO | Chargement des donnees nettoyees...
+2026-06-17 00:41:10,001 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 00:41:13,595 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 00:41:15,785 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 00:41:15,804 | INFO | Construction des features composites...
+2026-06-17 00:41:15,819 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 00:41:15,820 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 00:41:15,820 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 00:41:15,871 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 00:41:15,871 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 00:41:15,871 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 00:41:15,871 | INFO |   Nombre de features : 28
+2026-06-17 00:41:15,942 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 00:41:15,942 | INFO | ============================================================
+2026-06-17 00:41:15,942 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 00:41:15,942 | INFO | ============================================================
+2026-06-17 00:41:16,223 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 00:41:16,223 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 00:41:16,223 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 00:41:16,223 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 00:41:16,223 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 00:41:16,223 | INFO | X_train : (30000, 28)
+2026-06-17 00:41:16,224 | INFO | X_val   : (29510, 28)
+2026-06-17 00:41:16,224 | INFO | X_test  : (29075, 28)
+2026-06-17 00:41:16,224 | INFO | y_train : 30000
+2026-06-17 00:41:16,224 | INFO | y_val   : 29510
+2026-06-17 00:41:16,224 | INFO | y_test  : 29075
+2026-06-17 00:41:16,224 | INFO | Features : 28
+2026-06-17 00:41:16,224 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.51s
+2026-06-17 00:41:16,224 | INFO | 
+2026-06-17 00:41:16,224 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:41:16,224 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 00:41:16,224 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:41:18,382 | INFO | ======================================================================
+2026-06-17 00:41:18,382 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 00:41:18,382 | INFO | ======================================================================
+2026-06-17 00:41:18,388 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 00:41:18,389 | INFO | Chargement des données features...
+2026-06-17 00:41:18,429 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 00:41:18,429 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 00:41:18,429 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 00:41:18,429 | INFO |   Features : 28
+2026-06-17 00:41:18,429 | INFO | 
+======================================================================
+2026-06-17 00:41:18,429 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 00:41:18,429 | INFO | ======================================================================
+2026-06-17 00:41:18,429 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 00:41:20,658 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:41:20,658 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 00:41:20,659 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 00:41:20,660 | INFO |   scale_pos_weight : 12.29
+2026-06-17 00:41:20,660 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:41:50,185 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 322, 'max_depth': 3, 'learning_rate': 0.010696192088654853, 'subsample': 0.6856598033630366, 'colsample_bytree': 0.9846292946255409, 'reg_alpha': 7.9809902864694875, 'reg_lambda': 9.207089226555022, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 00:41:52,661 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 00:41:53,112 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 00:41:53,116 | INFO |   XGBoost                | AUC=0.9522 | F1=0.6290 | Recall=0.8249 | Precision=0.5083 | Threshold=0.797
+2026-06-17 00:41:53,116 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 00:41:53,118 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 00:41:53,118 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:42:11,723 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 00:42:12,137 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 00:42:12,143 | INFO |   LightGBM               | AUC=0.9523 | F1=0.6284 | Recall=0.7711 | Precision=0.5302 | Threshold=0.811
+2026-06-17 00:42:12,143 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 00:42:12,144 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 00:42:12,144 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:43:16,051 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 171, 'depth': 3, 'learning_rate': 0.015531617806791537, 'l2_leaf_reg': 9.970817625648502, 'subsample': 0.9181409348646123, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 00:43:18,470 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 00:43:18,875 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 00:43:18,877 | INFO |   CatBoost               | AUC=0.9513 | F1=0.6279 | Recall=0.8142 | Precision=0.5109 | Threshold=0.815
+2026-06-17 00:43:18,878 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 00:43:18,878 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 00:43:22,236 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:43:22,237 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 00:43:22,237 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 00:43:22,501 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.60, LightGBM=0.40
+2026-06-17 00:43:24,641 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6284 | Recall=0.7793 | Precision=0.5264 | Threshold=0.819
+2026-06-17 00:43:24,641 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 00:43:24,642 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 00:43:25,803 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.10, LightGBM=0.60, CatBoost=0.30
+2026-06-17 00:43:28,276 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9521 | F1=0.6286 | Recall=0.7596 | Precision=0.5361 | Threshold=0.824
+2026-06-17 00:43:28,276 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 00:43:28,277 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 00:43:28,651 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 00:43:29,948 | INFO |   XGBoost                | target=0.80 | threshold=0.948 | VAL precision=0.8085 recall=0.0282
+2026-06-17 00:43:32,382 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 00:43:34,264 | INFO |   SoftVoting_XGB_LGBM    | target=0.80 | threshold=0.938 | VAL precision=0.8085 recall=0.0282
+2026-06-17 00:43:35,990 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 00:43:35,990 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:43:35,990 | INFO |   XGBoost                | AUC=0.9522 | F1=0.6290 | Recall=0.8249 | Precision=0.5083 | Threshold=0.797
+2026-06-17 00:43:35,990 | INFO |   LightGBM               | AUC=0.9523 | F1=0.6284 | Recall=0.7711 | Precision=0.5302 | Threshold=0.811
+2026-06-17 00:43:35,990 | INFO |   CatBoost               | AUC=0.9513 | F1=0.6279 | Recall=0.8142 | Precision=0.5109 | Threshold=0.815
+2026-06-17 00:43:35,990 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:43:35,990 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6284 | Recall=0.7793 | Precision=0.5264 | Threshold=0.819
+2026-06-17 00:43:35,990 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9521 | F1=0.6286 | Recall=0.7596 | Precision=0.5361 | Threshold=0.824
+2026-06-17 00:43:35,990 | INFO | 
+🏆 Meilleur modèle : SoftVoting_XGB_LGB_CAT | precision validation = 0.5361 | AUC validation = 0.9521
+2026-06-17 00:43:35,990 | INFO | 
+── Évaluation finale TEST : SoftVoting_XGB_LGB_CAT ──
+2026-06-17 00:43:36,088 | INFO |   SoftVoting_XGB_LGB_CAT TEST | AUC=0.9681 | F1=0.6028 | Recall=0.5628 | Precision=0.6488 | Threshold=0.824
+2026-06-17 00:43:36,088 | INFO |   Confusion Matrix : {'tn': 26210, 'fp': 669, 'fn': 960, 'tp': 1236}
+2026-06-17 00:43:36,099 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 00:43:36,099 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 00:43:36,099 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 00:43:36,099 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 00:43:36,099 | INFO | ======================================================================
+2026-06-17 00:43:36,099 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 00:43:36,099 | INFO | 🏆 Meilleur modèle : SoftVoting_XGB_LGB_CAT | AUC validation : 0.9521
+2026-06-17 00:43:36,099 | INFO | Prochaine étape : mlflow ui
+2026-06-17 00:43:36,099 | INFO | ======================================================================
+2026-06-17 00:43:36,100 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 00:43:36,100 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 00:43:36,100 | INFO | Best model : SoftVoting_XGB_LGB_CAT
+2026-06-17 00:43:36,100 | INFO | Best AUC   : 0.9521
+2026-06-17 00:43:36,100 | INFO | OK Etape 4/4 : Training modeles termine en 139.88s
+2026-06-17 00:43:36,100 | INFO | ======================================================================
+2026-06-17 00:43:36,100 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 00:43:36,100 | INFO | ======================================================================
+2026-06-17 00:43:36,100 | INFO | Duree totale : 234.80s
+2026-06-17 00:43:36,100 | INFO | Patients cleaned : 88,585
+2026-06-17 00:43:36,100 | INFO | Train : (30000, 28)
+2026-06-17 00:43:36,101 | INFO | Validation : (29510, 28)
+2026-06-17 00:43:36,101 | INFO | Test : (29075, 28)
+2026-06-17 00:43:36,101 | INFO | Nombre features : 28
+2026-06-17 00:43:36,101 | INFO | Meilleur modele : SoftVoting_XGB_LGB_CAT
+2026-06-17 00:43:36,104 | INFO | AUC validation : 0.9521
+2026-06-17 00:43:36,104 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-17 00:54:12,800 | INFO | ======================================================================
+2026-06-17 00:54:12,800 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 00:54:12,800 | INFO | ======================================================================
+2026-06-17 00:54:12,800 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 00:54:12,800 | INFO | 
+2026-06-17 00:54:12,800 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:54:12,800 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 00:54:12,800 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:54:15,268 | INFO | Could not find local file-backed GX project
+2026-06-17 00:54:15,268 | INFO | Created temporary directory '/tmp/tmp7se27o06' for ephemeral docs site
+2026-06-17 00:54:15,269 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 00:54:15,373 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:54:15,411 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 00:54:15,433 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:54:15,435 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 00:54:15,489 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 2.69s
+2026-06-17 00:54:15,489 | INFO | 
+2026-06-17 00:54:15,489 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:54:15,489 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 00:54:15,490 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:54:15,490 | INFO | PIPELINE CLEANING START
+2026-06-17 00:54:15,741 | INFO | Patients 2008: 30,000
+2026-06-17 00:54:16,007 | INFO | Patients 2009: 29,510
+2026-06-17 00:54:16,278 | INFO | Patients 2010: 29,075
+2026-06-17 00:54:16,660 | INFO | inpatient: 17,325
+2026-06-17 00:54:21,322 | INFO | outpatient: 205,642
+2026-06-17 00:54:53,538 | INFO | carrier_A: 625,356
+2026-06-17 00:55:25,411 | INFO | carrier_B: 608,505
+2026-06-17 00:55:29,918 | INFO | prescription: 1,436,994
+2026-06-17 00:55:33,263 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 00:55:33,267 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 00:55:33,294 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 00:55:33,299 | INFO | Target rate: 0.075
+2026-06-17 00:55:33,304 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 00:55:33,307 | INFO | Target rate: 0.091
+2026-06-17 00:55:33,312 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 00:55:33,315 | INFO | Target rate: 0.076
+2026-06-17 00:55:33,688 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:55:34,387 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:55:35,007 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:55:38,990 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:55:38,990 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 00:55:38,993 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 00:55:38,993 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 00:55:38,993 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 00:55:38,993 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 00:55:38,993 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 00:55:38,993 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 00:55:38,993 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 00:55:38,993 | INFO | OK Etape 2/4 : Data Cleaning termine en 83.50s
+2026-06-17 00:55:38,993 | INFO | 
+2026-06-17 00:55:38,993 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:55:38,993 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 00:55:38,993 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:55:39,213 | INFO | ============================================================
+2026-06-17 00:55:39,213 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 00:55:39,214 | INFO | ============================================================
+2026-06-17 00:55:39,214 | INFO | Chargement des donnees nettoyees...
+2026-06-17 00:55:39,258 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 00:55:42,929 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 00:55:45,199 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 00:55:45,217 | INFO | Construction des features composites...
+2026-06-17 00:55:45,233 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 00:55:45,233 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 00:55:45,233 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 00:55:45,284 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 00:55:45,284 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 00:55:45,284 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 00:55:45,285 | INFO |   Nombre de features : 28
+2026-06-17 00:55:45,354 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 00:55:45,354 | INFO | ============================================================
+2026-06-17 00:55:45,354 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 00:55:45,354 | INFO | ============================================================
+2026-06-17 00:55:45,637 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 00:55:45,637 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 00:55:45,637 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 00:55:45,638 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 00:55:45,638 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 00:55:45,638 | INFO | X_train : (30000, 28)
+2026-06-17 00:55:45,638 | INFO | X_val   : (29510, 28)
+2026-06-17 00:55:45,638 | INFO | X_test  : (29075, 28)
+2026-06-17 00:55:45,638 | INFO | y_train : 30000
+2026-06-17 00:55:45,638 | INFO | y_val   : 29510
+2026-06-17 00:55:45,638 | INFO | y_test  : 29075
+2026-06-17 00:55:45,638 | INFO | Features : 28
+2026-06-17 00:55:45,638 | INFO | OK Etape 3/4 : Data Preprocessing termine en 6.64s
+2026-06-17 00:55:45,638 | INFO | 
+2026-06-17 00:55:45,638 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:55:45,638 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 00:55:45,638 | INFO | ----------------------------------------------------------------------
+2026-06-17 00:55:48,041 | INFO | ======================================================================
+2026-06-17 00:55:48,042 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 00:55:48,042 | INFO | ======================================================================
+2026-06-17 00:55:48,049 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 00:55:48,093 | INFO | Chargement des données features...
+2026-06-17 00:55:48,134 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 00:55:48,134 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 00:55:48,134 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 00:55:48,134 | INFO |   Features : 28
+2026-06-17 00:55:48,134 | INFO | 
+======================================================================
+2026-06-17 00:55:48,134 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 00:55:48,134 | INFO | ======================================================================
+2026-06-17 00:55:48,134 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 00:55:50,851 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:55:50,852 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 00:55:50,852 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 00:55:50,853 | INFO |   scale_pos_weight : 12.29
+2026-06-17 00:55:50,853 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:56:16,243 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 160, 'max_depth': 3, 'learning_rate': 0.015399100980315182, 'subsample': 0.8611248675877425, 'colsample_bytree': 0.9920408267617692, 'reg_alpha': 1.0636140077577974, 'reg_lambda': 2.592010311639522, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 00:56:18,698 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 00:56:19,201 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 00:56:19,208 | INFO |   XGBoost                | AUC=0.9523 | F1=0.6313 | Recall=0.7545 | Precision=0.5427 | Threshold=0.825
+2026-06-17 00:56:19,208 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 00:56:19,210 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 00:56:19,210 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:56:39,860 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 00:56:40,283 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 00:56:40,288 | INFO |   LightGBM               | AUC=0.9521 | F1=0.6274 | Recall=0.8316 | Precision=0.5037 | Threshold=0.766
+2026-06-17 00:56:40,288 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 00:56:40,289 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 00:56:40,290 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 00:57:52,844 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 278, 'depth': 3, 'learning_rate': 0.014530368514911116, 'l2_leaf_reg': 7.30366239504939, 'subsample': 0.6640348481227998, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 00:57:55,654 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 00:57:56,072 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 00:57:56,075 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6258 | Recall=0.8116 | Precision=0.5092 | Threshold=0.809
+2026-06-17 00:57:56,075 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 00:57:56,076 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 00:57:59,433 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:57:59,434 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 00:57:59,435 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 00:57:59,705 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.90, LightGBM=0.10
+2026-06-17 00:58:01,866 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6313 | Recall=0.7504 | Precision=0.5448 | Threshold=0.824
+2026-06-17 00:58:01,866 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 00:58:01,867 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 00:58:03,043 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.60, LightGBM=0.40, CatBoost=0.00
+2026-06-17 00:58:05,505 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6299 | Recall=0.7485 | Precision=0.5438 | Threshold=0.817
+2026-06-17 00:58:05,505 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 00:58:05,506 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 00:58:05,930 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 00:58:07,262 | INFO |   XGBoost                | target=0.80 | threshold=0.921 | VAL precision=0.8111 recall=0.0271
+2026-06-17 00:58:08,099 | INFO |   CatBoost               | target=0.80 | threshold=0.956 | VAL precision=0.8158 recall=0.0230
+2026-06-17 00:58:08,377 | INFO |   CatBoost               | target=0.85 | threshold=0.957 | VAL precision=0.8500 recall=0.0189
+2026-06-17 00:58:09,687 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 00:58:11,546 | INFO |   SoftVoting_XGB_LGBM    | target=0.80 | threshold=0.920 | VAL precision=0.8111 recall=0.0271
+2026-06-17 00:58:12,138 | INFO |   SoftVoting_XGB_LGB_CAT | target=0.80 | threshold=0.918 | VAL precision=0.8111 recall=0.0271
+2026-06-17 00:58:12,488 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 00:58:12,488 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 00:58:12,488 | INFO |   XGBoost                | AUC=0.9523 | F1=0.6313 | Recall=0.7545 | Precision=0.5427 | Threshold=0.825
+2026-06-17 00:58:12,488 | INFO |   LightGBM               | AUC=0.9521 | F1=0.6274 | Recall=0.8316 | Precision=0.5037 | Threshold=0.766
+2026-06-17 00:58:12,488 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6258 | Recall=0.8116 | Precision=0.5092 | Threshold=0.809
+2026-06-17 00:58:12,488 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 00:58:12,489 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6313 | Recall=0.7504 | Precision=0.5448 | Threshold=0.824
+2026-06-17 00:58:12,489 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6299 | Recall=0.7485 | Precision=0.5438 | Threshold=0.817
+2026-06-17 00:58:12,489 | INFO | 
+🏆 Meilleur modèle : SoftVoting_XGB_LGBM | precision validation = 0.5448 | AUC validation = 0.9523
+2026-06-17 00:58:12,489 | INFO | 
+── Évaluation finale TEST : SoftVoting_XGB_LGBM ──
+2026-06-17 00:58:12,558 | INFO |   SoftVoting_XGB_LGBM TEST | AUC=0.9684 | F1=0.5945 | Recall=0.5442 | Precision=0.6552 | Threshold=0.824
+2026-06-17 00:58:12,558 | INFO |   Confusion Matrix : {'tn': 26250, 'fp': 629, 'fn': 1001, 'tp': 1195}
+2026-06-17 00:58:12,577 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 00:58:12,577 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 00:58:12,577 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 00:58:12,577 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 00:58:12,578 | INFO | ======================================================================
+2026-06-17 00:58:12,579 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 00:58:12,579 | INFO | 🏆 Meilleur modèle : SoftVoting_XGB_LGBM | AUC validation : 0.9523
+2026-06-17 00:58:12,579 | INFO | Prochaine étape : mlflow ui
+2026-06-17 00:58:12,579 | INFO | ======================================================================
+2026-06-17 00:58:12,581 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 00:58:12,582 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 00:58:12,582 | INFO | Best model : SoftVoting_XGB_LGBM
+2026-06-17 00:58:12,582 | INFO | Best AUC   : 0.9523
+2026-06-17 00:58:12,582 | INFO | OK Etape 4/4 : Training modeles termine en 146.94s
+2026-06-17 00:58:12,582 | INFO | ======================================================================
+2026-06-17 00:58:12,582 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 00:58:12,582 | INFO | ======================================================================
+2026-06-17 00:58:12,582 | INFO | Duree totale : 239.78s
+2026-06-17 00:58:12,582 | INFO | Patients cleaned : 88,585
+2026-06-17 00:58:12,582 | INFO | Train : (30000, 28)
+2026-06-17 00:58:12,582 | INFO | Validation : (29510, 28)
+2026-06-17 00:58:12,582 | INFO | Test : (29075, 28)
+2026-06-17 00:58:12,583 | INFO | Nombre features : 28
+2026-06-17 00:58:12,583 | INFO | Meilleur modele : SoftVoting_XGB_LGBM
+2026-06-17 00:58:12,583 | INFO | AUC validation : 0.9523
+2026-06-17 00:58:12,583 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000
+2026-06-17 18:14:34,685 | INFO | ======================================================================
+2026-06-17 18:14:34,685 | INFO | PIPELINE MLOPS — DEMARRAGE PRODUCTION
+2026-06-17 18:14:34,685 | INFO | ======================================================================
+2026-06-17 18:14:34,685 | INFO | Ordre : Validation -> Cleaning -> Preprocessing -> Training
+2026-06-17 18:14:34,685 | INFO | 
+2026-06-17 18:14:34,685 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:14:34,685 | INFO | START Etape 1/4 : Validation des donnees raw
+2026-06-17 18:14:34,685 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:14:37,646 | INFO | Could not find local file-backed GX project
+2026-06-17 18:14:37,647 | INFO | Created temporary directory '/tmp/tmpvrvzcvt3' for ephemeral docs site
+2026-06-17 18:14:37,648 | INFO | Loading 'datasources' ->
+[]
+2026-06-17 18:14:37,762 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 18:14:37,810 | WARNING | /home/tawil/mlops_hospitalisation/venv/lib/python3.14/site-packages/great_expectations/expectations/expectation.py:1491: UserWarning: `result_format` configured at the Validator-level will not be persisted. Please add the configuration to your Checkpoint config or checkpoint_run() method instead.
+  warnings.warn(
+
+2026-06-17 18:14:37,837 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 18:14:37,840 | INFO | 	2 expectation(s) included in expectation_suite.
+2026-06-17 18:14:37,903 | INFO | OK Etape 1/4 : Validation des donnees raw termine en 3.22s
+2026-06-17 18:14:37,903 | INFO | 
+2026-06-17 18:14:37,903 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:14:37,903 | INFO | START Etape 2/4 : Data Cleaning
+2026-06-17 18:14:37,903 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:14:37,904 | INFO | PIPELINE CLEANING START
+2026-06-17 18:14:38,203 | INFO | Patients 2008: 30,000
+2026-06-17 18:14:38,508 | INFO | Patients 2009: 29,510
+2026-06-17 18:14:38,808 | INFO | Patients 2010: 29,075
+2026-06-17 18:14:39,254 | INFO | inpatient: 17,325
+2026-06-17 18:14:44,891 | INFO | outpatient: 205,642
+2026-06-17 18:15:30,726 | INFO | carrier_A: 625,356
+2026-06-17 18:16:12,794 | INFO | carrier_B: 608,505
+2026-06-17 18:16:18,672 | INFO | prescription: 1,436,994
+2026-06-17 18:16:22,905 | INFO | Dates d'admission inpatient : 17,325/17,325 valides (100.0%)
+2026-06-17 18:16:22,912 | INFO | Plage des dates d'admission valides : 2007-12-10 00:00:00 -> 2010-12-30 00:00:00
+2026-06-17 18:16:22,983 | INFO | build_target(2008-01-01) : fenêtre [2008-01-01 -> 2008-07-01] | 3,323 admissions urgentes matchées | 2,258 patients uniques
+2026-06-17 18:16:22,991 | INFO | Target rate: 0.075
+2026-06-17 18:16:22,996 | INFO | build_target(2009-01-01) : fenêtre [2009-01-01 -> 2009-07-01] | 3,346 admissions urgentes matchées | 2,696 patients uniques
+2026-06-17 18:16:23,002 | INFO | Target rate: 0.091
+2026-06-17 18:16:23,008 | INFO | build_target(2010-01-01) : fenêtre [2010-01-01 -> 2010-07-01] | 2,454 admissions urgentes matchées | 2,196 patients uniques
+2026-06-17 18:16:23,013 | INFO | Target rate: 0.076
+2026-06-17 18:16:23,589 | INFO | Claims inpatient sauvegardés -> data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 18:16:24,527 | INFO | Claims outpatient sauvegardés -> data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 18:16:25,391 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 18:16:29,951 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 18:16:29,951 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-17 18:16:29,954 | INFO | OK fichier patients_cleaned : data/cleaned/patients_cleaned.parquet
+2026-06-17 18:16:29,954 | INFO | OK fichier claims_inpatient : data/cleaned/claims_inpatient_cleaned.parquet
+2026-06-17 18:16:29,954 | INFO | OK fichier claims_outpatient : data/cleaned/claims_outpatient_cleaned.parquet
+2026-06-17 18:16:29,954 | INFO | OK fichier claims_carrier : data/cleaned/claims_carrier_cleaned.parquet
+2026-06-17 18:16:29,954 | INFO | OK fichier claims_prescription : data/cleaned/claims_prescription_cleaned.parquet
+2026-06-17 18:16:29,954 | INFO | Patients clean shape : (88585, 28)
+2026-06-17 18:16:29,954 | INFO | Claims disponibles : ['inpatient', 'outpatient', 'prescription', 'carrier']
+2026-06-17 18:16:29,954 | INFO | OK Etape 2/4 : Data Cleaning termine en 112.05s
+2026-06-17 18:16:29,955 | INFO | 
+2026-06-17 18:16:29,955 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:16:29,955 | INFO | START Etape 3/4 : Data Preprocessing
+2026-06-17 18:16:29,955 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:16:30,279 | INFO | ============================================================
+2026-06-17 18:16:30,279 | INFO | PIPELINE DATA PREPROCESSING — DEBUT
+2026-06-17 18:16:30,279 | INFO | ============================================================
+2026-06-17 18:16:30,279 | INFO | Chargement des donnees nettoyees...
+2026-06-17 18:16:30,342 | INFO |   -> 88,585 patients | Annees : [2008, 2009, 2010]
+2026-06-17 18:16:34,821 | INFO | Construction des features dynamiques anti-leakage...
+2026-06-17 18:16:37,801 | INFO |   -> Nouveaux patients sans historique : 39,441
+2026-06-17 18:16:37,825 | INFO | Construction des features composites...
+2026-06-17 18:16:37,844 | INFO |   NB_COMORBIDITES moyen : 2.22
+2026-06-17 18:16:37,844 | INFO |   CHARLSON_INDEX moyen  : 2.33
+2026-06-17 18:16:37,844 | INFO | Encodage, normalisation et split temporel strict...
+2026-06-17 18:16:37,916 | INFO |   Train (2008) : 30,000 | Taux : 7.53%
+2026-06-17 18:16:37,916 | INFO |   Val   (2009) : 29,510 | Taux : 9.14%
+2026-06-17 18:16:37,916 | INFO |   Test  (2010) : 29,075 | Taux : 7.55%
+2026-06-17 18:16:37,916 | INFO |   Nombre de features : 28
+2026-06-17 18:16:37,998 | INFO |   -> Donnees sauvegardees dans data/features
+2026-06-17 18:16:37,999 | INFO | ============================================================
+2026-06-17 18:16:37,999 | INFO | PIPELINE DATA PREPROCESSING — TERMINE
+2026-06-17 18:16:37,999 | INFO | ============================================================
+2026-06-17 18:16:38,326 | INFO | OK fichier X_train : data/features/X_train.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier X_val : data/features/X_val.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier X_test : data/features/X_test.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier y_train : data/features/y_train.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier y_val : data/features/y_val.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier y_test : data/features/y_test.parquet
+2026-06-17 18:16:38,326 | INFO | OK fichier feature_names : data/features/feature_names.csv
+2026-06-17 18:16:38,326 | INFO | OK fichier preprocessing_report : data/features/preprocessing_report.json
+2026-06-17 18:16:38,327 | INFO | OK fichier scaler : models/scaler.pkl
+2026-06-17 18:16:38,327 | INFO | OK fichier feature_names_pkl : models/feature_names.pkl
+2026-06-17 18:16:38,327 | INFO | X_train : (30000, 28)
+2026-06-17 18:16:38,327 | INFO | X_val   : (29510, 28)
+2026-06-17 18:16:38,327 | INFO | X_test  : (29075, 28)
+2026-06-17 18:16:38,327 | INFO | y_train : 30000
+2026-06-17 18:16:38,327 | INFO | y_val   : 29510
+2026-06-17 18:16:38,327 | INFO | y_test  : 29075
+2026-06-17 18:16:38,327 | INFO | Features : 28
+2026-06-17 18:16:38,327 | INFO | OK Etape 3/4 : Data Preprocessing termine en 8.37s
+2026-06-17 18:16:38,327 | INFO | 
+2026-06-17 18:16:38,327 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:16:38,327 | INFO | START Etape 4/4 : Training modeles
+2026-06-17 18:16:38,327 | INFO | ----------------------------------------------------------------------
+2026-06-17 18:16:41,373 | INFO | ======================================================================
+2026-06-17 18:16:41,373 | INFO | PIPELINE MODÉLISATION — DÉBUT
+2026-06-17 18:16:41,373 | INFO | ======================================================================
+2026-06-17 18:16:41,381 | INFO | MLflow experiment : hospitalisation_prediction
+2026-06-17 18:16:41,437 | INFO | Chargement des données features...
+2026-06-17 18:16:41,490 | INFO |   Train : (30000, 28) | Taux : 7.53%
+2026-06-17 18:16:41,490 | INFO |   Val   : (29510, 28) | Taux : 9.14%
+2026-06-17 18:16:41,490 | INFO |   Test  : (29075, 28) | Taux : 7.55%
+2026-06-17 18:16:41,490 | INFO |   Features : 28
+2026-06-17 18:16:41,490 | INFO | 
+======================================================================
+2026-06-17 18:16:41,490 | INFO | ENTRAÎNEMENT DES MODÈLES
+2026-06-17 18:16:41,490 | INFO | ======================================================================
+2026-06-17 18:16:41,490 | INFO | 
+── Régression Logistique Baseline ──
+2026-06-17 18:16:45,022 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 18:16:45,022 | INFO |   → Modèle sauvegardé : models/logistic_regression.pkl
+2026-06-17 18:16:45,024 | INFO | 
+── XGBoost + Optuna ──
+2026-06-17 18:16:45,024 | INFO |   scale_pos_weight : 12.29
+2026-06-17 18:16:45,024 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 18:19:16,858 | INFO |   Meilleurs paramètres XGBoost : {'n_estimators': 162, 'max_depth': 3, 'learning_rate': 0.019833512422592552, 'subsample': 0.6611405905044776, 'colsample_bytree': 0.9665578472108052, 'reg_alpha': 0.29868222311924186, 'reg_lambda': 4.1576188079563865, 'scale_pos_weight': 12.286093888396811, 'objective': 'binary:logistic', 'eval_metric': 'auc', 'random_state': 42, 'n_jobs': -1, 'tree_method': 'hist'}
+2026-06-17 18:19:20,429 | INFO |   Calcul SHAP pour XGBoost...
+2026-06-17 18:19:21,075 | INFO |   → SHAP sauvegardé : outputs/figures/shap_xgboost.png
+2026-06-17 18:19:21,079 | INFO |   XGBoost                | AUC=0.9522 | F1=0.6294 | Recall=0.8279 | Precision=0.5077 | Threshold=0.792
+2026-06-17 18:19:21,079 | INFO |   → Modèle sauvegardé : models/xgboost_best.pkl
+2026-06-17 18:19:21,080 | INFO | 
+── LightGBM + Optuna ──
+2026-06-17 18:19:21,081 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 18:21:38,741 | INFO |   Calcul SHAP pour LightGBM...
+2026-06-17 18:21:39,299 | INFO |   → SHAP sauvegardé : outputs/figures/shap_lightgbm.png
+2026-06-17 18:21:39,318 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6293 | Recall=0.7708 | Precision=0.5317 | Threshold=0.798
+2026-06-17 18:21:39,319 | INFO |   → Modèle sauvegardé : models/lightgbm_best.pkl
+2026-06-17 18:21:39,320 | INFO | 
+── CatBoost + Optuna ──
+2026-06-17 18:21:39,321 | INFO |   Optimisation Optuna (100 essais) sur VALIDATION seulement...
+2026-06-17 18:23:25,702 | INFO |   Meilleurs paramètres CatBoost : {'iterations': 399, 'depth': 3, 'learning_rate': 0.010056774864481359, 'l2_leaf_reg': 7.397625112040736, 'subsample': 0.8750418032218606, 'scale_pos_weight': 12.286093888396811, 'random_state': 42, 'verbose': 0, 'thread_count': -1}
+2026-06-17 18:23:29,520 | INFO |   Calcul SHAP pour CatBoost...
+2026-06-17 18:23:30,048 | INFO |   → SHAP sauvegardé : outputs/figures/shap_catboost.png
+2026-06-17 18:23:30,059 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6275 | Recall=0.8112 | Precision=0.5117 | Threshold=0.817
+2026-06-17 18:23:30,059 | INFO |   → Modèle sauvegardé : models/catboost_best.pkl
+2026-06-17 18:23:30,060 | INFO | 
+── Random Forest Bagging ──
+2026-06-17 18:23:34,457 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 18:23:34,457 | INFO |   → Modèle sauvegardé : models/random_forest_bagging.pkl
+2026-06-17 18:23:34,458 | INFO | 
+── Soft Voting Ensemble XGBoost + LightGBM ──
+2026-06-17 18:23:34,802 | INFO |   Meilleurs poids SoftVoting : XGBoost=0.30, LightGBM=0.70
+2026-06-17 18:23:37,500 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6280 | Recall=0.7645 | Precision=0.5328 | Threshold=0.810
+2026-06-17 18:23:37,500 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgbm.pkl
+2026-06-17 18:23:37,502 | INFO | 
+── Soft Voting Ensemble V2 (XGB + LGB + CatBoost) ──
+2026-06-17 18:23:38,944 | INFO |   Meilleurs poids SoftVoting V2 : XGBoost=0.30, LightGBM=0.70, CatBoost=0.00
+2026-06-17 18:23:42,010 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6280 | Recall=0.7645 | Precision=0.5328 | Threshold=0.810
+2026-06-17 18:23:42,010 | INFO |   → Modèle sauvegardé : models/soft_voting_xgb_lgb_cat.pkl
+2026-06-17 18:23:42,011 | INFO | 
+── Recherche seuils haute précision ──
+2026-06-17 18:23:42,508 | INFO |   LogisticRegression     | target=0.80 | threshold=1.000 | VAL precision=0.8022 recall=0.0271
+2026-06-17 18:23:45,175 | INFO |   CatBoost               | target=0.80 | threshold=0.959 | VAL precision=0.8023 recall=0.0256
+2026-06-17 18:23:46,937 | INFO |   RandomForest_Bagging   | target=0.80 | threshold=0.946 | VAL precision=0.8019 recall=0.0631
+2026-06-17 18:23:50,418 | INFO | 
+── Comparaison des modèles sur VALIDATION ──
+2026-06-17 18:23:50,418 | INFO |   LogisticRegression     | AUC=0.8951 | F1=0.5336 | Recall=0.6547 | Precision=0.4503 | Threshold=0.859
+2026-06-17 18:23:50,418 | INFO |   XGBoost                | AUC=0.9522 | F1=0.6294 | Recall=0.8279 | Precision=0.5077 | Threshold=0.792
+2026-06-17 18:23:50,418 | INFO |   LightGBM               | AUC=0.9522 | F1=0.6293 | Recall=0.7708 | Precision=0.5317 | Threshold=0.798
+2026-06-17 18:23:50,418 | INFO |   CatBoost               | AUC=0.9511 | F1=0.6275 | Recall=0.8112 | Precision=0.5117 | Threshold=0.817
+2026-06-17 18:23:50,418 | INFO |   RandomForest_Bagging   | AUC=0.9449 | F1=0.6055 | Recall=0.8739 | Precision=0.4632 | Threshold=0.663
+2026-06-17 18:23:50,418 | INFO |   SoftVoting_XGB_LGBM    | AUC=0.9523 | F1=0.6280 | Recall=0.7645 | Precision=0.5328 | Threshold=0.810
+2026-06-17 18:23:50,418 | INFO |   SoftVoting_XGB_LGB_CAT | AUC=0.9523 | F1=0.6280 | Recall=0.7645 | Precision=0.5328 | Threshold=0.810
+2026-06-17 18:23:50,419 | INFO | 
+🏆 Meilleur modèle : SoftVoting_XGB_LGBM | precision validation = 0.5328 | AUC validation = 0.9523
+2026-06-17 18:23:50,419 | INFO | 
+── Évaluation finale TEST : SoftVoting_XGB_LGBM ──
+2026-06-17 18:23:50,544 | INFO |   SoftVoting_XGB_LGBM TEST | AUC=0.9684 | F1=0.6049 | Recall=0.5692 | Precision=0.6453 | Threshold=0.810
+2026-06-17 18:23:50,544 | INFO |   Confusion Matrix : {'tn': 26192, 'fp': 687, 'fn': 946, 'tp': 1250}
+2026-06-17 18:23:50,557 | INFO |   → best_model sauvegardé : models/best_model.pkl
+2026-06-17 18:23:50,557 | INFO |   → threshold sauvegardé : models/threshold.json
+2026-06-17 18:23:50,557 | INFO |   → infos modèle sauvegardées : models/best_model_info.json
+2026-06-17 18:23:50,557 | INFO |   → métriques sauvegardées : outputs/reports/training_metrics.json
+2026-06-17 18:23:50,558 | INFO | ======================================================================
+2026-06-17 18:23:50,558 | INFO | PIPELINE MODÉLISATION — TERMINÉ ✅
+2026-06-17 18:23:50,558 | INFO | 🏆 Meilleur modèle : SoftVoting_XGB_LGBM | AUC validation : 0.9523
+2026-06-17 18:23:50,559 | INFO | Prochaine étape : mlflow ui
+2026-06-17 18:23:50,559 | INFO | ======================================================================
+2026-06-17 18:23:50,560 | INFO | OK fichier best_model : models/best_model.pkl
+2026-06-17 18:23:50,560 | INFO | OK fichier best_model_info : models/best_model_info.json
+2026-06-17 18:23:50,560 | INFO | Best model : SoftVoting_XGB_LGBM
+2026-06-17 18:23:50,560 | INFO | Best AUC   : 0.9523
+2026-06-17 18:23:50,560 | INFO | OK Etape 4/4 : Training modeles termine en 432.23s
+2026-06-17 18:23:50,560 | INFO | ======================================================================
+2026-06-17 18:23:50,561 | INFO | PIPELINE MLOPS COMPLET — TERMINE
+2026-06-17 18:23:50,561 | INFO | ======================================================================
+2026-06-17 18:23:50,561 | INFO | Duree totale : 555.88s
+2026-06-17 18:23:50,561 | INFO | Patients cleaned : 88,585
+2026-06-17 18:23:50,561 | INFO | Train : (30000, 28)
+2026-06-17 18:23:50,561 | INFO | Validation : (29510, 28)
+2026-06-17 18:23:50,561 | INFO | Test : (29075, 28)
+2026-06-17 18:23:50,562 | INFO | Nombre features : 28
+2026-06-17 18:23:50,562 | INFO | Meilleur modele : SoftVoting_XGB_LGBM
+2026-06-17 18:23:50,562 | INFO | AUC validation : 0.9523
+2026-06-17 18:23:50,562 | INFO | Prochaine commande : mlflow ui --backend-store-uri mlruns --host 0.0.0.0 --port 5000

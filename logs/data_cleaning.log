@@ -386,3 +386,8 @@
 2026-06-14 21:12:13,081 | INFO | Claims prescription sauvegardés -> data/cleaned/claims_prescription_cleaned.parquet
 2026-06-14 21:12:17,160 | INFO | Claims carrier sauvegardés -> data/cleaned/claims_carrier_cleaned.parquet
 2026-06-14 21:12:17,160 | INFO | PIPELINE CLEANING DONE SUCCESSFULLY ✅
+2026-06-16 23:50:56,134 | INFO | PIPELINE CLEANING START
+2026-06-16 23:50:56,420 | INFO | Patients 2008: 30,000
+2026-06-16 23:50:56,707 | INFO | Patients 2009: 29,510
+2026-06-16 23:50:56,978 | INFO | Patients 2010: 29,075
+2026-06-16 23:50:57,408 | INFO | inpatient: 17,325

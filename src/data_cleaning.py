@@ -121,7 +121,7 @@ def build_target(df, claims, obs_date):
             f"dates d'admission NaT (seront exclues du filtre temporel)"
         )
 
-    mask = (ip["admission"] >= obs_date) & (ip["admission"] <= future)
+    mask = (ip["admission"] > obs_date) & (ip["admission"] <= future)
 
     if "CLM_IP_ADMSN_TYPE_CD" in ip.columns:
         mask = mask & ip["CLM_IP_ADMSN_TYPE_CD"].isin([1, 2])

@@ -1,23 +1,26 @@
-version: '3.8'
-
 services:
 
-  # Service 1 — API FastAPI
   api:
     build: .
     ports:
       - "8000:8000"
     volumes:
       - ./models:/app/models
-      - ./data:/app/data
-    restart: always
+    networks:
+      - app-network
 
-  # Service 2 — MLflow
   mlflow:
-    image: python:3.10-slim
-    command: bash -c "pip install mlflow && mlflow ui --host 0.0.0.0 --port 5000"
+    image: ghcr.io/mlflow/mlflow:latest
     ports:
       - "5000:5000"
     volumes:
       - ./mlruns:/mlruns
-    restart: always
+    environment:
+      - MLFLOW_ALLOW_FILE_STORE=true
+    command: mlflow ui --backend-store-uri /mlruns --host 0.0.0.0 --port 5000
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
