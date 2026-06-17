@@ -1,0 +1,583 @@
+{
+  "best_model": "Ensemble seuil=0.25",
+  "best_model_path": "/home/tawil/mlops_hospitalisation/models/best_recall_model.pkl",
+  "best_threshold_path": "/home/tawil/mlops_hospitalisation/models/best_threshold.json",
+  "best_threshold": 0.25,
+  "best_technique": "ensemble",
+  "recall_target": 0.95,
+  "min_auc_for_selection": 0.88,
+  "n_optuna_trials": 50,
+  "feature_cols": [
+    "SP_ALZHDMTA",
+    "SP_CHF",
+    "SP_CHRNKIDN",
+    "SP_CNCR",
+    "SP_COPD",
+    "SP_DEPRESSN",
+    "SP_DIABETES",
+    "SP_ISCHMCHT",
+    "SP_OSTEOPRS",
+    "SP_RA_OA",
+    "SP_STRKETIA",
+    "AGE",
+    "SEXE_ENC",
+    "RACE_ENC",
+    "BENE_ESRD_IND",
+    "GROUPE_AGE_ENC",
+    "NB_COMORBIDITES",
+    "CHARLSON_INDEX",
+    "COUT_TOTAL",
+    "IS_NEW_PATIENT",
+    "NB_HOSP_PASSEES",
+    "NB_OP_3M",
+    "NB_OP_6M",
+    "NB_OP_12M",
+    "NB_CAR_6M",
+    "NB_PRESCRIPTIONS",
+    "NB_MOLECULES_UNIQUES",
+    "POLYPHARMACIE"
+  ],
+  "n_features": 28,
+  "best": {
+    "name": "Ensemble seuil=0.25",
+    "technique": "ensemble",
+    "threshold": 0.25,
+    "validation_metrics": {
+      "auc_roc": 0.9409089313257901,
+      "f1": 0.43985741523667415,
+      "precision": 0.2832283548628163,
+      "recall": 0.9840504451038575,
+      "threshold": 0.25
+    },
+    "validation_confusion_matrix": {
+      "tn": 20100,
+      "fp": 6714,
+      "fn": 43,
+      "tp": 2653
+    },
+    "test_metrics": {
+      "auc_roc": 0.9610662006098841,
+      "f1": 0.570727049515755,
+      "precision": 0.40740019474196687,
+      "recall": 0.9526411657559198,
+      "threshold": 0.25
+    },
+    "test_confusion_matrix": {
+      "tn": 23836,
+      "fp": 3043,
+      "fn": 104,
+      "tp": 2092
+    },
+    "params": {
+      "threshold_fixed": 0.25,
+      "test_classification_report": {
+        "0": {
+          "precision": 0.995655806182122,
+          "recall": 0.8867889430410357,
+          "f1-score": 0.9380743422735591,
+          "support": 26879.0
+        },
+        "1": {
+          "precision": 0.40740019474196687,
+          "recall": 0.9526411657559198,
+          "f1-score": 0.570727049515755,
+          "support": 2196.0
+        },
+        "accuracy": 0.8917626827171109,
+        "macro avg": {
+          "precision": 0.7015280004620444,
+          "recall": 0.9197150543984778,
+          "f1-score": 0.7544006958946571,
+          "support": 29075.0
+        },
+        "weighted avg": {
+          "precision": 0.9512255629242516,
+          "recall": 0.8917626827171109,
+          "f1-score": 0.9103290402994872,
+          "support": 29075.0
+        }
+      }
+    }
+  },
+  "all_candidates": {
+    "Baseline XGBoost": {
+      "name": "Baseline XGBoost",
+      "technique": "baseline_xgboost",
+      "threshold": 0.5,
+      "validation_metrics": {
+        "auc_roc": 0.944181544684461,
+        "f1": 0.33907146583202924,
+        "precision": 0.5711775043936731,
+        "recall": 0.2410979228486647,
+        "threshold": 0.5
+      },
+      "validation_confusion_matrix": {
+        "tn": 26326,
+        "fp": 488,
+        "fn": 2046,
+        "tp": 650
+      },
+      "test_metrics": {
+        "auc_roc": 0.9656849141985628,
+        "f1": 0.2558898151504168,
+        "precision": 0.6269982238010657,
+        "recall": 0.16074681238615665,
+        "threshold": 0.5
+      },
+      "test_confusion_matrix": {
+        "tn": 26669,
+        "fp": 210,
+        "fn": 1843,
+        "tp": 353
+      },
+      "params": {
+        "n_estimators": 300,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "objective": "binary:logistic",
+        "eval_metric": "aucpr",
+        "tree_method": "hist",
+        "random_state": 42,
+        "n_jobs": -1
+      }
+    },
+    "Seuil optimal": {
+      "name": "Seuil optimal",
+      "technique": "seuil_optimal",
+      "threshold": 0.04977022483944893,
+      "validation_metrics": {
+        "auc_roc": 0.944181544684461,
+        "f1": 0.5604900459418071,
+        "precision": 0.3974557865342848,
+        "recall": 0.9502967359050445,
+        "threshold": 0.04977022483944893
+      },
+      "validation_confusion_matrix": {
+        "tn": 22930,
+        "fp": 3884,
+        "fn": 134,
+        "tp": 2562
+      },
+      "test_metrics": {
+        "auc_roc": 0.9656849141985628,
+        "f1": 0.6679060334629034,
+        "precision": 0.5310400429991937,
+        "recall": 0.8998178506375227,
+        "threshold": 0.04977022483944893
+      },
+      "test_confusion_matrix": {
+        "tn": 25134,
+        "fp": 1745,
+        "fn": 220,
+        "tp": 1976
+      },
+      "params": {
+        "recall_target": 0.95,
+        "n_estimators": 300,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "objective": "binary:logistic",
+        "eval_metric": "aucpr",
+        "tree_method": "hist",
+        "random_state": 42,
+        "n_jobs": -1
+      }
+    },
+    "scale_pos_weight": {
+      "name": "scale_pos_weight",
+      "technique": "scale_pos_weight",
+      "threshold": 0.19272111356258392,
+      "validation_metrics": {
+        "auc_roc": 0.943112435286142,
+        "f1": 0.5563517915309446,
+        "precision": 0.39330672397912186,
+        "recall": 0.9502967359050445,
+        "threshold": 0.19272111356258392
+      },
+      "validation_confusion_matrix": {
+        "tn": 22862,
+        "fp": 3952,
+        "fn": 134,
+        "tp": 2562
+      },
+      "test_metrics": {
+        "auc_roc": 0.9670065796450952,
+        "f1": 0.6768177929854576,
+        "precision": 0.5420663195395999,
+        "recall": 0.900728597449909,
+        "threshold": 0.19272111356258392
+      },
+      "test_confusion_matrix": {
+        "tn": 25208,
+        "fp": 1671,
+        "fn": 218,
+        "tp": 1978
+      },
+      "params": {
+        "n_estimators": 300,
+        "max_depth": 5,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "objective": "binary:logistic",
+        "eval_metric": "aucpr",
+        "tree_method": "hist",
+        "random_state": 42,
+        "n_jobs": -1,
+        "scale_pos_weight": 12.286093888396811
+      }
+    },
+    "Optuna Recall XGB": {
+      "name": "Optuna Recall XGB",
+      "technique": "optuna_recall",
+      "threshold": 0.5912684202194214,
+      "validation_metrics": {
+        "auc_roc": 0.9518075351597852,
+        "f1": 0.5711737821870472,
+        "precision": 0.4082868525896414,
+        "recall": 0.9502967359050445,
+        "threshold": 0.5912684202194214
+      },
+      "validation_confusion_matrix": {
+        "tn": 23101,
+        "fp": 3713,
+        "fn": 134,
+        "tp": 2562
+      },
+      "test_metrics": {
+        "auc_roc": 0.9682708892872199,
+        "f1": 0.6841004184100419,
+        "precision": 0.5542372881355933,
+        "recall": 0.8934426229508197,
+        "threshold": 0.5912684202194214
+      },
+      "test_confusion_matrix": {
+        "tn": 25301,
+        "fp": 1578,
+        "fn": 234,
+        "tp": 1962
+      },
+      "params": {
+        "max_depth": 3,
+        "learning_rate": 0.01141894906788285,
+        "n_estimators": 373,
+        "scale_pos_weight": 19.867534609597016,
+        "min_child_weight": 2,
+        "subsample": 0.8708681047632936,
+        "colsample_bytree": 0.9292798400097494,
+        "objective": "binary:logistic",
+        "eval_metric": "aucpr",
+        "tree_method": "hist",
+        "random_state": 42,
+        "n_jobs": -1
+      }
+    },
+    "SMOTE": {
+      "name": "SMOTE",
+      "technique": "smote",
+      "threshold": 0.40232089161872864,
+      "validation_metrics": {
+        "auc_roc": 0.9494891475709465,
+        "f1": 0.5702203427553972,
+        "precision": 0.40731319554848966,
+        "recall": 0.9502967359050445,
+        "threshold": 0.40232089161872864
+      },
+      "validation_confusion_matrix": {
+        "tn": 23086,
+        "fp": 3728,
+        "fn": 134,
+        "tp": 2562
+      },
+      "test_metrics": {
+        "auc_roc": 0.967242381377083,
+        "f1": 0.6815507095880927,
+        "precision": 0.5496929089893914,
+        "recall": 0.8966302367941712,
+        "threshold": 0.40232089161872864
+      },
+      "test_confusion_matrix": {
+        "tn": 25266,
+        "fp": 1613,
+        "fn": 227,
+        "tp": 1969
+      },
+      "params": {
+        "smote_k_neighbors": 5,
+        "max_depth": 3,
+        "learning_rate": 0.01141894906788285,
+        "n_estimators": 373,
+        "scale_pos_weight": 1.0,
+        "min_child_weight": 2,
+        "subsample": 0.8708681047632936,
+        "colsample_bytree": 0.9292798400097494,
+        "objective": "binary:logistic",
+        "eval_metric": "aucpr",
+        "tree_method": "hist",
+        "random_state": 42,
+        "n_jobs": -1
+      }
+    },
+    "Ensemble seuil=0.25": {
+      "name": "Ensemble seuil=0.25",
+      "technique": "ensemble",
+      "threshold": 0.25,
+      "validation_metrics": {
+        "auc_roc": 0.9409089313257901,
+        "f1": 0.43985741523667415,
+        "precision": 0.2832283548628163,
+        "recall": 0.9840504451038575,
+        "threshold": 0.25
+      },
+      "validation_confusion_matrix": {
+        "tn": 20100,
+        "fp": 6714,
+        "fn": 43,
+        "tp": 2653
+      },
+      "test_metrics": {
+        "auc_roc": 0.9610662006098841,
+        "f1": 0.570727049515755,
+        "precision": 0.40740019474196687,
+        "recall": 0.9526411657559198,
+        "threshold": 0.25
+      },
+      "test_confusion_matrix": {
+        "tn": 23836,
+        "fp": 3043,
+        "fn": 104,
+        "tp": 2092
+      },
+      "params": {
+        "threshold_fixed": 0.25,
+        "test_classification_report": {
+          "0": {
+            "precision": 0.995655806182122,
+            "recall": 0.8867889430410357,
+            "f1-score": 0.9380743422735591,
+            "support": 26879.0
+          },
+          "1": {
+            "precision": 0.40740019474196687,
+            "recall": 0.9526411657559198,
+            "f1-score": 0.570727049515755,
+            "support": 2196.0
+          },
+          "accuracy": 0.8917626827171109,
+          "macro avg": {
+            "precision": 0.7015280004620444,
+            "recall": 0.9197150543984778,
+            "f1-score": 0.7544006958946571,
+            "support": 29075.0
+          },
+          "weighted avg": {
+            "precision": 0.9512255629242516,
+            "recall": 0.8917626827171109,
+            "f1-score": 0.9103290402994872,
+            "support": 29075.0
+          }
+        }
+      }
+    }
+  },
+  "diagnostics": {
+    "threshold_analysis_path": "/home/tawil/mlops_hospitalisation/outputs/reports/threshold_analysis.json",
+    "threshold_analysis_csv_path": "/home/tawil/mlops_hospitalisation/outputs/reports/threshold_analysis.csv",
+    "pr_curve_path": "/home/tawil/mlops_hospitalisation/outputs/figures/pr_curve_best_recall.png",
+    "threshold_analysis_preview": [
+      {
+        "split": "validation",
+        "threshold": 0.01,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.09593281856029605,
+        "recall": 1.0,
+        "f1": 0.17507061917594727,
+        "true_negative": 1407,
+        "false_positive": 25407,
+        "false_negative": 0,
+        "true_positive": 2696,
+        "predicted_positive": 28103
+      },
+      {
+        "split": "validation",
+        "threshold": 0.02,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.11945665201757891,
+        "recall": 0.9981454005934718,
+        "f1": 0.21337668001427268,
+        "true_negative": 6978,
+        "false_positive": 19836,
+        "false_negative": 5,
+        "true_positive": 2691,
+        "predicted_positive": 22527
+      },
+      {
+        "split": "validation",
+        "threshold": 0.03,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.12611978800243892,
+        "recall": 0.9974035608308606,
+        "f1": 0.22392471999000707,
+        "true_negative": 8182,
+        "false_positive": 18632,
+        "false_negative": 7,
+        "true_positive": 2689,
+        "predicted_positive": 21321
+      },
+      {
+        "split": "validation",
+        "threshold": 0.04,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.13295055189823293,
+        "recall": 0.9962908011869436,
+        "f1": 0.23459539717891612,
+        "true_negative": 9297,
+        "false_positive": 17517,
+        "false_negative": 10,
+        "true_positive": 2686,
+        "predicted_positive": 20203
+      },
+      {
+        "split": "validation",
+        "threshold": 0.05,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.1380729461392047,
+        "recall": 0.9955489614243324,
+        "f1": 0.24251185904675854,
+        "true_negative": 10059,
+        "false_positive": 16755,
+        "false_negative": 12,
+        "true_positive": 2684,
+        "predicted_positive": 19439
+      },
+      {
+        "split": "validation",
+        "threshold": 0.1,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.15448466682038275,
+        "recall": 0.9940652818991098,
+        "f1": 0.26741169427260025,
+        "true_negative": 12146,
+        "false_positive": 14668,
+        "false_negative": 16,
+        "true_positive": 2680,
+        "predicted_positive": 17348
+      },
+      {
+        "split": "validation",
+        "threshold": 0.15,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.1641992751397506,
+        "recall": 0.9914688427299704,
+        "f1": 0.2817391304347826,
+        "true_negative": 13208,
+        "false_positive": 13606,
+        "false_negative": 23,
+        "true_positive": 2673,
+        "predicted_positive": 16279
+      },
+      {
+        "split": "validation",
+        "threshold": 0.2,
+        "auc_roc": 0.9409089313257901,
+        "precision": 0.2379930238797961,
+        "recall": 0.9870178041543026,
+        "f1": 0.38351228651725877,
+        "true_negative": 18294,
+        "false_positive": 8520,
+        "false_negative": 35,
+        "true_positive": 2661,
+        "predicted_positive": 11181
+      }
+    ],
+    "shap": {
+      "available": true,
+      "model_explained": "xgb",
+      "note": "Le meilleur modele est un VotingClassifier; SHAP est calcule sur son sous-modele arbre.",
+      "sample_size": 505,
+      "top_features": [
+        {
+          "feature": "COUT_TOTAL",
+          "mean_abs_shap": 3.203099012374878
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "mean_abs_shap": 0.17835484445095062
+        },
+        {
+          "feature": "SP_COPD",
+          "mean_abs_shap": 0.14508487284183502
+        },
+        {
+          "feature": "SP_CHF",
+          "mean_abs_shap": 0.09934088587760925
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "mean_abs_shap": 0.07477890700101852
+        },
+        {
+          "feature": "SP_RA_OA",
+          "mean_abs_shap": 0.07311738282442093
+        },
+        {
+          "feature": "SP_DIABETES",
+          "mean_abs_shap": 0.04288453608751297
+        },
+        {
+          "feature": "SP_CNCR",
+          "mean_abs_shap": 0.03550136089324951
+        },
+        {
+          "feature": "SP_DEPRESSN",
+          "mean_abs_shap": 0.022245481610298157
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "mean_abs_shap": 0.01742008700966835
+        },
+        {
+          "feature": "NB_COMORBIDITES",
+          "mean_abs_shap": 0.010752982459962368
+        },
+        {
+          "feature": "SP_OSTEOPRS",
+          "mean_abs_shap": 0.008665971457958221
+        },
+        {
+          "feature": "SP_STRKETIA",
+          "mean_abs_shap": 0.008132532238960266
+        },
+        {
+          "feature": "RACE_ENC",
+          "mean_abs_shap": 0.007512721233069897
+        },
+        {
+          "feature": "SEXE_ENC",
+          "mean_abs_shap": 0.0025894208811223507
+        }
+      ],
+      "artifacts": [
+        "/home/tawil/mlops_hospitalisation/outputs/figures/shap_summary_best_recall.png",
+        "/home/tawil/mlops_hospitalisation/outputs/figures/shap_importance_best_recall.png",
+        "/home/tawil/mlops_hospitalisation/outputs/reports/shap_importance_best_recall.json",
+        "/home/tawil/mlops_hospitalisation/outputs/reports/shap_importance_best_recall.csv",
+        "/home/tawil/mlops_hospitalisation/outputs/reports/shap_local_high_risk.json"
+      ]
+    },
+    "artifact_paths": [
+      "/home/tawil/mlops_hospitalisation/outputs/reports/threshold_analysis.json",
+      "/home/tawil/mlops_hospitalisation/outputs/reports/threshold_analysis.csv",
+      "/home/tawil/mlops_hospitalisation/outputs/figures/pr_curve_best_recall.png",
+      "/home/tawil/mlops_hospitalisation/outputs/figures/shap_summary_best_recall.png",
+      "/home/tawil/mlops_hospitalisation/outputs/figures/shap_importance_best_recall.png",
+      "/home/tawil/mlops_hospitalisation/outputs/reports/shap_importance_best_recall.json",
+      "/home/tawil/mlops_hospitalisation/outputs/reports/shap_importance_best_recall.csv",
+      "/home/tawil/mlops_hospitalisation/outputs/reports/shap_local_high_risk.json"
+    ]
+  }
+}

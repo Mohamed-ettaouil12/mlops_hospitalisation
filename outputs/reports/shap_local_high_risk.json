@@ -1,0 +1,336 @@
+{
+  "model_explained": "xgb",
+  "note": "Le meilleur modele est un VotingClassifier; SHAP est calcule sur son sous-modele arbre.",
+  "local_cases": [
+    {
+      "validation_position": 6200,
+      "predicted_probability": 0.9695134621439433,
+      "top_contributions": [
+        {
+          "feature": "COUT_TOTAL",
+          "value": 5.8363915685840055,
+          "shap_value": 2.503342866897583,
+          "abs_shap_value": 2.503342866897583
+        },
+        {
+          "feature": "SP_COPD",
+          "value": 1.0,
+          "shap_value": 0.21310211718082428,
+          "abs_shap_value": 0.21310211718082428
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "value": 2.5369231180946357,
+          "shap_value": 0.19831329584121704,
+          "abs_shap_value": 0.19831329584121704
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "value": 1.0,
+          "shap_value": 0.07775062322616577,
+          "abs_shap_value": 0.07775062322616577
+        },
+        {
+          "feature": "SP_CHF",
+          "value": 1.0,
+          "shap_value": 0.04934755712747574,
+          "abs_shap_value": 0.04934755712747574
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "value": 1.0,
+          "shap_value": 0.028728129342198372,
+          "abs_shap_value": 0.028728129342198372
+        },
+        {
+          "feature": "SP_RA_OA",
+          "value": 0.0,
+          "shap_value": 0.024197930470108986,
+          "abs_shap_value": 0.024197930470108986
+        },
+        {
+          "feature": "SP_STRKETIA",
+          "value": 1.0,
+          "shap_value": 0.02027827501296997,
+          "abs_shap_value": 0.02027827501296997
+        },
+        {
+          "feature": "SP_DIABETES",
+          "value": 1.0,
+          "shap_value": -0.017342181876301765,
+          "abs_shap_value": 0.017342181876301765
+        },
+        {
+          "feature": "SP_CNCR",
+          "value": 0.0,
+          "shap_value": 0.01111893355846405,
+          "abs_shap_value": 0.01111893355846405
+        }
+      ]
+    },
+    {
+      "validation_position": 20915,
+      "predicted_probability": 0.9695133850871973,
+      "top_contributions": [
+        {
+          "feature": "COUT_TOTAL",
+          "value": 9.676548021147093,
+          "shap_value": 2.5928077697753906,
+          "abs_shap_value": 2.5928077697753906
+        },
+        {
+          "feature": "SP_COPD",
+          "value": 1.0,
+          "shap_value": 0.21239927411079407,
+          "abs_shap_value": 0.21239927411079407
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "value": 2.9174452626824614,
+          "shap_value": 0.19892871379852295,
+          "abs_shap_value": 0.19892871379852295
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "value": 1.0,
+          "shap_value": 0.07791808247566223,
+          "abs_shap_value": 0.07791808247566223
+        },
+        {
+          "feature": "SP_RA_OA",
+          "value": 1.0,
+          "shap_value": -0.06877990067005157,
+          "abs_shap_value": 0.06877990067005157
+        },
+        {
+          "feature": "SP_CHF",
+          "value": 1.0,
+          "shap_value": 0.04938908666372299,
+          "abs_shap_value": 0.04938908666372299
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "value": 1.0,
+          "shap_value": 0.028728129342198372,
+          "abs_shap_value": 0.028728129342198372
+        },
+        {
+          "feature": "SP_STRKETIA",
+          "value": 1.0,
+          "shap_value": 0.02027827501296997,
+          "abs_shap_value": 0.02027827501296997
+        },
+        {
+          "feature": "SP_DIABETES",
+          "value": 1.0,
+          "shap_value": -0.017342181876301765,
+          "abs_shap_value": 0.017342181876301765
+        },
+        {
+          "feature": "SP_CNCR",
+          "value": 0.0,
+          "shap_value": 0.01111893355846405,
+          "abs_shap_value": 0.01111893355846405
+        }
+      ]
+    },
+    {
+      "validation_position": 20559,
+      "predicted_probability": 0.9694817868606828,
+      "top_contributions": [
+        {
+          "feature": "COUT_TOTAL",
+          "value": 8.218294977946696,
+          "shap_value": 2.5868852138519287,
+          "abs_shap_value": 2.5868852138519287
+        },
+        {
+          "feature": "SP_COPD",
+          "value": 1.0,
+          "shap_value": 0.22853167355060577,
+          "abs_shap_value": 0.22853167355060577
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "value": 2.1564009735068095,
+          "shap_value": 0.19904236495494843,
+          "abs_shap_value": 0.19904236495494843
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "value": 1.0,
+          "shap_value": 0.07791808247566223,
+          "abs_shap_value": 0.07791808247566223
+        },
+        {
+          "feature": "SP_RA_OA",
+          "value": 1.0,
+          "shap_value": -0.06877990067005157,
+          "abs_shap_value": 0.06877990067005157
+        },
+        {
+          "feature": "SP_CHF",
+          "value": 1.0,
+          "shap_value": 0.050741031765937805,
+          "abs_shap_value": 0.050741031765937805
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "value": 1.0,
+          "shap_value": 0.028961312025785446,
+          "abs_shap_value": 0.028961312025785446
+        },
+        {
+          "feature": "SP_DIABETES",
+          "value": 1.0,
+          "shap_value": -0.017342181876301765,
+          "abs_shap_value": 0.017342181876301765
+        },
+        {
+          "feature": "NB_COMORBIDITES",
+          "value": 2.030355576518007,
+          "shap_value": 0.012093612924218178,
+          "abs_shap_value": 0.012093612924218178
+        },
+        {
+          "feature": "SP_CNCR",
+          "value": 0.0,
+          "shap_value": 0.011356620118021965,
+          "abs_shap_value": 0.011356620118021965
+        }
+      ]
+    },
+    {
+      "validation_position": 29177,
+      "predicted_probability": 0.9694785270239881,
+      "top_contributions": [
+        {
+          "feature": "COUT_TOTAL",
+          "value": 5.728265006133669,
+          "shap_value": 2.6373651027679443,
+          "abs_shap_value": 2.6373651027679443
+        },
+        {
+          "feature": "SP_COPD",
+          "value": 1.0,
+          "shap_value": 0.21537166833877563,
+          "abs_shap_value": 0.21537166833877563
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "value": 2.5369231180946357,
+          "shap_value": 0.19866637885570526,
+          "abs_shap_value": 0.19866637885570526
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "value": 1.0,
+          "shap_value": 0.07791808247566223,
+          "abs_shap_value": 0.07791808247566223
+        },
+        {
+          "feature": "SP_RA_OA",
+          "value": 1.0,
+          "shap_value": -0.06877990067005157,
+          "abs_shap_value": 0.06877990067005157
+        },
+        {
+          "feature": "SP_CHF",
+          "value": 1.0,
+          "shap_value": 0.049591563642024994,
+          "abs_shap_value": 0.049591563642024994
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "value": 1.0,
+          "shap_value": 0.028961312025785446,
+          "abs_shap_value": 0.028961312025785446
+        },
+        {
+          "feature": "SP_DEPRESSN",
+          "value": 1.0,
+          "shap_value": -0.021920494735240936,
+          "abs_shap_value": 0.021920494735240936
+        },
+        {
+          "feature": "SP_DIABETES",
+          "value": 1.0,
+          "shap_value": -0.016389833763241768,
+          "abs_shap_value": 0.016389833763241768
+        },
+        {
+          "feature": "NB_COMORBIDITES",
+          "value": 2.455058284811035,
+          "shap_value": 0.011963861994445324,
+          "abs_shap_value": 0.011963861994445324
+        }
+      ]
+    },
+    {
+      "validation_position": 2081,
+      "predicted_probability": 0.9694354409033287,
+      "top_contributions": [
+        {
+          "feature": "COUT_TOTAL",
+          "value": 17.472681109513342,
+          "shap_value": 2.595350980758667,
+          "abs_shap_value": 2.595350980758667
+        },
+        {
+          "feature": "SP_COPD",
+          "value": 1.0,
+          "shap_value": 0.2252582162618637,
+          "abs_shap_value": 0.2252582162618637
+        },
+        {
+          "feature": "CHARLSON_INDEX",
+          "value": 2.1564009735068095,
+          "shap_value": 0.19859379529953003,
+          "abs_shap_value": 0.19859379529953003
+        },
+        {
+          "feature": "SP_CHRNKIDN",
+          "value": 1.0,
+          "shap_value": 0.07791808247566223,
+          "abs_shap_value": 0.07791808247566223
+        },
+        {
+          "feature": "SP_RA_OA",
+          "value": 1.0,
+          "shap_value": -0.06877990067005157,
+          "abs_shap_value": 0.06877990067005157
+        },
+        {
+          "feature": "SP_CHF",
+          "value": 1.0,
+          "shap_value": 0.051417045295238495,
+          "abs_shap_value": 0.051417045295238495
+        },
+        {
+          "feature": "SP_ALZHDMTA",
+          "value": 1.0,
+          "shap_value": 0.028961312025785446,
+          "abs_shap_value": 0.028961312025785446
+        },
+        {
+          "feature": "SP_DIABETES",
+          "value": 1.0,
+          "shap_value": -0.017342181876301765,
+          "abs_shap_value": 0.017342181876301765
+        },
+        {
+          "feature": "NB_COMORBIDITES",
+          "value": 2.030355576518007,
+          "shap_value": 0.012093612924218178,
+          "abs_shap_value": 0.012093612924218178
+        },
+        {
+          "feature": "SP_CNCR",
+          "value": 0.0,
+          "shap_value": 0.011356620118021965,
+          "abs_shap_value": 0.011356620118021965
+        }
+      ]
+    }
+  ]
+}

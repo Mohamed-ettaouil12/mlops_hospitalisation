@@ -1,0 +1,119 @@
+{
+  "model_explained": "xgb",
+  "note": "Le meilleur modele est un VotingClassifier; SHAP est calcule sur son sous-modele arbre.",
+  "sample_size": 505,
+  "importance": [
+    {
+      "feature": "COUT_TOTAL",
+      "mean_abs_shap": 3.203099012374878
+    },
+    {
+      "feature": "CHARLSON_INDEX",
+      "mean_abs_shap": 0.17835484445095062
+    },
+    {
+      "feature": "SP_COPD",
+      "mean_abs_shap": 0.14508487284183502
+    },
+    {
+      "feature": "SP_CHF",
+      "mean_abs_shap": 0.09934088587760925
+    },
+    {
+      "feature": "SP_CHRNKIDN",
+      "mean_abs_shap": 0.07477890700101852
+    },
+    {
+      "feature": "SP_RA_OA",
+      "mean_abs_shap": 0.07311738282442093
+    },
+    {
+      "feature": "SP_DIABETES",
+      "mean_abs_shap": 0.04288453608751297
+    },
+    {
+      "feature": "SP_CNCR",
+      "mean_abs_shap": 0.03550136089324951
+    },
+    {
+      "feature": "SP_DEPRESSN",
+      "mean_abs_shap": 0.022245481610298157
+    },
+    {
+      "feature": "SP_ALZHDMTA",
+      "mean_abs_shap": 0.01742008700966835
+    },
+    {
+      "feature": "NB_COMORBIDITES",
+      "mean_abs_shap": 0.010752982459962368
+    },
+    {
+      "feature": "SP_OSTEOPRS",
+      "mean_abs_shap": 0.008665971457958221
+    },
+    {
+      "feature": "SP_STRKETIA",
+      "mean_abs_shap": 0.008132532238960266
+    },
+    {
+      "feature": "RACE_ENC",
+      "mean_abs_shap": 0.007512721233069897
+    },
+    {
+      "feature": "SEXE_ENC",
+      "mean_abs_shap": 0.0025894208811223507
+    },
+    {
+      "feature": "SP_ISCHMCHT",
+      "mean_abs_shap": 0.001768165617249906
+    },
+    {
+      "feature": "AGE",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "BENE_ESRD_IND",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "GROUPE_AGE_ENC",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "IS_NEW_PATIENT",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_HOSP_PASSEES",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_OP_3M",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_OP_6M",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_OP_12M",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_CAR_6M",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_PRESCRIPTIONS",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "NB_MOLECULES_UNIQUES",
+      "mean_abs_shap": 0.0
+    },
+    {
+      "feature": "POLYPHARMACIE",
+      "mean_abs_shap": 0.0
+    }
+  ]
+}

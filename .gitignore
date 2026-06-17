@@ -1,1 +1,16 @@
 /models
+/mlruns
+/logs
+/catboost_info
+/venv
+/.pytest_cache
+/.ipynb_checkpoints
+/__pycache__
+**/__pycache__/
+*.py[cod]
+*$py.class
+.coverage
+htmlcov/
+.env
+.env.*
+!.env.example

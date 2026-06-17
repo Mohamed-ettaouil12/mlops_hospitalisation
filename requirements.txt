@@ -11,3 +11,9 @@ joblib
 pydantic
 matplotlib
 shap
+pytest>=7.0
+pytest-cov>=4.0
+httpx>=0.24
+pytest-mock>=3.10
+hypothesis>=6.80
+imbalanced-learn
