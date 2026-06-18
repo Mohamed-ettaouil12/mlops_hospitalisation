@@ -1,16 +1,59 @@
-/models
-/mlruns
-/logs
-/catboost_info
-/venv
-/.pytest_cache
-/.ipynb_checkpoints
-/__pycache__
-**/__pycache__/
+# Python
+__pycache__/
 *.py[cod]
-*$py.class
-.coverage
-htmlcov/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Environments
 .env
-.env.*
-!.env.example
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# MLflow
+mlruns/
+mlflow/mlflow.db
+mlflow/artifacts/*
+
+# Data
+data/raw/*
+data/cleaned/*
+data/splits/*
+data/features/*.parquet
+data/features/*.pkl
+data/features/column_order.json
+data/features/store_metadata.json
+data/features/store_version.json
+!data/features/feature_names.csv
+!data/features/features_engineered_columns.csv
+
+# Models
+models/*.pkl
+models/*.json
+
+# Reports
+reports/drift/*.html
+reports/drift/archive/*
+reports/training/*
+reports/validation/*
+
+# Outputs
+outputs/
+
+# Logs
+logs/
+*.log
+
+# Docker
+.dockerignore
+
+# Airflow
+airflow.cfg
+airflow.db
+webserver_config.py

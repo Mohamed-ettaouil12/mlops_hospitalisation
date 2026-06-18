@@ -1,7 +1,13 @@
 venv/
 data/raw/
-data/cleaned/
 __pycache__
 .git
 mlruns/
 *.pyc
+*.ipynb
+.ipynb_checkpoints/
+catboost_info/
+.kiro/
+.github/
+.env
+venv*/

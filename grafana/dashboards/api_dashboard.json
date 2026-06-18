@@ -1,0 +1,148 @@
+{
+  "title": "MLOps — API Monitoring",
+  "uid": "mlops_api_dashboard",
+  "version": 3,
+  "timezone": "browser",
+  "editable": true,
+  "panels": [
+    {
+      "title": "Requests per second",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "rate(api_requests_total[1m])",
+          "legendFormat": "{{method}} {{endpoint}} {{status}}",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 }
+    },
+    {
+      "title": "Latency P50 / P95 / P99 (ms)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.50, sum(rate(api_request_latency_seconds_bucket[1m])) by (le)) * 1000",
+          "legendFormat": "P50",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(api_request_latency_seconds_bucket[1m])) by (le)) * 1000",
+          "legendFormat": "P95",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        },
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(api_request_latency_seconds_bucket[1m])) by (le)) * 1000",
+          "legendFormat": "P99",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "ms" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 }
+    },
+    {
+      "title": "Drift score (PSI max)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "model_drift_score",
+          "legendFormat": "PSI max ({{model_version}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "none", "min": 0, "max": 1 }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 }
+    },
+    {
+      "title": "Model accuracy (AUC / Recall)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "model_accuracy_tracking{metric=\"auc_roc\"}",
+          "legendFormat": "AUC (v{{model_version}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        },
+        {
+          "expr": "model_accuracy_tracking{metric=\"recall\"}",
+          "legendFormat": "Recall (v{{model_version}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "none", "min": 0, "max": 1 }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 }
+    },
+    {
+      "title": "A/B test assignments",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "rate(api_ab_test_assignments[1m])",
+          "legendFormat": "{{chosen}} (v{{model_a}} vs v{{model_b}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 }
+    },
+    {
+      "title": "Error rate (5xx)",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "rate(api_errors_total[1m])",
+          "legendFormat": "errors/s",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "errps" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 16 }
+    },
+    {
+      "title": "Predictions by risk level",
+      "type": "timeseries",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "rate(api_predictions_total[1m])",
+          "legendFormat": "{{risk_level}} (v{{model_version}})",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "reqps" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 16 }
+    },
+    {
+      "title": "Total requests / Errors / Latency",
+      "type": "stat",
+      "datasource": { "type": "prometheus", "uid": "prometheus_ds" },
+      "targets": [
+        {
+          "expr": "api_requests_total",
+          "legendFormat": "Total requests",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        },
+        {
+          "expr": "api_errors_total",
+          "legendFormat": "Total errors",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        },
+        {
+          "expr": "rate(api_request_latency_seconds_sum[5m]) / rate(api_request_latency_seconds_count[5m]) * 1000",
+          "legendFormat": "Avg latency (ms)",
+          "datasource": { "type": "prometheus", "uid": "prometheus_ds" }
+        }
+      ],
+      "fieldConfig": { "defaults": { "unit": "none" }, "overrides": [] },
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 16 }
+    }
+  ],
+  "schemaVersion": 38,
+  "tags": ["mlops", "api", "monitoring", "production"]
+}
