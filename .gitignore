@@ -10,7 +10,7 @@ build/
 .env
 .venv/
 venv/
-.kiro/
+.kiro/specs
 # IDE
 .vscode/
 .idea/
