@@ -1,0 +1,219 @@
+\documentclass{rapportENSIAS}
+% rapportENSIAS.cls charge déjà :
+%   babel[french], inputenc[utf8], fontenc[T1], graphicx, subcaption,
+%   hyperref[hidelinks], geometry, fancyhdr, mathtools, float, titlesec, tocloft
+
+% ============================================================
+%  PACKAGES SUPPLÉMENTAIRES (non inclus dans la classe)
+% ============================================================
+\usepackage{lmodern}
+\usepackage{microtype}
+
+% Math
+\usepackage{amsmath,amssymb}
+
+% Tables
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tabularx}
+
+% Figures / TikZ
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, shapes.misc,
+                fit, backgrounds, calc, decorations.pathreplacing,
+                patterns, shadows, matrix, chains, scopes}
+
+% Couleurs
+\usepackage{xcolor}
+
+% Boîtes tcolorbox
+\usepackage{tcolorbox}
+\tcbuselibrary{skins, breakable, listings, theorems}
+
+% Code source (annexes uniquement)
+\usepackage{listings}
+
+% Typographie / citations
+\usepackage{csquotes}
+\usepackage{setspace}
+
+% Bibliographie — natbib avec style numérique
+\usepackage[numbers,sort&compress]{natbib}
+
+% IfFileExists already available in latex kernel
+
+% ============================================================
+%  COULEURS
+% ============================================================
+\definecolor{primary}{RGB}{0,84,166}
+\definecolor{secondary}{RGB}{0,150,214}
+\definecolor{accent}{RGB}{255,140,0}
+\definecolor{success}{RGB}{34,139,34}
+\definecolor{danger}{RGB}{220,50,47}
+\definecolor{lightblue}{RGB}{230,242,255}
+\definecolor{lightyellow}{RGB}{255,253,230}
+\definecolor{lightgreen}{RGB}{230,255,237}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{gray80}{RGB}{80,80,80}
+\definecolor{gray50}{RGB}{127,127,127}
+
+% ============================================================
+%  BOÎTES TCOLORBOX
+% ============================================================
+\newtcolorbox{infobox}[1][]{%
+  colback=lightblue, colframe=primary,
+  fonttitle=\bfseries, title=#1, breakable,
+  enhanced, shadow={0.5mm}{-0.5mm}{0mm}{gray!30}}
+
+\newtcolorbox{resultatbox}[1][]{%
+  colback=lightgreen, colframe=success,
+  fonttitle=\bfseries, title=#1, breakable,
+  enhanced, shadow={0.5mm}{-0.5mm}{0mm}{gray!30}}
+
+\newtcolorbox{alertbox}[1][]{%
+  colback=lightyellow, colframe=accent,
+  fonttitle=\bfseries, title=#1, breakable,
+  enhanced, shadow={0.5mm}{-0.5mm}{0mm}{gray!30}}
+
+\newtcolorbox{criticalbox}[1][]{%
+  colback=danger!10, colframe=danger,
+  fonttitle=\bfseries, title=#1, breakable,
+  enhanced, shadow={0.5mm}{-0.5mm}{0mm}{gray!30}}
+
+% ============================================================
+%  STYLE LISTINGS (pour les annexes uniquement)
+% ============================================================
+\lstdefinestyle{pythonstyle}{
+  backgroundcolor=\color{codebg},
+  commentstyle=\color{gray50}\itshape,
+  keywordstyle=\color{primary}\bfseries,
+  stringstyle=\color{success},
+  numberstyle=\tiny\color{gray50},
+  basicstyle=\ttfamily\small,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=6pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=4,
+  frame=single,
+  framerule=0.5pt,
+  rulecolor=\color{gray50},
+  xleftmargin=15pt
+}
+\lstset{style=pythonstyle, language=Python}
+
+% ============================================================
+%  INFORMATIONS DU RAPPORT
+% ============================================================
+\titre{Plateforme MLOps pour la Détection Précoce\\
+       du Risque d'Hospitalisation}
+\UE{Spécialité : Machine Learning Operations (MLOps)}
+\sujet{Projet de Fin d'Années --- Santé / IA Médicale}
+\enseignant{[NOM ENCADRANT]}
+\eleves{Mohamed \textsc{Ettaouil}}
+\jury{[NOM JURY 1] \\ [NOM JURY 2]}
+
+% ============================================================
+%  DOCUMENT
+% ============================================================
+\begin{document}
+
+\fairemarges
+\fairepagedegarde
+
+% -------- Pages liminaires --------
+\chapter*{Remerciements}
+\addcontentsline{toc}{chapter}{Remerciements}
+\input{Chapters/remerciement}
+
+\chapter*{Résumé}
+\addcontentsline{toc}{chapter}{Résumé}
+Ce projet présente le développement d'une plateforme MLOps complète pour la
+détection précoce du risque d'hospitalisation chez les patients polypathologiques.
+À partir du dataset CMS~DE-SynPUF (30\,000 patients, données 2008--2010), trois
+modèles ont été entraînés avec un split temporel strict : Régression Logistique
+(AUC~0.908), XGBoost (AUC~0.924) et LightGBM (AUC~0.921). Le modèle XGBoost
+retenu est déployé via une API FastAPI, conteneurisé avec Docker et supervisé par
+un pipeline de monitoring Evidently/Grafana avec rollback automatique.
+L'analyse de fairness démontre un écart maximal de 5.5\,\% en rappel entre groupes
+raciaux. Le ROI estimé est de \$2.59~M sur la cohorte de 30\,000 patients.
+
+\vspace{1em}
+\noindent\textbf{Mots-clés :} MLOps, détection risque hospitalisation, XGBoost,
+FastAPI, Docker, monitoring, data drift, fairness, CMS DE-SynPUF.
+
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+This project presents a complete MLOps platform for early detection of
+hospitalization risk among multi-morbid patients. Using the CMS~DE-SynPUF
+dataset (30,000 patients, 2008--2010), three models were trained with strict
+temporal splitting: Logistic Regression (AUC~0.908), XGBoost (AUC~0.924) and
+LightGBM (AUC~0.921). The selected XGBoost model is deployed via a FastAPI,
+containerized with Docker and monitored by an Evidently/Grafana pipeline with
+automatic rollback. Fairness analysis shows a maximum recall gap of 5.5\%
+across racial groups. Estimated ROI is \$2.59M on the 30,000-patient cohort.
+
+\vspace{1em}
+\noindent\textbf{Keywords:} MLOps, hospitalization risk detection, XGBoost,
+FastAPI, Docker, monitoring, data drift, fairness, CMS DE-SynPUF.
+
+\chapter*{Liste des Abréviations}
+\addcontentsline{toc}{chapter}{Liste des Abréviations}
+\begin{tabular}{@{}lp{10cm}@{}}
+\toprule
+\textbf{Sigle} & \textbf{Définition} \\
+\midrule
+AUC  & Area Under the Curve (Aire sous la courbe ROC) \\
+BPCO & Bronchopneumopathie chronique obstructive \\
+CI/CD & Continuous Integration / Continuous Deployment \\
+CMS  & Centers for Medicare \& Medicaid Services \\
+DVC  & Data Version Control \\
+EDA  & Exploratory Data Analysis (Analyse exploratoire) \\
+GE   & Great Expectations \\
+MLOps & Machine Learning Operations \\
+PSI  & Population Stability Index \\
+ROC  & Receiver Operating Characteristic \\
+ROI  & Return on Investment \\
+SHAP & SHapley Additive exPlanations \\
+VP   & Vrai Positif \\
+FP   & Faux Positif \\
+VN   & Vrai Négatif \\
+FN   & Faux Négatif \\
+\bottomrule
+\end{tabular}
+
+\tabledematieres
+
+\listoffigures
+\addcontentsline{toc}{chapter}{Table des figures}
+
+\listoftables
+\addcontentsline{toc}{chapter}{Liste des tableaux}
+
+% -------- Corps --------
+\input{Chapters/introduction}
+\input{Chapters/chapter1}
+\input{Chapters/chapter2}
+\input{Chapters/chapter3}
+\input{Chapters/chapter4}
+\input{Chapters/conclusion}
+
+% -------- Bibliographie --------
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{refs}
+
+% -------- Annexes --------
+\input{Chapters/annexes}
+
+\end{document}

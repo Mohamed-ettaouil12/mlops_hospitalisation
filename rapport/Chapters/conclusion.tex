@@ -1,0 +1,89 @@
+\chapter*{Conclusion Générale}
+\addcontentsline{toc}{chapter}{Conclusion Générale}
+\markboth{Conclusion Générale}{Conclusion Générale}
+
+\begin{resultatbox}[Bilan du projet]
+Ce projet a produit une plateforme MLOps complète, industrialisée et documentée
+pour la détection précoce du risque d'hospitalisation. L'ensemble du cycle de
+vie d'un modèle de machine learning --- de la donnée brute au service de
+production surveillé --- a été implémenté et validé.
+\end{resultatbox}
+
+\vspace{1em}
+
+\section*{Contributions majeures}
+
+Ce projet se distingue d'un projet de machine learning classique par sept
+contributions concrètes~:
+
+\begin{enumerate}
+
+\item \textbf{Split temporel strict 2008 / 2009 / 2010.}
+  Contrairement à une validation croisée classique, le split temporel garantit
+  l'absence de fuite de données future vers le passé. L'AUC de 0.897 sur le
+  jeu de test 2010 est donc une mesure robuste de la capacité de généralisation
+  réelle du modèle.
+
+\item \textbf{Construction anti-leakage de la variable cible.}
+  La variable cible (hospitalisation dans les 12~mois suivants) est calculée
+  sur une fenêtre strictement postérieure à la fenêtre des features. Ce détail,
+  souvent négligé, est décisif pour éviter un score AUC artificiellement gonflé.
+
+\item \textbf{Optimisation du seuil de décision.}
+  Le seuil $\tau^* = 0.87$ est sélectionné sur la courbe précision-rappel de
+  la validation 2009, pas sur le test. Cette démarche est documentée et
+  reproductible via MLflow.
+
+\item \textbf{Monitoring avec rollback automatique réellement testé.}
+  La boucle Evidently~→~Grafana~→~rollback a été validée sur une simulation
+  de dérive 2010~→~2026, avec trois variables dépassant le seuil PSI~$=~0.20$.
+
+\item \textbf{Analyse de fairness par groupe racial.}
+  Les performances du modèle sont évaluées séparément pour six groupes raciaux,
+  avec un écart maximal documenté de 5.5\,\% en rappel.
+
+\item \textbf{ROI calculé et justifié financièrement.}
+  Le ROI net de \$2.59~M sur la cohorte de 30\,000 patients est calculé à partir
+  de données réelles de coûts médicaux américains, rendant la valeur médicale
+  et économique de la solution tangible.
+
+\item \textbf{Simulation de dérive temporelle 2010~→~2026.}
+  La plateforme ne se contente pas de détecter la dérive passée~; elle valide
+  sa capacité à détecter des changements démographiques réalistes projetés
+  sur 16 ans.
+
+\end{enumerate}
+
+\section*{Ce qui distingue cette approche}
+
+Là où beaucoup de projets de machine learning médical s'arrêtent à la publication
+d'un AUC, cette plateforme répond à la question qui compte vraiment~:
+\textit{le modèle fonctionne-t-il encore dans un an~?} La réponse est oui,
+grâce à une architecture de monitoring qui ne dépend d'aucune intervention
+humaine pour détecter et corriger la dérive.
+
+L'analyse de fairness et le calcul ROI transforment une métrique technique
+en un argument actionnable pour les décideurs de santé publique~: investir dans
+la prévention guidée par l'IA génère un retour financier mesurable tout en
+réduisant les inégalités de soin.
+
+\section*{Perspectives futures}
+
+Ce projet ouvre plusieurs axes d'amélioration~:
+
+\begin{itemize}
+  \item \textbf{Passage à l'échelle~:} déploiement sur les 20~samples
+        (2.3~millions de patients) avec Apache Spark et Kubernetes.
+  \item \textbf{Réduction de l'écart de fairness~:} contraintes de fairness
+        intégrées dans la fonction objectif d'Optuna.
+  \item \textbf{Modèles de prédiction à horizon variable~:} prédire le risque
+        à 30, 90 et 180~jours en parallèle.
+  \item \textbf{Intégration au DMP~:} connexion aux Dossiers Médicaux Partagés
+        pour des features plus riches (ordonnances réelles, résultats biologiques).
+  \item \textbf{Explicabilité locale à la demande~:} endpoint \texttt{/explain}
+        qui retourne les valeurs SHAP individuelles pour chaque prédiction.
+\end{itemize}
+
+\vspace{1em}
+\noindent Ce projet démontre que le MLOps n'est pas une couche optionnelle~:
+c'est ce qui transforme un modèle expérimental en un outil de soin fiable.

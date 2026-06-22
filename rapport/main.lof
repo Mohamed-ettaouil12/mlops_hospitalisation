@@ -1,0 +1,17 @@
+\babel@toc {french}{}\relax 
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Architecture globale du pipeline MLOps --- de l'ingestion au monitoring}}{16}{figure.caption.10}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Distribution de la variable cible (a) et taux d'hospitalisation par groupe d'âge (b)}}{20}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Fenêtres temporelles anti-leakage~: features et cible ne se chevauchent jamais}}{23}{figure.caption.16}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Interface MLflow~--- comparaison des expériences et registre des modèles}}{30}{figure.caption.25}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Top~15 features par importance SHAP~--- les hospitalisations passées dominent}}{31}{figure.caption.26}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Interface Swagger --- documentation de l'API et exemple de prédiction \texttt {/predict}}}{32}{figure.caption.27}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Interface Swagger --- documentation de l'API et exemple de prédiction}}{35}{figure.caption.30}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Conteneurs Docker actifs --- les quatre services démarrés avec succès}}{35}{figure.caption.31}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Boucle de rollback automatique~--- détection, alerte et récupération}}{38}{figure.caption.34}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Dashboard Grafana~--- monitoring temps réel avec alertes Evidently AI}}{38}{figure.caption.35}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Rapport Evidently AI~--- détail des colonnes en dérive avec PSI par feature}}{38}{figure.caption.36}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Interface Prefect~--- historique des runs et statut des tâches}}{39}{figure.caption.37}%

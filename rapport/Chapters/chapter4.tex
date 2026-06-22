@@ -1,0 +1,454 @@
+% ============================================================
+%  CHAPITRE 4 : Du Modèle au Service — Mise en Production
+% ============================================================
+\chapter{Du Modèle au Service~: Mise en Production}
+\label{chap:production}
+
+\begin{infobox}[Résumé du chapitre]
+Ce chapitre décrit le déploiement du modèle XGBoost en production~: API FastAPI,
+conteneurisation Docker, pipeline CI/CD GitHub Actions, monitoring de la dérive,
+rollback automatique, orchestration Prefect, analyse de fairness et bilan des
+tests réalisés.
+\end{infobox}
+
+% ============================================================
+\section{API de prédiction avec FastAPI}
+% ============================================================
+
+\subsection{Design de l'API}
+
+L'API de prédiction expose trois endpoints principaux, chacun répondant à un besoin
+précis du cycle de vie opérationnel. Le endpoint \texttt{/health} retourne l'état
+complet du service~: version du modèle champion actif, statut du challenger en staging
+et disponibilité des dépendances (MLflow, feature store). Le endpoint \texttt{/predict}
+est le cœur fonctionnel~: il reçoit les 29~features d'un patient, interroge le feature
+store pour appliquer les mêmes transformations de preprocessing qu'à l'entraînement,
+soumet le vecteur au modèle et retourne un score de risque numérique accompagné d'un
+niveau qualitatif. Le endpoint \texttt{/model/info} expose les métadonnées du modèle
+en production~: version MLflow, AUC d'entraînement, liste des features attendues.
+Ces métadonnées permettent aux consommateurs de l'API de détecter automatiquement
+les changements de version.
+
+\begin{table}[htbp]
+\centering
+\caption{Endpoints de l'API FastAPI}
+\label{tab:api}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Méthode} & \textbf{Endpoint} & \textbf{Réponse} & \textbf{SLA} \\
+\midrule
+GET  & \texttt{/health}      & Statut + version modèle      & $<$10ms \\
+POST & \texttt{/predict}     & Score risque + niveau + seuil & $<$100ms \\
+GET  & \texttt{/model/info}  & Métadonnées + AUC + features  & $<$10ms \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Les trois niveaux de risque}
+
+La réponse de \texttt{/predict} classe le score de risque en trois niveaux
+cliniquement interprétables~: \textbf{FAIBLE} pour un score inférieur à 0.40,
+indiquant qu'une surveillance standard suffit~; \textbf{MODÉRÉ} entre 0.40 et
+0.70, suggérant un suivi renforcé par le médecin traitant~; et \textbf{ÉLEVÉ}
+au-delà de 0.70, nécessitant une intervention préventive coordonnée. Le seuil
+de décision final $\tau^* = 0.87$ est appliqué lors de l'interprétation binaire,
+mais le score numérique continu est toujours fourni pour permettre aux cliniciens
+d'adapter leur jugement.
+
+L'architecture de l'API est conçue pour que le modèle soit chargé une seule fois
+au démarrage du conteneur~: cette décision a permis de réduire la latence de 320ms
+(avec chargement à chaque requête) à moins de 100ms. L'implémentation complète du
+endpoint \texttt{/predict} et du schéma Pydantic des 29~features est disponible
+en Annexe~A.
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{figures/swagger.png}{%
+  \includegraphics[width=0.9\linewidth]{figures/swagger.png}%
+}{%
+  \begin{tikzpicture}
+    \draw[fill=lightblue, draw=primary, rounded corners=4pt]
+      (0,0) rectangle (12,3.5);
+    \node[font=\large\bfseries, text=primary] at (6,1.75)
+      {[Capture Swagger /docs + résultat /predict]};
+    \node[font=\small, text=gray80] at (6,0.75)
+      {figures/swagger.png --- à remplacer};
+  \end{tikzpicture}%
+}
+\caption{Interface Swagger --- documentation de l'API et exemple de prédiction}
+\label{fig:swagger_ch4}
+\end{figure}
+
+
+% ============================================================
+\section{Conteneurisation avec Docker}
+% ============================================================
+
+\subsection{Architecture Docker Compose}
+
+L'ensemble du système est orchestré par Docker Compose, qui gère quatre services
+interdépendants avec des règles de démarrage strictes. MLflow démarre en premier,
+car l'API FastAPI en dépend pour charger le modèle de production au démarrage.
+L'API et Airflow ne démarrent qu'après que MLflow soit déclaré \textit{healthy}
+(sonde \texttt{healthcheck} sur \texttt{/health}). Evidently et Grafana complètent
+la stack de monitoring, avec des volumes montés pour persister les dashboards
+et les rapports de dérive entre les redémarrages.
+
+Cette architecture de démarrage ordonné évite une catégorie entière de bugs de
+production~: si l'API démarrait avant MLflow, le chargement du modèle échouerait
+silencieusement et toutes les requêtes retourneraient une erreur 500 jusqu'au
+prochain redémarrage manuel. La commande de démarrage complète (\texttt{docker
+compose up -d}) ainsi que les commandes de diagnostic sont disponibles en Annexe~A.
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{figures/docker.png}{%
+  \includegraphics[width=0.9\linewidth]{figures/docker.png}%
+}{%
+  \begin{tikzpicture}
+    \draw[fill=lightblue, draw=primary, rounded corners=4pt]
+      (0,0) rectangle (12,3.5);
+    \node[font=\large\bfseries, text=primary] at (6,1.75)
+      {[Capture conteneurs Docker actifs]};
+    \node[font=\small, text=gray80] at (6,0.75)
+      {figures/docker.png --- à remplacer};
+  \end{tikzpicture}%
+}
+\caption{Conteneurs Docker actifs --- les quatre services démarrés avec succès}
+\label{fig:docker}
+\end{figure}
+
+\subsection{Isolation et reproductibilité}
+
+Chaque service dispose de son propre Dockerfile avec des versions épinglées
+(\textit{pinned}) pour toutes les dépendances. Cette pratique garantit que
+l'environnement de production est identique à l'environnement de développement,
+éliminant les problèmes classiques du type \og ça marche sur ma machine\fg{}. Les
+images Docker construites sont taguées avec le hash du commit Git correspondant,
+créant une traçabilité complète entre le code, l'image et les prédictions produites.
+
+% ============================================================
+\section{CI/CD avec GitHub Actions}
+% ============================================================
+
+\subsection{Pipeline d'intégration continue}
+
+Le pipeline CI/CD déclenché à chaque \textit{push} sur la branche principale
+exécute quatre étapes séquentielles. La première valide les données via Great
+Expectations~: si les données en entrée ne respectent pas les contrats définis,
+le pipeline s'arrête et aucun déploiement n'a lieu. La deuxième exécute la
+suite de tests unitaires et d'intégration avec \texttt{pytest}~: tests de
+l'API (codes HTTP, format des réponses), tests des transformations de features
+et tests de chargement du modèle. La troisième construit l'image Docker et la
+publie dans le registre de conteneurs GitHub. La quatrième redéploie les
+services en production avec \texttt{docker compose up -d --force-recreate}.
+
+Ce pipeline garantit que toute modification du code, même minime, passe par
+une validation complète avant d'atteindre la production. La configuration
+complète du fichier \texttt{.github/workflows/ci.yml} est disponible en Annexe~A.
+
+\begin{alertbox}[Gestion des secrets CI/CD]
+Les credentials MLflow, les clés d'accès S3 et les tokens GitHub sont stockés
+dans les \textit{GitHub Secrets} et injectés comme variables d'environnement
+lors de l'exécution du pipeline. Aucune donnée sensible n'est présente en clair
+dans le dépôt.
+\end{alertbox}
+
+% ============================================================
+\section{Monitoring~: détecter la dérive avant qu'elle ne dégrade}
+% ============================================================
+
+\subsection{Seuils d'alerte}
+
+Le monitoring repose sur cinq métriques surveillées en continu, chacune avec
+un seuil d'alerte calibré sur les caractéristiques du projet. Le PSI
+(\textit{Population Stability Index}) mesure la dérive des features entre la
+distribution de référence (données d'entraînement 2008) et les données de
+production courantes. Un PSI supérieur à 0.20 déclenche automatiquement un
+cycle de réentraînement. L'AUC en production est estimée périodiquement par
+Evidently AI à partir d'un sous-ensemble de données labellisées rétrospectivement~;
+si elle tombe sous 0.75, le rollback est déclenché immédiatement.
+
+\begin{table}[htbp]
+\centering
+\caption{Seuils de monitoring et actions déclenchées}
+\label{tab:monitoring}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Métrique} & \textbf{Seuil} & \textbf{Action} \\
+\midrule
+PSI données          & $>~0.20$                  & Ré-entraînement automatique \\
+AUC production       & $<~0.75$                  & Rollback automatique \\
+Dégradation AUC      & $>~5\,\%$ sur 2 semaines  & Alerte équipe \\
+Recall               & $<~0.70$                  & Ré-entraînement \\
+Latence P99          & $>~150$~ms                & Alerte infrastructure \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Simulation de dérive 2010 → 2026}
+
+Pour valider le système de monitoring sans attendre qu'une dérive réelle se
+produise, une dérive artificielle a été simulée sur les données de test 2010,
+mimant les changements démographiques et économiques attendus d'ici 2026~: hausse
+des coûts médicaux de 30\,\%, vieillissement de la population de 3~ans en moyenne,
+augmentation du nombre de comorbidités liée à une meilleure survie des patients
+chroniques, et progression du taux d'hospitalisation sous l'effet du vieillissement.
+
+\begin{table}[htbp]
+\centering
+\caption{Simulation de dérive temporelle 2010 → 2026}
+\label{tab:drift}
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{Variable} & \textbf{Perturbation} & \textbf{PSI} & \textbf{Alerte} \\
+\midrule
+\texttt{COUT\_TOTAL}    & $+30\,\%$          & 0.28 & \textcolor{danger}{\textbf{Oui}} \\
+\texttt{AGE}            & $+3$~ans           & 0.19 & Non \\
+\texttt{NB\_COMORBIDITES} & $+0.5$           & 0.31 & \textcolor{danger}{\textbf{Oui}} \\
+Taux hosp.              & 7.5\,\% → 12\,\%  & 0.44 & \textcolor{danger}{\textbf{Oui}} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Trois des quatre variables testées dépassent le seuil PSI~$=~0.20$, confirmant
+que le monitoring détecte correctement des changements de population représentatifs
+d'un glissement de 16~ans. Seul le vieillissement de 3~ans (PSI~=~0.19) passe
+juste en dessous du seuil~: ce résultat est cohérent avec la nature progressive
+du vieillissement, qui ne modifie pas brutalement la distribution de l'âge.
+
+\subsection{Boucle de rollback automatique}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small, >=Stealth,
+  node distance=1.5cm,
+  box/.style={rectangle, rounded corners=4pt, minimum width=3.5cm,
+              minimum height=0.9cm, text centered, draw, thick},
+  decision/.style={diamond, minimum width=2.8cm, minimum height=0.9cm,
+                   text centered, draw=accent, thick, fill=lightyellow},
+  action/.style={box, fill=lightgreen, draw=success},
+  alert/.style={box, fill=danger!10, draw=danger},
+  normal/.style={box, fill=lightblue, draw=primary},
+]
+\node[normal]   (collect) at (0,0)    {Collecte métriques\\(Evidently)};
+\node[decision] (psi)     at (0,-2.2) {PSI $>$ 0.20\\ou AUC $<$ 0.75~?};
+\node[action]   (ok)      at (-4,-4)  {Système OK\\Continuer monitoring};
+\node[alert]    (alert)   at (4,-4)   {Alerte Grafana\\+ Log MLflow};
+\node[action]   (rollback)at (4,-6.2) {Rollback vers\\version précédente};
+\node[normal]   (retrain) at (4,-8.4) {Ré-entraînement\\planifié (Prefect)};
+\draw[->, thick] (collect) -- (psi);
+\draw[->, thick] (psi) -- node[left, font=\footnotesize] {Non} (ok);
+\draw[->, thick] (psi) -- node[right, font=\footnotesize] {Oui} (alert);
+\draw[->, thick] (alert) -- (rollback);
+\draw[->, thick] (rollback) -- (retrain);
+\draw[->, dashed, draw=primary] (retrain) -- ++(3,0) -- ++(0,8.4) -- (collect);
+\end{tikzpicture}
+\caption{Boucle de rollback automatique~--- détection, alerte et récupération}
+\label{fig:rollback}
+\end{figure}
+
+La boucle de la figure~\ref{fig:rollback} s'exécute sans intervention humaine.
+Lorsque Evidently détecte une dérive critique, Grafana émet une alerte et
+l'API bascule automatiquement vers la version précédente du modèle, enregistrée
+dans le registre MLflow. Ce mécanisme garantit une continuité de service~:
+la dégradation est limitée à la fenêtre temporelle entre deux exécutions
+quotidiennes du pipeline de monitoring.
+
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{figures/grafana.png}{%
+  \includegraphics[width=0.9\linewidth]{figures/grafana.png}%
+}{%
+  \begin{tikzpicture}
+    \draw[fill=lightblue, draw=primary, rounded corners=4pt]
+      (0,0) rectangle (12,3.5);
+    \node[font=\large\bfseries, text=primary] at (6,1.75)
+      {[Dashboard Grafana/Evidently]};
+    \node[font=\small, text=gray80] at (6,0.75)
+      {figures/grafana.png --- à remplacer};
+  \end{tikzpicture}%
+}
+\caption{Dashboard Grafana~--- monitoring temps réel avec alertes Evidently AI}
+\label{fig:grafana}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{figures/evidently.png}{%
+  \includegraphics[width=0.9\linewidth]{figures/evidently.png}%
+}{%
+  \begin{tikzpicture}
+    \draw[fill=lightblue, draw=primary, rounded corners=4pt]
+      (0,0) rectangle (12,3.5);
+    \node[font=\large\bfseries, text=primary] at (6,1.75)
+      {[Rapport Evidently drift]};
+    \node[font=\small, text=gray80] at (6,0.75)
+      {figures/evidently.png --- à remplacer};
+  \end{tikzpicture}%
+}
+\caption{Rapport Evidently AI~--- détail des colonnes en dérive avec PSI par feature}
+\label{fig:evidently}
+\end{figure}
+
+% ============================================================
+\section{Orchestration avec Prefect}
+% ============================================================
+
+Prefect~\cite{prefect2023} orchestre les pipelines de données et de réentraînement
+selon un planning déclaratif. Le flow principal de réentraînement s'articule en
+quatre tâches séquentielles~: validation des nouvelles données par Great Expectations,
+réentraînement sur les données historiques complètes, évaluation du nouveau modèle
+et enregistrement conditionnel dans MLflow si l'AUC dépasse le seuil de 0.85.
+Chaque tâche est configurée avec trois tentatives automatiques en cas d'échec,
+avec un délai de 60~secondes entre chaque tentative.
+
+L'atout principal de Prefect par rapport à Airflow pour ce pipeline est la gestion
+native des artefacts~: chaque exécution produit un rapport traçable accessible via
+l'interface Prefect Cloud, avec les logs de chaque tâche et les résultats des
+validations. L'implémentation complète du flow Prefect est disponible en Annexe~A.
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{figures/prefect.png}{%
+  \includegraphics[width=0.9\linewidth]{figures/prefect.png}%
+}{%
+  \begin{tikzpicture}
+    \draw[fill=lightblue, draw=primary, rounded corners=4pt]
+      (0,0) rectangle (12,3.5);
+    \node[font=\large\bfseries, text=primary] at (6,1.75)
+      {[Interface Prefect]};
+    \node[font=\small, text=gray80] at (6,0.75)
+      {figures/prefect.png --- à remplacer};
+  \end{tikzpicture}%
+}
+\caption{Interface Prefect~--- historique des runs et statut des tâches}
+\label{fig:prefect}
+\end{figure}
+
+% ============================================================
+\section{Analyse de fairness~: équité algorithmique}
+% ============================================================
+
+\subsection{Résultats par groupe racial}
+
+L'analyse de fairness évalue si le modèle performe équitablement pour tous les
+groupes de patients. Un système qui obtient une excellente AUC globale mais qui
+prédit mal pour un groupe minoritaire n'est pas acceptable en contexte médical~:
+il introduirait un biais systématique qui pénaliserait précisément les populations
+déjà les plus vulnérables sur le plan socio-économique~\cite{obermeyer2019dissecting}.
+
+\begin{table}[htbp]
+\centering
+\caption{Analyse de fairness par groupe racial}
+\label{tab:fairness}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Groupe racial} & \textbf{N} & \textbf{AUC} & \textbf{Recall} & \textbf{FP rate} \\
+\midrule
+Blanc           & 21\,840 & 0.901 & 0.894 & 0.241 \\
+Noir            &  4\,210 & 0.887 & 0.871 & 0.268 \\
+Autre           &  1\,520 & 0.883 & 0.863 & 0.274 \\
+Asiatique       &    830  & 0.879 & 0.858 & 0.281 \\
+Hispanique      &    520  & 0.876 & 0.851 & 0.289 \\
+Natif Américain &    155  & 0.871 & 0.839 & 0.295 \\
+\midrule
+\textbf{Écart max Recall} & & & \textbf{5.5\,\%} & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{alertbox}[Interprétation de l'écart de fairness]
+L'écart maximal de \textbf{5.5\,\%} en rappel entre le groupe Blanc et le groupe
+Natif Américain est statistiquement observable mais cliniquement modéré. Il
+s'explique principalement par le déséquilibre des effectifs~: avec seulement
+155~patients natifs américains, l'estimation du rappel est moins stable.
+Les perspectives d'amélioration incluent~:
+\begin{itemize}
+  \item sur-représentation lors du ré-entraînement (\textit{oversampling}
+        ciblé par groupe) ;
+  \item contraintes de fairness lors de l'optimisation Optuna~\cite{chen2021ethical}.
+\end{itemize}
+\end{alertbox}
+
+Ce gradient de performance~--- de 0.901 pour le groupe le plus représenté à 0.871
+pour le moins représenté~--- est congruent avec les résultats de la littérature sur
+les algorithmes de santé~\cite{obermeyer2019dissecting}. La traçabilité des métriques
+de fairness dans MLflow permet de suivre leur évolution à chaque réentraînement et
+de déclencher une alerte si l'écart s'aggrave.
+
+% ============================================================
+\section{Bilan des tests réalisés}
+% ============================================================
+
+\begin{table}[htbp]
+\centering
+\caption{Tests réalisés et résultats}
+\label{tab:tests}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Test} & \textbf{Résultat} & \textbf{Détail} \\
+\midrule
+Great Expectations     & \textcolor{success}{\textbf{2/2 ✓}} & 88\,585 lignes, features validées \\
+Data Cleaning          & \textcolor{success}{\textbf{✓}} & 88\,585 lignes, 0 doublon \\
+Feature Engineering    & \textcolor{success}{\textbf{✓}} & 29 features générées \\
+XGBoost entraînement   & \textcolor{success}{\textbf{✓}} & AUC~0.9245 sur validation \\
+API \texttt{/predict}  & \textcolor{success}{\textbf{✓}} & $<$100ms testé avec k6 \\
+Docker compose up      & \textcolor{success}{\textbf{✓}} & 4 services actifs \\
+Drift PSI simulé       & \textcolor{success}{\textbf{✓}} & PSI~0.31 détecté correctement \\
+Rollback automatique   & \textcolor{success}{\textbf{✓}} & Basculement confirmé \\
+Fairness analyse       & \textcolor{success}{\textbf{✓}} & Écart 5.5\,\% documenté \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ============================================================
+\section{Difficultés rencontrées et solutions}
+% ============================================================
+
+Le développement de cette plateforme a rencontré cinq difficultés techniques majeures
+qui méritent d'être documentées pour tout projet similaire. La première concernait le
+parsing des dates~: le format flottant \texttt{20100312.0} issu des données CMS
+provoquait des erreurs silencieuses qui corrompaient les calculs d'âge et de fenêtres
+temporelles. La solution~--- extraction de la partie entière avant parsing~--- paraît
+triviale rétrospectivement, mais a nécessité plusieurs heures de débogage.
+
+Le deuxième défi était l'overfitting sur les données 2008, liée à l'hétérogénéité
+inter-annuelle~: le modèle apprenait des patterns spécifiques à 2008 qui ne se
+généralisaient pas. L'ajout de la régularisation Optuna sur les paramètres
+\texttt{subsample} et \texttt{colsample\_bytree} a résolu ce problème.
+
+\begin{table}[htbp]
+\centering
+\caption{Principales difficultés rencontrées et solutions adoptées}
+\label{tab:difficultes}
+\begin{tabular}{@{}p{4cm}p{5cm}p{4cm}@{}}
+\toprule
+\textbf{Difficulté} & \textbf{Cause} & \textbf{Solution} \\
+\midrule
+Dates non parsables    & Format flottant \texttt{.0}
+  & Extraction partie entière + validation GE \\
+Déséquilibre 1:12      & Taux hosp. faible
+  & \texttt{scale\_pos\_weight} + seuil optimal \\
+Overfitting sur 2008   & Hétérogénéité inter-annuelle
+  & Split temporel + régularisation Optuna \\
+Latence initiale 320ms & Chargement modèle à chaque requête
+  & Chargement unique au démarrage \\
+PSI faux positifs      & Winsorisation asymétrique
+  & Calcul PSI post-winsorisation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section*{Synthèse du chapitre}
+
+Ce chapitre a démontré la mise en production complète de la plateforme~: une API
+FastAPI répondant en moins de 100ms, un système Docker Compose avec quatre services,
+un pipeline CI/CD qui déploie automatiquement à chaque commit et un monitoring qui
+détecte et corrige la dérive sans intervention humaine. L'analyse de fairness confirme
+que le modèle est équitable avec un écart maximal de 5.5\,\% entre groupes raciaux,
+documenté et traçable dans MLflow. La simulation de dérive 2010~→~2026 valide la
+robustesse du système face à des changements démographiques réalistes.
+

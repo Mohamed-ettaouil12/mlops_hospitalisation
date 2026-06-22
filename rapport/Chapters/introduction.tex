@@ -1,0 +1,92 @@
+\chapter*{Introduction Générale}
+\addcontentsline{toc}{chapter}{Introduction Générale}
+\markboth{Introduction Générale}{Introduction Générale}
+
+\begin{infobox}[Contexte général]
+Les systèmes de santé font face à une pression croissante~: vieillissement de la
+population, multiplication des maladies chroniques et explosion des coûts
+hospitaliers. Selon l'OCDE, les hospitalisations évitables représentent jusqu'à
+\textbf{15\,\% des dépenses hospitalières} dans les pays développés, soit plusieurs
+milliards de dollars chaque année.
+\end{infobox}
+
+\vspace{1em}
+
+\noindent L'émergence du \textbf{Machine Learning Operations (MLOps)} offre une
+réponse concrète à ce défi~: industrialiser les modèles d'intelligence artificielle
+pour qu'ils produisent une valeur réelle, continue et fiable en production, et non
+uniquement dans des notebooks de recherche. Ce projet se situe précisément à
+l'intersection de la santé numérique et du MLOps.
+
+\section*{Contexte et problématique}
+
+Le dataset CMS~DE-SynPUF (Centers for Medicare \& Medicaid Services) constitue
+l'une des bases de données médicales synthétiques les plus complètes et réalistes
+disponibles publiquement. Il couvre 2,3~millions de bénéficiaires sur la période
+2008--2010, avec plus de 60~Go de données incluant les claims d'hospitalisation,
+de consultations ambulatoires, de prescriptions et de données démographiques.
+
+\noindent La problématique centrale de ce projet est la suivante~:
+
+\begin{criticalbox}[Question de recherche]
+\textit{Comment construire un système de prédiction du risque d'hospitalisation
+suffisamment fiable pour guider des interventions préventives, tout en garantissant
+que ce système reste opérationnel, équitable et traçable au fil du temps~?}
+\end{criticalbox}
+
+\noindent Cette question soulève plusieurs défis~:
+\begin{itemize}
+  \item le \textbf{déséquilibre de classes} (seuls 8.1\,\% des patients sont
+        hospitalisés dans l'année) ;
+  \item la \textbf{fuite de données temporelle} (\textit{data leakage}) si la
+        variable cible est mal construite ;
+  \item la \textbf{dérive des données} dans le temps, qui dégrade les performances
+        sans qu'on s'en rende compte ;
+  \item les \textbf{biais algorithmiques} qui pénalisent certains groupes raciaux
+        et socio-économiques.
+\end{itemize}
+
+\section*{Objectifs du projet}
+
+Ce projet vise à concevoir, entraîner, déployer et surveiller une plateforme MLOps
+complète pour la détection précoce du risque d'hospitalisation. Les objectifs
+spécifiques sont~:
+
+\begin{enumerate}
+  \item Réaliser une \textbf{analyse exploratoire} rigoureuse et une ingénierie
+        des données anti-leakage sur le dataset CMS~DE-SynPUF.
+  \item Entraîner et optimiser \textbf{trois modèles} (Régression Logistique,
+        XGBoost, LightGBM) avec un split temporel strict et une optimisation
+        d'hyperparamètres par Optuna.
+  \item \textbf{Déployer} le meilleur modèle via une API FastAPI conteneurisée
+        avec Docker.
+  \item Mettre en place un \textbf{pipeline de monitoring} automatique (Evidently,
+        Grafana) avec détection de dérive et rollback.
+  \item Évaluer l'\textbf{équité algorithmique} par groupe racial et calculer le
+        ROI financier de la solution.
+\end{enumerate}
+
+\section*{Plan du rapport}
+
+Ce rapport est organisé en quatre chapitres~:
+
+\begin{itemize}
+  \item \textbf{Chapitre~1 — Comprendre le Problème avant de le Résoudre~:}
+        définition du MLOps, contexte médical, description du dataset, stack
+        technologique et architecture globale du système.
+
+  \item \textbf{Chapitre~2 — De la Donnée Brute à la Donnée Prête~:}
+        analyse exploratoire complète, nettoyage des données, construction
+        anti-leakage de la variable cible, fenêtres temporelles et ingénierie
+        des 29 features finales.
+
+  \item \textbf{Chapitre~3 — Apprendre à Prédire : Modèles et Expérimentation~:}
+        traitement du déséquilibre, entraînement et comparaison des modèles,
+        optimisation du seuil de décision, interprétabilité SHAP, traçabilité
+        MLflow et analyse ROI.
+
+  \item \textbf{Chapitre~4 — Du Modèle au Service : Mise en Production~:}
+        API FastAPI, conteneurisation Docker, CI/CD GitHub~Actions, monitoring
+        de la dérive, rollback automatique, analyse de fairness et bilan des
+        tests réalisés.
+\end{itemize}
